@@ -1,0 +1,2006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thoughts Not Notes — Every conversation, captured.</title>
+  <meta name="description" content="TNN records your meetings locally, transcribes them with on-device AI, and sends structured notes to Notion — automatically. No cloud. No bots.">
+
+  <meta property="og:title" content="Thoughts Not Notes — Every conversation, captured.">
+  <meta property="og:description" content="Private meeting intelligence for Mac. No cloud. No bots. Just press record.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://thoughtsnotnotes.com">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Thoughts Not Notes">
+  <meta name="twitter:description" content="Private meeting intelligence for Mac. No cloud. No bots.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900;1,14..32,300&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       RESET & CUSTOM PROPERTIES
+       ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #ffffff;
+      --bg-subtle: #fafafa;
+      --bg-gray: #f4f4f5;
+      --text: #0a0a0a;
+      --text-muted: #71717a;
+      --text-subtle: #a1a1aa;
+      --accent: #0d9488;
+      --accent-hover: #0f766e;
+      --accent-soft: #f0fdfa;
+      --border: #e4e4e7;
+      --border-strong: #d4d4d8;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+      --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.08), 0 8px 10px -6px rgb(0 0 0 / 0.04);
+      --radius: 12px;
+      --radius-lg: 16px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 {
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+    }
+
+    /* ============================================================
+       UTILITIES
+       ============================================================ */
+    .label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    section { padding: 120px 0; }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(30px, 4vw, 48px);
+      font-weight: 800;
+    }
+
+    /* ============================================================
+       SCROLL ANIMATIONS
+       ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition:
+        opacity 0.65s cubic-bezier(.22,.68,0,1.2),
+        transform 0.65s cubic-bezier(.22,.68,0,1.2);
+    }
+
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .d1 { transition-delay: 0.08s; }
+    .d2 { transition-delay: 0.16s; }
+    .d3 { transition-delay: 0.24s; }
+    .d4 { transition-delay: 0.32s; }
+
+    /* ============================================================
+       KEYFRAMES
+       ============================================================ */
+    @keyframes rec-pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.3; transform: scale(0.75); }
+    }
+
+    @keyframes float-a {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-8px); }
+    }
+
+    @keyframes float-b {
+      0%, 100% { transform: translateY(-4px); }
+      50%       { transform: translateY(4px); }
+    }
+
+    @keyframes wave {
+      from { height: 4px; opacity: 0.5; }
+      to   { height: var(--wh, 18px); opacity: 1; }
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    /* ============================================================
+       BUTTONS
+       ============================================================ */
+    .btn {
+      border: none;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+
+    .btn--nav {
+      background: var(--accent);
+      color: white;
+      padding: 9px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .btn--nav:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(13, 148, 136, 0.25);
+    }
+
+    .btn--primary {
+      background: var(--accent);
+      color: white;
+      padding: 15px 32px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      box-shadow: 0 4px 16px rgba(13, 148, 136, 0.28);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn--primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(13, 148, 136, 0.32);
+    }
+
+    .btn--primary--lg {
+      font-size: 17px;
+      padding: 16px 44px;
+    }
+
+    /* ============================================================
+       NAV
+       ============================================================ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      height: 64px;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.25s ease;
+    }
+
+    .nav--scrolled { border-bottom-color: var(--border); }
+
+    .nav__logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .nav__logo-mark {
+      width: 30px;
+      height: 30px;
+      background: var(--accent);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 15px;
+    }
+
+    /* ============================================================
+       HERO
+       ============================================================ */
+    .hero {
+      padding-top: 160px;
+      padding-bottom: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero__bg svg { width: 100%; height: 100%; }
+
+    .hero__text {
+      text-align: center;
+      max-width: 960px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero__title {
+      font-size: clamp(40px, 5.5vw, 70px);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      margin-bottom: 24px;
+    }
+
+    .hero__title .line  { display: block; }
+    .hero__title .accent { color: var(--accent); }
+
+    .hero__sub {
+      font-size: clamp(16px, 1.8vw, 19px);
+      color: var(--text-muted);
+      max-width: 560px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    .hero__actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .hero__meta {
+      font-size: 13px;
+      color: var(--text-subtle);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero__meta-sep { color: var(--border-strong); }
+
+    .hero__visual {
+      margin-top: 72px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      position: relative;
+      z-index: 1;
+      padding: 0 40px;
+    }
+
+    .hero__fade {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 100px;
+      background: linear-gradient(to bottom, transparent, white);
+      pointer-events: none;
+    }
+
+    /* Floating badges */
+    .hero-badge {
+      position: absolute;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.05);
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .hero-badge:nth-child(1) { left: 20px;  top: 60px;     animation: float-a 3.2s ease-in-out infinite; }
+    .hero-badge:nth-child(2) { right: 20px; top: 40px;     animation: float-b 3.8s ease-in-out infinite; }
+    .hero-badge:nth-child(3) { right: 10px; bottom: 120px; animation: float-a 4s ease-in-out 0.5s infinite; }
+
+    .hero-badge__icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .hero-badge__icon--teal  { background: var(--accent-soft); }
+    .hero-badge__icon--amber { background: #fef3c7; }
+
+    .hero-badge__label-top    { font-size: 10px; color: var(--text-subtle); }
+    .hero-badge__label-bottom { font-size: 12px; font-weight: 600; color: var(--text); }
+
+    /* ============================================================
+       MAC WINDOW MOCKUP
+       ============================================================ */
+    .mac-window {
+      width: 720px;
+      background: white;
+      border-radius: 14px;
+      box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.07),
+        0 4px 12px rgba(0, 0, 0, 0.06),
+        0 28px 72px rgba(0, 0, 0, 0.12);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .mac-titlebar {
+      height: 40px;
+      background: #f9f9f9;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      gap: 7px;
+    }
+
+    .mac-btn { width: 12px; height: 12px; border-radius: 50%; }
+    .mac-btn--red    { background: #ff5f57; }
+    .mac-btn--yellow { background: #febc2e; }
+    .mac-btn--green  { background: #28c840; }
+
+    .mac-title {
+      flex: 1;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 500;
+      color: #8e8e93;
+      margin-right: 40px;
+    }
+
+    .mac-body { display: flex; }
+
+    .mac-sidebar {
+      width: 192px;
+      border-right: 1px solid rgba(0, 0, 0, 0.06);
+      background: #fafafa;
+      padding: 12px 0;
+      flex-shrink: 0;
+    }
+
+    .sb-label {
+      padding: 10px 14px 4px;
+      font-size: 10px;
+      font-weight: 600;
+      color: #8e8e93;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .sb-label--spaced { margin-top: 12px; }
+
+    .sb-item {
+      padding: 7px 14px;
+      font-size: 12px;
+      color: #3c3c43;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      border-radius: 6px;
+      margin: 0 4px;
+      cursor: default;
+      font-weight: 450;
+    }
+
+    .sb-item--active {
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .sb-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    .sb-dot--active   { background: var(--accent); }
+    .sb-dot--inactive { background: #8e8e93; }
+
+    .mac-main { flex: 1; padding: 18px; }
+
+    .mac-main__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .mac-main__title { font-size: 14px; font-weight: 700; color: #1c1c1e; }
+    .mac-main__date  { font-size: 11px; color: #8e8e93; }
+
+    .meeting-row {
+      display: grid;
+      grid-template-columns: 56px 1fr auto;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 11px 12px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      margin-bottom: 5px;
+      cursor: default;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .meeting-row:hover          { background: #fafafa; border-color: var(--border); }
+    .meeting-row--active        { background: var(--accent-soft); border-color: rgba(13, 148, 136, 0.2); }
+
+    .mr-time__main { font-size: 13px; font-weight: 600; color: #1c1c1e; }
+    .mr-time__sub  { font-size: 10px; color: #8e8e93; text-align: right; }
+    .mr-title      { font-size: 13px; font-weight: 600; color: #1c1c1e; margin-bottom: 2px; }
+    .mr-meta       { font-size: 11px; color: #8e8e93; }
+
+    .mr-platform {
+      display: inline-flex;
+      align-items: center;
+      background: #f4f4f5;
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-size: 10px;
+      font-weight: 500;
+      color: #71717a;
+      margin-right: 4px;
+    }
+
+    .mr-actions { display: flex; align-items: flex-start; gap: 4px; padding-top: 1px; }
+
+    .btn-rec {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #ff3b30;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 5px 9px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+
+    .btn-skip {
+      background: rgba(0, 0, 0, 0.06);
+      color: #8e8e93;
+      border: none;
+      border-radius: 6px;
+      padding: 5px 9px;
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .rec-dot {
+      width: 6px;
+      height: 6px;
+      background: white;
+      border-radius: 50%;
+      animation: rec-pulse 1.1s ease-in-out infinite;
+    }
+
+    .mac-divider { height: 1px; background: var(--border); margin: 10px 0; }
+
+    .last-sent {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(13, 148, 136, 0.2);
+      border-radius: 10px;
+    }
+
+    .last-sent__icon {
+      width: 26px;
+      height: 26px;
+      background: rgba(13, 148, 136, 0.12);
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+    }
+
+    .last-sent__body { flex: 1; }
+    .last-sent__label { font-size: 10px; color: var(--accent); font-weight: 600; }
+    .last-sent__name  { font-size: 12px; color: #0f766e; font-weight: 500; }
+
+    .last-sent__destination {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .notion-badge {
+      background: #f0f0f0;
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #1c1c1e;
+    }
+
+    /* ============================================================
+       HOW IT WORKS
+       ============================================================ */
+    .hiw { background: var(--bg-subtle); }
+
+    .hiw__layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 20px;
+      align-items: start;
+    }
+
+    /* Transcript mockup (step 03) */
+    .mm-transcript-body { padding: 10px 14px 4px; }
+
+    .mm-ts-header {
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mm-ts-title { font-size: 12px; font-weight: 700; color: #1c1c1e; }
+    .mm-ts-meta  { font-size: 10px; color: #8e8e93; margin-top: 2px; }
+
+    .mm-ts-line {
+      display: flex;
+      gap: 6px;
+      font-size: 10px;
+      color: #3c3c43;
+      line-height: 1.65;
+      margin-bottom: 1px;
+    }
+
+    .mm-ts-time {
+      font-family: 'SF Mono', 'Menlo', monospace;
+      color: #8e8e93;
+      flex-shrink: 0;
+      width: 30px;
+    }
+
+    .mm-ts-footer {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 7px 14px 10px;
+      border-top: 1px solid var(--border);
+      font-size: 10px;
+      color: #8e8e93;
+      margin-top: 4px;
+    }
+
+    /* Send-to-tools mockup (step 04) */
+    .send-mockup {
+      margin-top: 20px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .send-header {
+      background: var(--accent-soft);
+      border-bottom: 1px solid rgba(13, 148, 136, 0.15);
+      padding: 9px 14px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .send-grid {
+      padding: 12px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px;
+    }
+
+    .send-dest {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 8px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: white;
+      transition: border-color 0.15s;
+    }
+
+    .send-dest--sent {
+      border-color: rgba(13, 148, 136, 0.25);
+      background: var(--accent-soft);
+    }
+
+    .send-dest__logo {
+      width: 20px;
+      height: 20px;
+      border-radius: 5px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .send-dest__name  { font-size: 10px; font-weight: 600; color: #3c3c43; flex: 1; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+    .send-dest__check { font-size: 10px; font-weight: 700; color: var(--accent); flex-shrink: 0; }
+    .send-dest__dots  { font-size: 11px; color: #c4c4c7; flex-shrink: 0; letter-spacing: 0.05em; }
+
+    .send-footer {
+      padding: 7px 14px;
+      border-top: 1px solid var(--border);
+      font-size: 10px;
+      color: var(--text-subtle);
+      text-align: center;
+    }
+
+    .step-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+      transition: box-shadow 0.25s ease;
+    }
+
+    .step-card:hover       { box-shadow: var(--shadow-lg); }
+    .step-card--featured   { padding: 36px; }
+
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 13px;
+      border-radius: 9px;
+      margin-bottom: 20px;
+    }
+
+    .step-title { font-size: 19px; font-weight: 700; margin-bottom: 8px; }
+    .step-desc  { font-size: 14px; color: var(--text-muted); line-height: 1.65; margin-bottom: 28px; }
+
+    /* Calendar mockup */
+    .cal-mockup {
+      background: white;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .cal-mockup__header {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .cal-mockup__title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1c1c1e;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sync-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(13, 148, 136, 0.25);
+      border-radius: 5px;
+      padding: 2px 7px;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .sync-dot {
+      width: 5px;
+      height: 5px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: rec-pulse 2s ease-in-out infinite;
+    }
+
+    .cal-mockup__date { font-size: 11px; color: #8e8e93; }
+
+    .cal-mockup__day-label {
+      padding: 8px 16px 4px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #8e8e93;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .cal-event {
+      margin: 3px 10px;
+      padding: 10px 12px;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: default;
+      transition: background 0.15s;
+    }
+
+    .cal-event:hover    { background: #fafafa; }
+    .cal-event--active  { background: var(--accent-soft); }
+
+    .cal-event__bar { width: 3px; height: 38px; border-radius: 2px; flex-shrink: 0; }
+    .cal-event__bar--teal   { background: var(--accent); }
+    .cal-event__bar--indigo { background: #6366f1; }
+    .cal-event__bar--amber  { background: #f59e0b; }
+
+    .cal-event__body { flex: 1; }
+    .cal-event__name { font-size: 13px; font-weight: 600; color: #1c1c1e; margin-bottom: 2px; }
+    .cal-event__meta { font-size: 11px; color: #8e8e93; display: flex; align-items: center; gap: 6px; }
+
+    .event-platform {
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    .event-platform--active  { background: rgba(13, 148, 136, 0.1); color: var(--accent); }
+    .event-platform--default { background: #f4f4f5; color: #71717a; }
+
+    .cal-event__time {
+      font-size: 11px;
+      font-weight: 600;
+      color: #8e8e93;
+      min-width: 48px;
+      text-align: right;
+      line-height: 1.3;
+    }
+
+    .cal-event__time--active { color: var(--accent); }
+    .cal-event__actions { display: flex; align-items: center; gap: 5px; }
+
+    .cal-divider { height: 1px; background: var(--border); margin: 6px 10px; }
+    .cal-mockup__footer { height: 10px; }
+
+    .no-bots {
+      margin: 8px 10px;
+      padding: 8px 12px;
+      background: #fafafa;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .no-bots__item  { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #52525b; font-weight: 500; }
+    .no-bots__x     { font-size: 10px; color: #ef4444; font-weight: 700; }
+    .no-bots__check { font-size: 10px; color: var(--accent); font-weight: 700; }
+    .no-bots__sep   { width: 1px; height: 14px; background: var(--border); }
+
+    /* ============================================================
+       MINI MOCKUPS
+       ============================================================ */
+    .mini-mockup {
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      font-size: 11px;
+    }
+
+    .mm-bar {
+      background: #f9f9f9;
+      border-bottom: 1px solid var(--border);
+      padding: 7px 12px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .mm-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .mm-dot--red    { background: #ff5f57; }
+    .mm-dot--yellow { background: #febc2e; }
+    .mm-dot--green  { background: #28c840; }
+    .mm-bar__label  { font-size: 11px; color: #8e8e93; font-weight: 500; margin-left: 5px; }
+
+    .mm-rec-body {
+      padding: 16px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mm-rec-status { display: flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; color: #ff3b30; }
+
+    .mm-rec-dot {
+      width: 7px;
+      height: 7px;
+      background: #ff3b30;
+      border-radius: 50%;
+      animation: rec-pulse 1s ease-in-out infinite;
+    }
+
+    .mm-rec-timer {
+      font-family: 'SF Mono', 'Menlo', 'Courier New', monospace;
+      font-size: 22px;
+      font-weight: 700;
+      color: #1c1c1e;
+      letter-spacing: 0.04em;
+    }
+
+    .waveform { display: flex; align-items: center; gap: 2px; height: 30px; }
+
+    .wbar {
+      width: 3px;
+      border-radius: 2px;
+      background: var(--accent);
+      animation: wave 0.7s ease-in-out infinite alternate;
+    }
+
+    .mm-private-tag { font-size: 10px; color: #8e8e93; display: flex; align-items: center; gap: 4px; }
+
+    .mm-notion-header { padding: 10px 12px 8px; border-bottom: 1px solid var(--border); }
+    .mm-notion-icon  { font-size: 16px; margin-bottom: 2px; }
+    .mm-notion-title { font-size: 12px; font-weight: 700; color: #1c1c1e; }
+    .mm-notion-meta  { font-size: 10px; color: #8e8e93; }
+
+    .mm-notion-body { padding: 8px 12px 12px; }
+
+    .mm-prop-row { display: flex; align-items: flex-start; gap: 6px; margin-bottom: 4px; }
+    .mm-prop-key { font-size: 10px; color: #8e8e93; min-width: 56px; font-weight: 500; }
+    .mm-value    { font-size: 10px; color: #1c1c1e; }
+
+    .mm-chip {
+      display: inline-block;
+      background: #f4f4f5;
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-size: 10px;
+      font-weight: 500;
+      color: #52525b;
+      margin-right: 2px;
+    }
+
+    .mm-divider { height: 1px; background: var(--border); margin: 6px 0; }
+
+    .mm-transcript-line { font-size: 10px; color: #3c3c43; line-height: 1.6; margin-bottom: 2px; }
+    .mm-transcript-line .who { color: #8e8e93; }
+
+    .mm-fade {
+      height: 20px;
+      background: linear-gradient(to bottom, transparent, white);
+      margin: -4px 0 0;
+    }
+
+    /* ============================================================
+       PRIVACY
+       ============================================================ */
+    .privacy { background: var(--bg-gray); }
+
+    .privacy__inner { text-align: center; max-width: 760px; margin: 0 auto; }
+
+    .privacy__title {
+      font-size: clamp(28px, 4vw, 46px);
+      font-weight: 800;
+      margin-bottom: 52px;
+    }
+
+    .privacy__title em { font-style: italic; color: var(--accent); }
+
+    .privacy__trio {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .priv-item { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+
+    .priv-item__icon {
+      width: 56px;
+      height: 56px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+    }
+
+    .priv-item__label { font-size: 15px; font-weight: 600; }
+    .priv-item__desc  { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+    /* ============================================================
+       FEATURES
+       ============================================================ */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .feat-card {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+    }
+
+    .feat-card:hover {
+      box-shadow: var(--shadow-lg);
+      border-color: var(--border-strong);
+      transform: translateY(-2px);
+    }
+
+    .feat-card__icon {
+      width: 40px;
+      height: 40px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .feat-card__title { font-size: 16px; font-weight: 700; margin-bottom: 7px; letter-spacing: -0.01em; }
+    .feat-card__desc  { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
+
+    .dict-illus {
+      margin-top: 18px;
+      background: #f9f9f9;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+
+    .dict-shortcut { display: flex; align-items: center; gap: 6px; margin-bottom: 10px; }
+
+    .kbd {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      border: 1px solid var(--border-strong);
+      border-bottom: 2px solid var(--border-strong);
+      border-radius: 5px;
+      padding: 3px 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #3c3c43;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+    }
+
+    .kbd-plus  { font-size: 11px; color: #8e8e93; }
+    .dict-hint { font-size: 11px; color: #8e8e93; margin-left: 4px; }
+
+    .dict-input {
+      background: white;
+      border: 1.5px solid var(--accent);
+      border-radius: 7px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dict-wave  { display: flex; align-items: center; gap: 1px; }
+
+    .dict-wbar {
+      width: 2px;
+      border-radius: 1px;
+      background: var(--accent);
+      animation: wave 0.5s ease-in-out infinite alternate;
+    }
+
+    .dict-cursor {
+      width: 2px;
+      height: 14px;
+      background: #1c1c1e;
+      animation: blink 1.1s ease-in-out infinite;
+    }
+
+    .dict-text { font-size: 12px; color: #1c1c1e; flex: 1; }
+
+    /* ============================================================
+       INTEGRATIONS
+       ============================================================ */
+    .integrations { background: var(--bg-subtle); }
+
+    .int-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 16px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .int-item { display: flex; flex-direction: column; align-items: center; gap: 9px; cursor: default; }
+
+    .int-item__logo {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+      flex-shrink: 0;
+    }
+
+    .int-item:hover .int-item__logo {
+      border-color: var(--border-strong);
+      box-shadow: var(--shadow);
+      transform: translateY(-3px);
+    }
+
+    .int-item__name { font-size: 11px; font-weight: 600; color: var(--text-muted); text-align: center; line-height: 1.2; }
+
+    /* ============================================================
+       FINAL CTA
+       ============================================================ */
+    .cta {
+      text-align: center;
+      padding: 160px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(13, 148, 136, 0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta__title {
+      font-size: clamp(40px, 5.5vw, 64px);
+      font-weight: 900;
+      letter-spacing: -0.035em;
+      margin-bottom: 12px;
+    }
+
+    .cta__sub  { font-size: 18px; color: var(--text-muted); margin-bottom: 8px; }
+    .cta__note { font-size: 16px; color: var(--text-subtle); margin-bottom: 40px; font-style: italic; }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--text-subtle);
+    }
+
+    .site-footer a { color: var(--text-subtle); text-decoration: none; }
+    .site-footer a:hover { color: var(--text-muted); }
+
+    /* ============================================================
+       WAITLIST MODAL
+       ============================================================ */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .modal-overlay--open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      background: white;
+      border-radius: 22px;
+      padding: 48px;
+      max-width: 440px;
+      width: 100%;
+      position: relative;
+      box-shadow: 0 32px 64px rgba(0, 0, 0, 0.18);
+      transform: translateY(20px) scale(0.96);
+      transition: transform 0.3s cubic-bezier(.22,.68,0,1.2);
+    }
+
+    .modal-overlay--open .modal { transform: translateY(0) scale(1); }
+
+    .modal__close {
+      position: absolute;
+      top: 16px; right: 16px;
+      width: 32px; height: 32px;
+      border: none;
+      background: var(--bg-gray);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 18px;
+      transition: background 0.15s;
+    }
+
+    .modal__close:hover { background: var(--border); }
+
+    .modal__icon {
+      width: 52px; height: 52px;
+      background: var(--accent-soft);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      margin-bottom: 22px;
+    }
+
+    .modal__title { font-size: 24px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.02em; }
+    .modal__sub   { font-size: 15px; color: var(--text-muted); line-height: 1.6; margin-bottom: 28px; }
+
+    .modal__label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .modal__input {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.15s, background 0.15s;
+      background: var(--bg-subtle);
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .modal__input:focus      { border-color: var(--accent); background: white; }
+    .modal__input::placeholder { color: var(--text-subtle); }
+    .modal__input--error     { border-color: #ef4444 !important; }
+
+    .modal__submit {
+      width: 100%;
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      margin-bottom: 10px;
+    }
+
+    .modal__submit:hover    { background: var(--accent-hover); transform: translateY(-1px); }
+    .modal__submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    .modal__fine { font-size: 12px; color: var(--text-subtle); text-align: center; }
+
+    .modal__success {
+      display: none;
+      text-align: center;
+      padding: 16px 0 8px;
+    }
+
+    .modal__success-icon { font-size: 52px; margin-bottom: 16px; }
+    .modal__success h4   { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+    .modal__success p    { font-size: 15px; color: var(--text-muted); }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 960px) {
+      section { padding: 80px 0; }
+      .container, .nav, .site-footer { padding-left: 24px; padding-right: 24px; }
+      .hero { padding-top: 120px; }
+      .hiw__layout { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .privacy__trio { grid-template-columns: 1fr; gap: 24px; }
+      .int-grid { grid-template-columns: repeat(5, 1fr); }
+      .mac-window { width: 100%; max-width: 500px; }
+      .hero-badge, .mac-sidebar { display: none; }
+    }
+
+    @media (max-width: 640px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .int-grid      { grid-template-columns: repeat(4, 1fr); }
+      .btn--nav      { padding: 7px 14px; font-size: 13px; }
+      .site-footer   { flex-direction: column; gap: 10px; height: auto; padding: 24px; }
+      .modal         { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <nav class="nav" id="nav">
+    <a href="#" class="nav__logo">
+      <div class="nav__logo-mark" aria-hidden="true">🎙</div>
+      Thoughts Not Notes
+    </a>
+    <button class="btn btn--nav" data-modal-open>Download for Mac</button>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <section class="hero" id="hero">
+    <div class="hero__bg" aria-hidden="true">
+      <svg viewBox="0 0 1440 720" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="diag" x="0" y="0" width="64" height="64" patternUnits="userSpaceOnUse" patternTransform="rotate(-50 0 0)">
+            <line x1="0" y1="0" x2="0" y2="64" stroke="rgba(13,148,136,0.1)" stroke-width="1"/>
+          </pattern>
+          <pattern id="diag2" x="20" y="20" width="64" height="64" patternUnits="userSpaceOnUse" patternTransform="rotate(-50 0 0)">
+            <line x1="0" y1="0" x2="0" y2="64" stroke="rgba(13,148,136,0.04)" stroke-width="0.5"/>
+          </pattern>
+          <radialGradient id="vg" cx="50%" cy="42%" r="52%">
+            <stop offset="0%"   stop-color="white" stop-opacity="0"/>
+            <stop offset="68%"  stop-color="white" stop-opacity="0"/>
+            <stop offset="100%" stop-color="white" stop-opacity="1"/>
+          </radialGradient>
+          <mask id="vm">
+            <rect width="1440" height="720" fill="white"/>
+            <rect width="1440" height="720" fill="url(#vg)"/>
+          </mask>
+        </defs>
+        <rect width="1440" height="720" fill="url(#diag)"  mask="url(#vm)"/>
+        <rect width="1440" height="720" fill="url(#diag2)" mask="url(#vm)"/>
+        <ellipse cx="720"  cy="90"  rx="520" ry="200" fill="rgba(13,148,136,0.035)"/>
+        <ellipse cx="180"  cy="420" rx="240" ry="180" fill="rgba(13,148,136,0.025)"/>
+        <ellipse cx="1280" cy="380" rx="220" ry="170" fill="rgba(13,148,136,0.025)"/>
+      </svg>
+    </div>
+
+    <div class="container">
+      <div class="hero__text">
+        <p class="label reveal">Private Meeting Intelligence for Mac</p>
+        <h1 class="hero__title reveal d1">
+          <span class="line">Every conversation, <span class="accent">captured.</span></span>
+          <span class="line">Nothing leaves your Mac.</span>
+        </h1>
+        <p class="hero__sub reveal d2">TNN records your meetings locally, transcribes them privately, and sends structured notes wherever you work — automatically.</p>
+        <div class="hero__actions reveal d3">
+          <button class="btn btn--primary" data-modal-open>
+            <svg width="16" height="16" fill="none" viewBox="0 0 16 16" aria-hidden="true">
+              <circle cx="8" cy="8" r="7" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/>
+              <path d="M6.5 5.5L10.5 8L6.5 10.5V5.5Z" fill="white"/>
+            </svg>
+            Download for Mac
+          </button>
+          <p class="hero__meta">
+            <span>Free</span>
+            <span class="hero__meta-sep" aria-hidden="true">·</span>
+            <span>macOS 13+</span>
+            <span class="hero__meta-sep" aria-hidden="true">·</span>
+            <span>Apple Silicon</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="hero__visual reveal d4">
+        <div class="hero-badge" aria-hidden="true">
+          <div class="hero-badge__icon hero-badge__icon--teal">✓</div>
+          <div>
+            <div class="hero-badge__label-top">Transcribed &amp; sent</div>
+            <div class="hero-badge__label-bottom">Weekly Standup → Notion</div>
+          </div>
+        </div>
+        <div class="hero-badge" aria-hidden="true">
+          <div class="hero-badge__icon hero-badge__icon--amber">⚡</div>
+          <div>
+            <div class="hero-badge__label-top">On-device AI</div>
+            <div class="hero-badge__label-bottom">No cloud. No upload.</div>
+          </div>
+        </div>
+        <div class="hero-badge" aria-hidden="true">
+          <div class="hero-badge__icon hero-badge__icon--teal">🔒</div>
+          <div>
+            <div class="hero-badge__label-top">100% private</div>
+            <div class="hero-badge__label-bottom">Stays on your Mac</div>
+          </div>
+        </div>
+
+        <div class="mac-window" role="img" aria-label="TNN app showing today's meetings">
+          <div class="mac-titlebar" aria-hidden="true">
+            <div class="mac-btn mac-btn--red"></div>
+            <div class="mac-btn mac-btn--yellow"></div>
+            <div class="mac-btn mac-btn--green"></div>
+            <div class="mac-title">Thoughts Not Notes</div>
+          </div>
+          <div class="mac-body">
+            <div class="mac-sidebar" aria-hidden="true">
+              <div class="sb-label">Meetings</div>
+              <div class="sb-item sb-item--active"><div class="sb-dot sb-dot--active"></div>Today</div>
+              <div class="sb-item"><div class="sb-dot sb-dot--inactive"></div>This week</div>
+              <div class="sb-item"><div class="sb-dot sb-dot--inactive"></div>All recordings</div>
+              <div class="sb-label sb-label--spaced">Tools</div>
+              <div class="sb-item">⚡ Quick dictation</div>
+              <div class="sb-item">⚙️ Settings</div>
+            </div>
+            <div class="mac-main">
+              <div class="mac-main__header">
+                <div class="mac-main__title">Today's meetings</div>
+                <div class="mac-main__date">Tuesday, Apr 28</div>
+              </div>
+              <div class="meeting-row meeting-row--active">
+                <div><div class="mr-time__main">10:00</div><div class="mr-time__sub">AM</div></div>
+                <div>
+                  <div class="mr-title">Design Review</div>
+                  <div class="mr-meta"><span class="mr-platform">Google Meet</span>45 min · Starts in 5 min</div>
+                </div>
+                <div class="mr-actions">
+                  <button class="btn-rec"><div class="rec-dot"></div>REC</button>
+                  <button class="btn-skip">Skip</button>
+                </div>
+              </div>
+              <div class="meeting-row">
+                <div><div class="mr-time__main">2:00</div><div class="mr-time__sub">PM</div></div>
+                <div>
+                  <div class="mr-title">Sprint Planning</div>
+                  <div class="mr-meta"><span class="mr-platform">Zoom</span>60 min</div>
+                </div>
+                <div class="mr-actions">
+                  <button class="btn-rec"><div class="rec-dot" style="animation-delay:.3s"></div>REC</button>
+                  <button class="btn-skip">Skip</button>
+                </div>
+              </div>
+              <div class="meeting-row">
+                <div><div class="mr-time__main">4:30</div><div class="mr-time__sub">PM</div></div>
+                <div>
+                  <div class="mr-title">1:1 with Sarah</div>
+                  <div class="mr-meta"><span class="mr-platform">Teams</span>30 min</div>
+                </div>
+                <div class="mr-actions">
+                  <button class="btn-rec"><div class="rec-dot" style="animation-delay:.6s"></div>REC</button>
+                  <button class="btn-skip">Skip</button>
+                </div>
+              </div>
+              <div class="mac-divider"></div>
+              <div class="last-sent">
+                <div class="last-sent__icon" aria-hidden="true">📄</div>
+                <div class="last-sent__body">
+                  <div class="last-sent__label">Last recording sent</div>
+                  <div class="last-sent__name">Weekly Standup · 9:15 AM · 22 min</div>
+                </div>
+                <div class="last-sent__destination">
+                  <span class="notion-badge">N</span>Notion ✓
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero__fade" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       HOW IT WORKS
+       ============================================================ -->
+  <section class="hiw" id="how-it-works">
+    <div class="container">
+      <header class="section-header">
+        <p class="label reveal">How it works</p>
+        <h2 class="reveal d1">Simple enough to disappear into your workflow</h2>
+      </header>
+
+      <div class="hiw__layout">
+        <div class="step-card reveal">
+          <div class="step-num" aria-hidden="true">01</div>
+          <h3 class="step-title">Connect your calendar</h3>
+          <p class="step-desc">Your meetings appear automatically — straight from Google Calendar. TNN suggests recording 5 minutes before each call. No setup, no friction, no bots joining your calls.</p>
+          <div class="cal-mockup" aria-hidden="true">
+            <div class="cal-mockup__header">
+              <div class="cal-mockup__title">
+                Today's schedule
+                <div class="sync-badge"><div class="sync-dot"></div>Google Calendar synced</div>
+              </div>
+              <div class="cal-mockup__date">Apr 28</div>
+            </div>
+            <div class="cal-mockup__day-label">Upcoming</div>
+            <div class="cal-event cal-event--active">
+              <div class="cal-event__bar cal-event__bar--teal"></div>
+              <div class="cal-event__body">
+                <div class="cal-event__name">Design Review</div>
+                <div class="cal-event__meta"><span class="event-platform event-platform--active">Google Meet</span>45 min · In 5 min</div>
+              </div>
+              <div class="cal-event__time cal-event__time--active">10:00<br>AM</div>
+              <div class="cal-event__actions">
+                <button class="btn-rec"><div class="rec-dot"></div>REC</button>
+                <button class="btn-skip">Skip</button>
+              </div>
+            </div>
+            <div class="cal-event">
+              <div class="cal-event__bar cal-event__bar--indigo"></div>
+              <div class="cal-event__body">
+                <div class="cal-event__name">Sprint Planning</div>
+                <div class="cal-event__meta"><span class="event-platform event-platform--default">Zoom</span>60 min</div>
+              </div>
+              <div class="cal-event__time">2:00<br>PM</div>
+              <div class="cal-event__actions">
+                <button class="btn-rec"><div class="rec-dot" style="animation-delay:.25s"></div>REC</button>
+                <button class="btn-skip">Skip</button>
+              </div>
+            </div>
+            <div class="cal-event">
+              <div class="cal-event__bar cal-event__bar--amber"></div>
+              <div class="cal-event__body">
+                <div class="cal-event__name">1:1 with Sarah</div>
+                <div class="cal-event__meta"><span class="event-platform event-platform--default">Teams</span>30 min</div>
+              </div>
+              <div class="cal-event__time">4:30<br>PM</div>
+              <div class="cal-event__actions">
+                <button class="btn-rec"><div class="rec-dot" style="animation-delay:.5s"></div>REC</button>
+                <button class="btn-skip">Skip</button>
+              </div>
+            </div>
+            <div class="cal-divider"></div>
+            <div class="no-bots">
+              <div class="no-bots__item"><span class="no-bots__x">✗</span> No bot invited</div>
+              <div class="no-bots__sep"></div>
+              <div class="no-bots__item"><span class="no-bots__x">✗</span> No meeting link</div>
+              <div class="no-bots__sep"></div>
+              <div class="no-bots__item"><span class="no-bots__check">✓</span> Just press record</div>
+            </div>
+            <div class="cal-mockup__footer"></div>
+          </div>
+        </div>
+
+        <div class="step-card reveal d1">
+          <div class="step-num" aria-hidden="true">02</div>
+          <h3 class="step-title">TNN listens. Privately.</h3>
+          <p class="step-desc">Audio never leaves your Mac. Transcription runs on-device using a local AI model — no cloud, no subscription, no data sharing.</p>
+          <div class="mini-mockup" aria-hidden="true">
+            <div class="mm-bar">
+              <div class="mm-dot mm-dot--red"></div>
+              <div class="mm-dot mm-dot--yellow"></div>
+              <div class="mm-dot mm-dot--green"></div>
+              <div class="mm-bar__label">Recording · Design Review</div>
+            </div>
+            <div class="mm-rec-body">
+              <div class="mm-rec-status"><div class="mm-rec-dot"></div>Recording</div>
+              <div class="mm-rec-timer">0:04:32</div>
+              <div class="waveform">
+                <div class="wbar" style="--wh:6px;  animation-delay:0.00s"></div>
+                <div class="wbar" style="--wh:16px; animation-delay:0.09s"></div>
+                <div class="wbar" style="--wh:24px; animation-delay:0.18s"></div>
+                <div class="wbar" style="--wh:10px; animation-delay:0.27s"></div>
+                <div class="wbar" style="--wh:28px; animation-delay:0.36s"></div>
+                <div class="wbar" style="--wh:18px; animation-delay:0.45s"></div>
+                <div class="wbar" style="--wh:8px;  animation-delay:0.54s"></div>
+                <div class="wbar" style="--wh:22px; animation-delay:0.63s"></div>
+                <div class="wbar" style="--wh:28px; animation-delay:0.72s"></div>
+                <div class="wbar" style="--wh:12px; animation-delay:0.81s"></div>
+                <div class="wbar" style="--wh:20px; animation-delay:0.90s"></div>
+                <div class="wbar" style="--wh:26px; animation-delay:0.99s"></div>
+              </div>
+              <div class="mm-private-tag">🔒 On-device · No cloud · Fully private</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-card reveal d2">
+          <div class="step-num" aria-hidden="true">03</div>
+          <h3 class="step-title">You get the transcript.</h3>
+          <p class="step-desc">The moment the call ends, TNN processes the audio and delivers a clean, timestamped transcript — saved locally on your Mac, ready in seconds.</p>
+          <div class="mini-mockup" aria-hidden="true">
+            <div class="mm-bar">
+              <div class="mm-dot mm-dot--red"></div>
+              <div class="mm-dot mm-dot--yellow"></div>
+              <div class="mm-dot mm-dot--green"></div>
+              <div class="mm-bar__label">Design Review.txt</div>
+            </div>
+            <div class="mm-transcript-body">
+              <div class="mm-ts-header">
+                <div class="mm-ts-title">Design Review · Apr 28</div>
+                <div class="mm-ts-meta">45 min · 3 speakers · 4,234 words</div>
+              </div>
+              <div class="mm-ts-line"><span class="mm-ts-time">0:00</span><span class="who">Dom: </span>Let's start with the new onboarding flow…</div>
+              <div class="mm-ts-line"><span class="mm-ts-time">0:42</span><span class="who">Sarah: </span>The modal needs more breathing room.</div>
+              <div class="mm-ts-line"><span class="mm-ts-time">1:05</span><span class="who">Alex: </span>Agreed. And the color palette—</div>
+              <div class="mm-ts-line"><span class="mm-ts-time">1:28</span><span class="who">Dom: </span>Let's pull the tokens from Figma directly.</div>
+              <div class="mm-fade"></div>
+            </div>
+            <div class="mm-ts-footer">🔒 Saved to ~/Documents/TNN/ · never uploaded</div>
+          </div>
+        </div>
+
+        <div class="step-card step-card--featured reveal d3">
+          <div class="step-num" aria-hidden="true">04</div>
+          <h3 class="step-title">Lands where you work.</h3>
+          <p class="step-desc">The transcript is automatically pushed to Notion, Slack, Obsidian, or any tool in your workflow — the moment the call ends. No copy-paste. No switching tabs.</p>
+          <div class="send-mockup" aria-hidden="true">
+            <div class="send-header">
+              <div class="sync-dot"></div>
+              Design Review · sent 2s ago
+            </div>
+            <div class="send-grid">
+              <div class="send-dest send-dest--sent">
+                <div class="send-dest__logo">
+                  <svg width="20" height="20" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="8" fill="#000"/><path d="M9 10c0-.6.5-1.1 1.2-1.05l13 1.9c.65.1 1 .55 1 1.05V23c0 .65-.5 1.1-1.1 1.15l-1.3.1c-.45.03-.8-.25-.9-.67L9 11.3V10z" fill="white"/><line x1="9" y1="10.3" x2="23" y2="24.5" stroke="#555" stroke-width="1.3"/><rect x="13" y="15" width="7" height="1.3" rx="0.65" fill="#333"/><rect x="13" y="18" width="5" height="1.3" rx="0.65" fill="#555"/></svg>
+                </div>
+                <div class="send-dest__name">Notion</div>
+                <div class="send-dest__check">✓</div>
+              </div>
+              <div class="send-dest send-dest--sent">
+                <div class="send-dest__logo">
+                  <svg width="20" height="20" viewBox="0 0 34 34" fill="none"><rect x="5" y="5" width="9" height="9" rx="3" fill="#e01e5a"/><rect x="5" y="20" width="9" height="9" rx="3" fill="#2eb67d"/><rect x="20" y="5" width="9" height="9" rx="3" fill="#ecb22e"/><rect x="20" y="20" width="9" height="9" rx="3" fill="#36c5f0"/></svg>
+                </div>
+                <div class="send-dest__name">Slack</div>
+                <div class="send-dest__check">✓</div>
+              </div>
+              <div class="send-dest send-dest--sent">
+                <div class="send-dest__logo">
+                  <svg width="20" height="20" viewBox="0 0 34 34" fill="none"><path d="M17 3L30 10V24L17 31L4 24V10L17 3Z" fill="#7c3aed"/><path d="M17 3L24 7.5L17 12L10 7.5L17 3Z" fill="#a78bfa"/><path d="M24 7.5V22L17 26.5V12L24 7.5Z" fill="#6d28d9"/><path d="M10 7.5V22L17 26.5V12L10 7.5Z" fill="#8b5cf6"/></svg>
+                </div>
+                <div class="send-dest__name">Obsidian</div>
+                <div class="send-dest__check">✓</div>
+              </div>
+              <div class="send-dest send-dest--sent">
+                <div class="send-dest__logo">
+                  <svg width="20" height="20" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="8" fill="#5e6ad2"/><path d="M9 24L24 9" stroke="white" stroke-width="2.5" stroke-linecap="round"/><circle cx="24" cy="10" r="3" fill="white"/></svg>
+                </div>
+                <div class="send-dest__name">Linear</div>
+                <div class="send-dest__check">✓</div>
+              </div>
+              <div class="send-dest send-dest--sent">
+                <div class="send-dest__logo">
+                  <svg width="20" height="20" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="8" fill="#f82b60"/><rect x="6" y="7" width="22" height="7" rx="2.5" fill="white" opacity="0.9"/><rect x="6" y="18" width="9" height="9" rx="2.5" fill="white" opacity="0.9"/><rect x="19" y="18" width="9" height="9" rx="2.5" fill="rgba(255,255,255,0.6)"/></svg>
+                </div>
+                <div class="send-dest__name">Airtable</div>
+                <div class="send-dest__check">✓</div>
+              </div>
+              <div class="send-dest send-dest--sent">
+                <div class="send-dest__logo">
+                  <svg width="20" height="20" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="8" fill="#d97706"/><path d="M13 12c-1.5-1.5-3.5-2-3.5-2s.7 2 2 3.5" stroke="white" stroke-width="1.8" stroke-linecap="round"/><path d="M21 12c1.5-1.5 3.5-2 3.5-2s-.7 2-2 3.5" stroke="white" stroke-width="1.8" stroke-linecap="round"/><ellipse cx="17" cy="19.5" rx="8" ry="7.5" fill="white" opacity="0.92"/><circle cx="14" cy="18" r="1.5" fill="#d97706"/><circle cx="20" cy="18" r="1.5" fill="#d97706"/><path d="M14.5 22c.7.9 1.3 1.2 2.5 1.2s1.8-.3 2.5-1.2" stroke="#d97706" stroke-width="1.3" stroke-linecap="round"/></svg>
+                </div>
+                <div class="send-dest__name">Bear</div>
+                <div class="send-dest__check">✓</div>
+              </div>
+              <div class="send-dest">
+                <div class="send-dest__logo">
+                  <svg width="20" height="20" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="8" fill="#ff4a00"/><path d="M11 10h12l-5.5 7H23L11 24h4l-4-7h8" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+                </div>
+                <div class="send-dest__name">Zapier</div>
+                <div class="send-dest__dots">···</div>
+              </div>
+              <div class="send-dest">
+                <div class="send-dest__logo">
+                  <svg width="20" height="20" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="8" fill="#24292e"/><path d="M17 7C11.5 7 7 11.5 7 17c0 4.4 2.9 8.2 6.8 9.5.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-.7-3.6-1.3-.1-.3-.6-1.3-1.1-1.5-.4-.2-.9-.8 0-.8.8 0 1.4.7 1.6 1.1.9 1.5 2.4 1.1 3 .8.1-.6.4-1.1.7-1.4-2.3-.3-4.7-1.1-4.7-5 0-1.1.4-2 1.1-2.8-.1-.2-.5-1.3 0-2.7 0 0 .9-.3 3 1.1.9-.2 1.8-.3 2.7-.3.9 0 1.8.1 2.7.3 2.1-1.4 3-1.1 3-1.1.5 1.4.2 2.5 0 2.7.7.7 1.1 1.6 1.1 2.8 0 3.9-2.4 4.7-4.7 5 .4.3.7 1 .7 2V26.5c0 .3.2.6.7.5 4-1.3 6.8-5 6.8-9.5C27 11.5 22.5 7 17 7z" fill="white"/></svg>
+                </div>
+                <div class="send-dest__name">GitHub</div>
+                <div class="send-dest__dots">···</div>
+              </div>
+              <div class="send-dest">
+                <div class="send-dest__logo">
+                  <svg width="20" height="20" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="8" fill="#0052cc"/><path d="M6 22c3.5-4.5 7-9 11-9s7.5 4.5 11 9" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none"/><path d="M6 12c3.5 4.5 7 9 11 9s7.5-4.5 11-9" stroke="rgba(255,255,255,0.55)" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg>
+                </div>
+                <div class="send-dest__name">Confluence</div>
+                <div class="send-dest__dots">···</div>
+              </div>
+            </div>
+            <div class="send-footer">+ 4 more integrations available</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PRIVACY
+       ============================================================ -->
+  <section class="privacy" id="privacy">
+    <div class="container">
+      <div class="privacy__inner">
+        <h2 class="privacy__title reveal">Your conversations stay<br>on your computer. <em>Period.</em> 💅</h2>
+        <div class="privacy__trio">
+          <div class="priv-item reveal d1">
+            <div class="priv-item__icon" aria-hidden="true">🚫</div>
+            <div class="priv-item__label">No cloud processing</div>
+            <p class="priv-item__desc">Everything runs locally. Your audio never touches a server.</p>
+          </div>
+          <div class="priv-item reveal d2">
+            <div class="priv-item__icon" aria-hidden="true">🔒</div>
+            <div class="priv-item__label">No servers storing your audio</div>
+            <p class="priv-item__desc">We have no infrastructure to store your data — because we never receive it.</p>
+          </div>
+          <div class="priv-item reveal d3">
+            <div class="priv-item__icon" aria-hidden="true">🆓</div>
+            <div class="priv-item__label">No subscription required</div>
+            <p class="priv-item__desc">The AI model lives on your Mac. No monthly fees, no cloud dependency.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FEATURES
+       ============================================================ -->
+  <section id="features">
+    <div class="container">
+      <header class="section-header">
+        <p class="label reveal">Features</p>
+        <h2 class="reveal d1">Built around how you actually work</h2>
+      </header>
+      <div class="features-grid">
+        <div class="feat-card reveal">
+          <div class="feat-card__icon" aria-hidden="true">📅</div>
+          <h3 class="feat-card__title">Calendar-aware</h3>
+          <p class="feat-card__desc">Sees your Google Calendar. Suggests recording 5 minutes before each meeting — no manual setup needed.</p>
+        </div>
+        <div class="feat-card reveal d1">
+          <div class="feat-card__icon" aria-hidden="true">⏺️</div>
+          <h3 class="feat-card__title">One click to record</h3>
+          <p class="feat-card__desc"><strong>No bots. No meeting links.</strong> No intrusive participants. Just press record — works with any call app or in person.</p>
+        </div>
+        <div class="feat-card reveal d2">
+          <div class="feat-card__icon" aria-hidden="true">⚡</div>
+          <h3 class="feat-card__title">Transcript in seconds</h3>
+          <p class="feat-card__desc">On-device AI transcribes your meeting the moment it ends. Structured, searchable, ready to paste into any AI tool.</p>
+        </div>
+        <div class="feat-card reveal d1">
+          <div class="feat-card__icon" aria-hidden="true">🎤</div>
+          <h3 class="feat-card__title">Quick Dictation</h3>
+          <p class="feat-card__desc">Hold a hotkey, speak, release. Text appears at your cursor instantly — in any app.</p>
+          <div class="dict-illus" aria-hidden="true">
+            <div class="dict-shortcut">
+              <div class="kbd">⌥</div>
+              <span class="kbd-plus">+</span>
+              <div class="kbd">Space</div>
+              <span class="dict-hint">→ dictate anywhere</span>
+            </div>
+            <div class="dict-input">
+              <div class="dict-wave">
+                <div class="dict-wbar" style="--wh:8px;  animation-delay:0.0s"></div>
+                <div class="dict-wbar" style="--wh:14px; animation-delay:0.1s"></div>
+                <div class="dict-wbar" style="--wh:10px; animation-delay:0.2s"></div>
+                <div class="dict-wbar" style="--wh:16px; animation-delay:0.3s"></div>
+                <div class="dict-wbar" style="--wh:8px;  animation-delay:0.4s"></div>
+              </div>
+              <div class="dict-text">Sync the designs by Thursday</div>
+              <div class="dict-cursor"></div>
+            </div>
+          </div>
+        </div>
+        <div class="feat-card reveal d2">
+          <div class="feat-card__icon" aria-hidden="true">🔗</div>
+          <h3 class="feat-card__title">Works everywhere</h3>
+          <p class="feat-card__desc">Send your transcript to Notion, Obsidian, Slack, or anywhere via integrations. More shipping every month.</p>
+        </div>
+        <div class="feat-card reveal d3">
+          <div class="feat-card__icon" aria-hidden="true">🤖</div>
+          <h3 class="feat-card__title">Analyze your way</h3>
+          <p class="feat-card__desc">Paste your transcript into ChatGPT, Claude, or any AI tool. Build your own post-meeting workflow — TNN gives you the raw material.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       INTEGRATIONS
+       ============================================================ -->
+  <section class="integrations" id="integrations">
+    <div class="container">
+      <header class="section-header">
+        <p class="label reveal">Integrations</p>
+        <h2 class="reveal d1">Send your notes anywhere</h2>
+      </header>
+      <div class="int-grid reveal d2">
+        <div class="int-item">
+          <div class="int-item__logo">
+            <svg width="34" height="34" viewBox="0 0 34 34" fill="none" role="img" aria-label="Notion"><rect width="34" height="34" rx="8" fill="#000"/><path d="M9 10c0-.6.5-1.1 1.2-1.05l13 1.9c.65.1 1 .55 1 1.05V23c0 .65-.5 1.1-1.1 1.15l-1.3.1c-.45.03-.8-.25-.9-.67L9 11.3V10z" fill="white"/><line x1="9" y1="10.3" x2="23" y2="24.5" stroke="#555" stroke-width="1.3"/><rect x="13" y="15" width="7" height="1.3" rx="0.65" fill="#333"/><rect x="13" y="18" width="5" height="1.3" rx="0.65" fill="#555"/></svg>
+          </div>
+          <div class="int-item__name">Notion</div>
+        </div>
+        <div class="int-item">
+          <div class="int-item__logo">
+            <svg width="34" height="34" viewBox="0 0 34 34" fill="none" role="img" aria-label="Obsidian"><path d="M17 3L30 10V24L17 31L4 24V10L17 3Z" fill="#7c3aed"/><path d="M17 3L24 7.5L17 12L10 7.5L17 3Z" fill="#a78bfa"/><path d="M24 7.5V22L17 26.5V12L24 7.5Z" fill="#6d28d9"/><path d="M10 7.5V22L17 26.5V12L10 7.5Z" fill="#8b5cf6"/><circle cx="17" cy="17" r="3" fill="rgba(255,255,255,0.2)"/></svg>
+          </div>
+          <div class="int-item__name">Obsidian</div>
+        </div>
+        <div class="int-item">
+          <div class="int-item__logo">
+            <svg width="34" height="34" viewBox="0 0 34 34" fill="none" role="img" aria-label="Slack"><rect x="5" y="5" width="9" height="9" rx="3" fill="#e01e5a"/><rect x="5" y="20" width="9" height="9" rx="3" fill="#2eb67d"/><rect x="20" y="5" width="9" height="9" rx="3" fill="#ecb22e"/><rect x="20" y="20" width="9" height="9" rx="3" fill="#36c5f0"/></svg>
+          </div>
+          <div class="int-item__name">Slack</div>
+        </div>
+        <div class="int-item">
+          <div class="int-item__logo">
+            <svg width="34" height="34" viewBox="0 0 34 34" fill="none" role="img" aria-label="Linear"><rect width="34" height="34" rx="8" fill="#5e6ad2"/><path d="M9 24L24 9" stroke="white" stroke-width="2.5" stroke-linecap="round"/><path d="M9 24l6-1.5L24 9" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="24" cy="10" r="3" fill="white"/></svg>
+          </div>
+          <div class="int-item__name">Linear</div>
+        </div>
+        <div class="int-item">
+          <div class="int-item__logo">
+            <svg width="34" height="34" viewBox="0 0 34 34" fill="none" role="img" aria-label="Zapier"><rect width="34" height="34" rx="8" fill="#ff4a00"/><path d="M11 10h12l-5.5 7H23L11 24h4l-4-7h8" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+          </div>
+          <div class="int-item__name">Zapier</div>
+        </div>
+        <div class="int-item">
+          <div class="int-item__logo">
+            <svg width="34" height="34" viewBox="0 0 34 34" fill="none" role="img" aria-label="GitHub"><rect width="34" height="34" rx="8" fill="#24292e"/><path d="M17 7C11.5 7 7 11.5 7 17c0 4.4 2.9 8.2 6.8 9.5.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-.7-3.6-1.3-.1-.3-.6-1.3-1.1-1.5-.4-.2-.9-.8 0-.8.8 0 1.4.7 1.6 1.1.9 1.5 2.4 1.1 3 .8.1-.6.4-1.1.7-1.4-2.3-.3-4.7-1.1-4.7-5 0-1.1.4-2 1.1-2.8-.1-.2-.5-1.3 0-2.7 0 0 .9-.3 3 1.1.9-.2 1.8-.3 2.7-.3.9 0 1.8.1 2.7.3 2.1-1.4 3-1.1 3-1.1.5 1.4.2 2.5 0 2.7.7.7 1.1 1.6 1.1 2.8 0 3.9-2.4 4.7-4.7 5 .4.3.7 1 .7 2V26.5c0 .3.2.6.7.5 4-1.3 6.8-5 6.8-9.5C27 11.5 22.5 7 17 7z" fill="white"/></svg>
+          </div>
+          <div class="int-item__name">GitHub</div>
+        </div>
+        <div class="int-item">
+          <div class="int-item__logo">
+            <svg width="34" height="34" viewBox="0 0 34 34" fill="none" role="img" aria-label="Confluence"><rect width="34" height="34" rx="8" fill="#0052cc"/><path d="M6 22c3.5-4.5 7-9 11-9s7.5 4.5 11 9" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none"/><path d="M6 12c3.5 4.5 7 9 11 9s7.5-4.5 11-9" stroke="rgba(255,255,255,0.55)" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg>
+          </div>
+          <div class="int-item__name">Confluence</div>
+        </div>
+        <div class="int-item">
+          <div class="int-item__logo">
+            <svg width="34" height="34" viewBox="0 0 34 34" fill="none" role="img" aria-label="Jira"><rect width="34" height="34" rx="8" fill="#0052cc"/><path d="M17 7l9 10-9 10" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M8 17h18" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round"/><circle cx="17" cy="17" r="3.5" fill="white"/></svg>
+          </div>
+          <div class="int-item__name">Jira</div>
+        </div>
+        <div class="int-item">
+          <div class="int-item__logo">
+            <svg width="34" height="34" viewBox="0 0 34 34" fill="none" role="img" aria-label="Airtable"><rect width="34" height="34" rx="8" fill="#f82b60"/><rect x="6" y="7" width="22" height="7" rx="2.5" fill="white" opacity="0.9"/><rect x="6" y="18" width="9" height="9" rx="2.5" fill="white" opacity="0.9"/><rect x="19" y="18" width="9" height="9" rx="2.5" fill="rgba(255,255,255,0.6)"/></svg>
+          </div>
+          <div class="int-item__name">Airtable</div>
+        </div>
+        <div class="int-item">
+          <div class="int-item__logo">
+            <svg width="34" height="34" viewBox="0 0 34 34" fill="none" role="img" aria-label="Todoist"><rect width="34" height="34" rx="8" fill="#db4035"/><circle cx="17" cy="17" r="9" stroke="white" stroke-width="2.5"/><path d="M13 17l3 3.5 5-6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="int-item__name">Todoist</div>
+        </div>
+        <div class="int-item">
+          <div class="int-item__logo">
+            <svg width="34" height="34" viewBox="0 0 34 34" fill="none" role="img" aria-label="Discord"><rect width="34" height="34" rx="8" fill="#5865f2"/><path d="M23 10.5A18 18 0 0019 10c-.2.4-.4.9-.5 1.3a16 16 0 00-3.2 0A12 12 0 0015 10a18 18 0 00-4 .5C8.5 14 8 16.8 8 19.5c1.7 1.2 3.3 1.8 3.3 1.8l.7-1.2c-.8-.3-1.5-.6-2.1-1 .2-.1.4-.2.6-.3A12.5 12.5 0 0021.5 19l.6.3c-.6.4-1.3.7-2.1 1l.7 1.2S22.3 20.7 24 19.5c0-2.8-.5-5.5-1-9zm-8.5 7c-.8 0-1.5-.7-1.5-1.5S13.7 14.5 14.5 14.5 16 15.2 16 16s-.7 1.5-1.5 1.5zm5 0c-.8 0-1.5-.7-1.5-1.5S19.2 14.5 20 14.5s1.5.7 1.5 1.5S20.8 17.5 20 17.5z" fill="white"/></svg>
+          </div>
+          <div class="int-item__name">Discord</div>
+        </div>
+        <div class="int-item">
+          <div class="int-item__logo">
+            <svg width="34" height="34" viewBox="0 0 34 34" fill="none" role="img" aria-label="Bear"><rect width="34" height="34" rx="8" fill="#d97706"/><path d="M13 12c-1.5-1.5-3.5-2-3.5-2s.7 2 2 3.5" stroke="white" stroke-width="1.8" stroke-linecap="round"/><path d="M21 12c1.5-1.5 3.5-2 3.5-2s-.7 2-2 3.5" stroke="white" stroke-width="1.8" stroke-linecap="round"/><ellipse cx="17" cy="19.5" rx="8" ry="7.5" fill="white" opacity="0.92"/><circle cx="14" cy="18" r="1.5" fill="#d97706"/><circle cx="20" cy="18" r="1.5" fill="#d97706"/><path d="M14.5 22c.7.9 1.3 1.2 2.5 1.2s1.8-.3 2.5-1.2" stroke="#d97706" stroke-width="1.3" stroke-linecap="round"/><circle cx="17" cy="15.5" r="1.2" fill="#d97706" opacity="0.5"/></svg>
+          </div>
+          <div class="int-item__name">Bear</div>
+        </div>
+        <div class="int-item">
+          <div class="int-item__logo">
+            <svg width="34" height="34" viewBox="0 0 34 34" fill="none" role="img" aria-label="Email"><rect width="34" height="34" rx="8" fill="#ea4335"/><rect x="5" y="10" width="24" height="16" rx="3" fill="white"/><path d="M5 13l12 8 12-8" stroke="#ea4335" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div class="int-item__name">Email</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CTA
+       ============================================================ -->
+  <section class="cta" id="cta">
+    <div class="container">
+      <h2 class="cta__title reveal">Stop losing what was said.</h2>
+      <p class="cta__sub reveal d1">Turn every meeting into context. Give your AI what it actually needs.</p>
+      <p class="cta__note reveal d2">Start building the context that makes every conversation smarter.</p>
+      <div class="reveal d3">
+        <button class="btn btn--primary btn--primary--lg" data-modal-open>Download for Mac →</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <span>© 2025 Thoughts Not Notes</span>
+  <a href="https://thoughtsnotnotes.com">thoughtsnotnotes.com</a>
+</footer>
+
+<!-- ============================================================
+     WAITLIST MODAL
+     ============================================================ -->
+<div
+  id="waitlist-modal"
+  class="modal-overlay"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="modal-title"
+>
+  <div class="modal">
+    <button class="modal__close" aria-label="Close" data-modal-close>×</button>
+    <div class="modal__icon" aria-hidden="true">🎙</div>
+    <h3 class="modal__title" id="modal-title">Get early access</h3>
+    <p class="modal__sub">TNN is almost ready. Leave your email and we'll reach out when it's available — free for early users.</p>
+
+    <form id="waitlist-form" novalidate>
+      <label class="modal__label" for="email-input">Email address</label>
+      <input
+        class="modal__input"
+        type="email"
+        id="email-input"
+        name="email"
+        placeholder="you@example.com"
+        autocomplete="email"
+        required
+      >
+      <button class="modal__submit" type="submit">Join waitlist</button>
+      <p class="modal__fine">No spam. Unsubscribe anytime.</p>
+    </form>
+
+    <div class="modal__success" id="modal-success" aria-live="polite">
+      <div class="modal__success-icon" aria-hidden="true">🎉</div>
+      <h4>You're on the list.</h4>
+      <p>We'll be in touch when TNN is ready for you.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Replace YOUR_FORM_ID with your Formspark ID: https://formspark.io
+  const WAITLIST_ENDPOINT = 'https://submit-formspark.io/f/YOUR_FORM_ID';
+
+  // Scroll-reveal
+  const revealObserver = new IntersectionObserver(
+    (entries) => entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    }),
+    { threshold: 0.08, rootMargin: '0px 0px -32px 0px' }
+  );
+
+  document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+
+  // Hero elements are above the fold — animate immediately
+  document.querySelectorAll('#hero .reveal').forEach((el, i) => {
+    setTimeout(() => {
+      el.classList.add('visible');
+      revealObserver.unobserve(el);
+    }, 100 + i * 140);
+  });
+
+  // Nav scroll shadow
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('nav--scrolled', window.scrollY > 12);
+  }, { passive: true });
+
+  // Modal
+  const overlay  = document.getElementById('waitlist-modal');
+  const emailInput = document.getElementById('email-input');
+  const form       = document.getElementById('waitlist-form');
+  const successEl  = document.getElementById('modal-success');
+
+  function openModal() {
+    overlay.classList.add('modal-overlay--open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => emailInput.focus(), 300);
+  }
+
+  function closeModal() {
+    overlay.classList.remove('modal-overlay--open');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('[data-modal-open]').forEach((btn) => btn.addEventListener('click', openModal));
+  document.querySelectorAll('[data-modal-close]').forEach((btn) => btn.addEventListener('click', closeModal));
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay.classList.contains('modal-overlay--open')) closeModal();
+  });
+
+  // Waitlist form submission
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const email = emailInput.value.trim();
+    if (!email || !email.includes('@')) {
+      emailInput.classList.add('modal__input--error');
+      emailInput.focus();
+      setTimeout(() => emailInput.classList.remove('modal__input--error'), 2200);
+      return;
+    }
+
+    const submitBtn = form.querySelector('[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+
+    try {
+      await fetch(WAITLIST_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+    } catch {
+      // Show success regardless — don't leak infra errors to the user
+    }
+
+    form.style.display = 'none';
+    successEl.style.display = 'block';
+  });
+</script>
+
+</body>
+</html>
