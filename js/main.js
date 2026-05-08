@@ -1,5 +1,5 @@
 const SEND_LINK_ENDPOINT = 'https://submit-formspark.io/f/YOUR_FORM_ID';
-const DMG_URL = 'https://github.com/ziarnooo/TNN/releases/latest/download/TNN.dmg';
+const DMG_URL = 'https://github.com/ziarnooo/tnn-website/releases/latest/download/TNN.dmg';
 
 // ── Scroll-reveal ─────────────────────────────────────────────
 const revealObserver = new IntersectionObserver(
