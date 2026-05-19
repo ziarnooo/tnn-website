@@ -15,6 +15,9 @@
   <meta name="twitter:title" content="Thoughts Not Notes">
   <meta name="twitter:description" content="Private meeting intelligence for Mac. No cloud. No bots.">
 
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#171717" media="(prefers-color-scheme: dark)">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Ancizar+Serif:ital,wght@0,400;0,600;1,400;1,600&family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900;1,14..32,300&display=swap" rel="stylesheet">
@@ -880,15 +883,44 @@
       .hero__visual .mac-main { min-height: 0; }
       .privacy__inner { padding: 48px 24px !important; border-radius: 20px; }
 
-      /* Meeting rows: actions wrap to a 2nd row, centered if 1 button */
+      /* Hide nav CTA - keep logo + theme toggle only */
+      .nav .btn--nav { display: none !important; }
+      .nav__right { gap: 4px; }
+
+      /* Mac window: edge-to-edge (no horizontal padding around it) */
+      .hero__visual {
+        padding: 0 !important;
+        margin-left: -24px !important;
+        margin-right: -24px !important;
+        width: calc(100% + 48px) !important;
+      }
+      .hero__visual .mac-window {
+        width: 100% !important;
+        max-width: 100% !important;
+        border-radius: 0 !important;
+      }
+      .hero__visual .mac-titlebar,
+      .hero__visual .mac-window > * { border-radius: 0 !important; }
+
+      /* Meeting rows: title/meta stay on their own lines (no mid-text wrap),
+         actions wrap to a 2nd row, LEFT-aligned */
       .hero__visual .meeting-row,
       .hiw__layout .cal-event {
         flex-wrap: wrap !important;
+        align-items: flex-start !important;
       }
       .hero__visual .meeting-row > div:nth-child(2),
       .hiw__layout .cal-event__body {
         flex: 1 1 auto;
         min-width: 0;
+      }
+      .hero__visual .mr-title,
+      .hero__visual .mr-meta,
+      .hiw__layout .cal-event__name,
+      .hiw__layout .cal-event__meta {
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
       }
       .hero__visual .mr-actions,
       .hiw__layout .cal-event__actions {
@@ -896,7 +928,7 @@
         flex-basis: 100% !important;
         margin-top: 8px;
         display: flex !important;
-        justify-content: center !important;
+        justify-content: flex-start !important;
         gap: 8px !important;
       }
       .hero__visual .btn-rec,
@@ -908,19 +940,37 @@
       .hiw__layout .btn-skip {
         flex: 0 0 auto;
       }
+      .hero__visual .btn-rec--wide {
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+        min-width: 110px;
+        justify-content: center !important;
+      }
       .hiw__layout .btn-rec,
       .hiw__layout .btn-record,
       .hiw__layout .btn-skip {
         padding: 8px 22px !important;
         font-size: 12px !important;
         min-width: 100px;
+        justify-content: center !important;
       }
 
-      /* Features: enforce 1 column, full width */
-      .features-grid { grid-template-columns: 1fr !important; }
-      .feat-card { width: 100% !important; max-width: 100% !important; }
+      /* Features: enforce 1 column, full width - higher specificity */
+      #features .features-grid {
+        grid-template-columns: 1fr !important;
+        display: grid !important;
+      }
+      #features .feat-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        grid-column: 1 / -1;
+      }
 
-      /* How it works step cards: no padding, no border, transparent */
+      /* How it works step cards: no padding, no border, transparent
+         + more breathing room between steps */
+      .hiw__layout {
+        gap: 56px !important;
+      }
       .hiw__layout .step-card {
         padding: 0 !important;
         border: none !important;
@@ -932,11 +982,6 @@
       .privacy__trio {
         grid-template-columns: 1fr !important;
         gap: 32px !important;
-      }
-
-      /* Features - stacked 1 col */
-      .features-grid {
-        grid-template-columns: 1fr !important;
       }
 
       /* Hero shimmer on mobile - reposition vertical lines to fit narrow viewport */
@@ -970,6 +1015,10 @@
           transparent 65%, transparent 100%) !important;
       }
     }
+
+    /* === html/body bg - never show white during overscroll ====== */
+    html { background: #fff; }
+    [data-theme="dark"] html { background: #171717; }
 
     /* === REC button wider for "Recording" text ============== */
     .hero__visual .btn-rec--wide {
