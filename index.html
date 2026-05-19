@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thoughts Not Notes — Every conversation, captured.</title>
-  <meta name="description" content="TNN records your meetings locally, transcribes them with on-device AI, and sends structured notes to Notion — automatically. No cloud. No bots.">
+  <title>Thoughts Not Notes - Every conversation, captured.</title>
+  <meta name="description" content="TNN records your meetings locally, transcribes them with on-device AI, and sends structured notes to Notion - automatically. No cloud. No bots.">
 
-  <meta property="og:title" content="Thoughts Not Notes — Every conversation, captured.">
+  <meta property="og:title" content="Thoughts Not Notes - Every conversation, captured.">
   <meta property="og:description" content="Private meeting intelligence for Mac. No cloud. No bots. Just press record.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://thoughtsnotnotes.com">
@@ -20,6 +20,1835 @@
   <link href="https://fonts.googleapis.com/css2?family=Ancizar+Serif:ital,wght@0,400;0,600;1,400;1,600&family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900;1,14..32,300&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    /* ============================================================
+       HERO v4 - indigo/violet accent, refined grid, light mode
+       Preview only; lives in this file so style.css is untouched.
+       ============================================================ */
+
+    /* === Global accent override: teal → indigo/violet ======== */
+    :root {
+      --accent: #6366f1;
+      --accent-hover: #4f46e5;
+      --accent-soft: #eef2ff;
+    }
+    /* Fix the few hardcoded teal hex values in style.css */
+    .last-sent__name { color: #4338ca !important; }
+    .meeting-row--active { border-color: rgba(99,102,241,0.22) !important; }
+
+    /* === Nav: thin line on scroll, no big shadow ============= */
+    .nav--scrolled {
+      background: rgba(255,255,255,0.78) !important;
+      box-shadow: none !important;
+      border-bottom: 1px solid rgba(10,10,10,0.06) !important;
+    }
+
+    /* === Hero shell ========================================= */
+    .hero {
+      padding-top: 140px !important;
+      padding-bottom: 80px !important;
+      isolation: isolate;
+      background: #fff;
+    }
+
+    /* Hide the old SVG bg, replace with CSS-only modern stack */
+    .hero__bg svg { display: none; }
+    .hero__bg {
+      z-index: 0;
+      pointer-events: none;
+    }
+    .hero__bg::before,
+    .hero__bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    /* Layer 1: clean white - no top mesh */
+    .hero__bg::before { background: transparent; }
+    /* Layer 2: subtle line grid (96×96) - wider spacing, fades on edges */
+    .hero__bg::after {
+      background-image:
+        linear-gradient(to right, rgba(10,10,10,0.07) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(10,10,10,0.07) 1px, transparent 1px);
+      background-size: 96px 96px;
+      -webkit-mask-image: radial-gradient(ellipse 72% 68% at 50% 38%, #000 28%, transparent 85%);
+              mask-image: radial-gradient(ellipse 72% 68% at 50% 38%, #000 28%, transparent 85%);
+      opacity: 1;
+    }
+    /* Layer 2.5: shimmer - varied lines, white in dark, dark in light, sharp pulses */
+    .hero__shimmer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .shim {
+      position: absolute;
+      background-repeat: no-repeat;
+    }
+    .shim--h {
+      left: 0; right: 0;
+      height: 1px;
+      background-image: linear-gradient(90deg,
+        transparent 0%,
+        transparent 35%,
+        rgba(129,140,248,0.55) 50%,
+        transparent 65%,
+        transparent 100%);
+      background-position: -200% 0;
+      animation-name: shim-pan-h;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      animation-fill-mode: backwards;
+    }
+    .shim--v {
+      top: 0; bottom: 0;
+      width: 1px;
+      background-image: linear-gradient(180deg,
+        transparent 0%,
+        transparent 35%,
+        rgba(129,140,248,0.55) 50%,
+        transparent 65%,
+        transparent 100%);
+      background-position: 0 -200%;
+      animation-name: shim-pan-v;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      animation-fill-mode: backwards;
+    }
+    /* Universal off-screen range (-200% to 300%) works for any background-size,
+       so each line can have its own size for length variation. */
+    @keyframes shim-pan-h {
+      0%           { background-position: -200% 0; }
+      35%          { background-position:  300% 0; }
+      35.01%, 100% { background-position: -200% 0; }
+    }
+    @keyframes shim-pan-v {
+      0%           { background-position: 0 -200%; }
+      35%          { background-position: 0  300%; }
+      35.01%, 100% { background-position: 0 -200%; }
+    }
+    /* Dark mode: very subtle white shimmer */
+    [data-theme="dark"] .shim--h {
+      background-image: linear-gradient(90deg,
+        transparent 0%,
+        transparent 35%,
+        rgba(255,255,255,0.16) 50%,
+        transparent 65%,
+        transparent 100%) !important;
+    }
+    [data-theme="dark"] .shim--v {
+      background-image: linear-gradient(180deg,
+        transparent 0%,
+        transparent 35%,
+        rgba(255,255,255,0.16) 50%,
+        transparent 65%,
+        transparent 100%) !important;
+    }
+
+    /* Layer 2.7: "deep bg" - darker round area visible in dark mode for depth */
+    .hero__deepbg {
+      position: absolute;
+      left: 50%;
+      bottom: -610px;
+      width: min(1620px, 130vw);
+      height: 1260px;
+      transform: translateX(-50%);
+      z-index: 0;
+      pointer-events: none;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0;
+      background: radial-gradient(circle at center,
+        rgba(0,0,0,0.55) 0%,
+        rgba(0,0,0,0.50) 10%,
+        rgba(0,0,0,0.42) 22%,
+        rgba(0,0,0,0.30) 36%,
+        rgba(0,0,0,0.18) 50%,
+        rgba(0,0,0,0.08) 60%,
+        transparent 68%);
+      transition: opacity 250ms ease;
+    }
+    [data-theme="dark"] .hero__deepbg { opacity: 0; }
+
+    /* Layer 3: violet "setting sun" - full width container so blur doesn't clip at edges */
+    .hero__aurora {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -372px;
+      width: 100%;
+      height: 744px;
+      transform: translate3d(0, 0, 0); /* GPU layer reduces banding */
+      will-change: filter;
+      z-index: 0;
+      pointer-events: none;
+      border-radius: 0;
+      filter: blur(50px);
+      opacity: 0.75;
+      background: radial-gradient(circle at center,
+        rgba(139,92,246,0.55) 0%,
+        rgba(139,92,246,0.48) 8%,
+        rgba(139,92,246,0.40) 16%,
+        rgba(139,92,246,0.32) 25%,
+        rgba(139,92,246,0.24) 35%,
+        rgba(139,92,246,0.16) 46%,
+        rgba(139,92,246,0.10) 56%,
+        rgba(139,92,246,0.05) 65%,
+        rgba(139,92,246,0.02) 72%,
+        transparent 80%);
+    }
+
+    /* SVG aurora for dark mode - full width so blur doesn't clip at edges */
+    .hero__aurora-svg {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 58%;
+      z-index: 0;
+      pointer-events: none;
+      display: none;
+    }
+    [data-theme="dark"] .hero__aurora-svg { display: block; }
+    /* Hide the CSS aurora in dark mode (replaced by SVG version) */
+    [data-theme="dark"] .hero__aurora { display: none !important; }
+
+    /* Bottom fade into next section */
+    .hero::after {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 140px;
+      background: linear-gradient(180deg, transparent, #fff);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* === Announcement pill above the label =================== */
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 14px 6px 10px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.75);
+      -webkit-backdrop-filter: blur(10px);
+              backdrop-filter: blur(10px);
+      font-size: 13px;
+      color: var(--text);
+      text-decoration: none;
+      margin-bottom: 20px;
+      transition: border-color 200ms ease, transform 200ms ease, background 200ms ease, box-shadow 200ms ease;
+    }
+    .hero-pill:hover {
+      border-color: rgba(99,102,241,0.55);
+      background: #fff;
+      transform: translateY(-1px);
+      box-shadow:
+        0 0 0 3px rgba(99,102,241,0.10),
+        0 6px 20px -6px rgba(99,102,241,0.35);
+    }
+    .hero-pill__dot {
+      width: 7px; height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+      animation: pill-dot-pulse 2.2s ease-in-out infinite;
+    }
+    @keyframes pill-dot-pulse {
+      0%, 100% { box-shadow: 0 0 0 0   rgba(99,102,241,0.40); }
+      50%      { box-shadow: 0 0 0 6px rgba(99,102,241,0); }
+    }
+    .hero-pill__tag {
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+    .hero-pill__arrow {
+      color: var(--text-subtle);
+      transition: transform 160ms ease, color 160ms ease;
+    }
+    .hero-pill:hover .hero-pill__arrow { transform: translateX(2px); color: var(--text-muted); }
+
+    /* === Black CTAs - overrides .btn--primary and .btn--nav === */
+    .btn--primary {
+      background: #0a0a0a !important;
+      color: #fff !important;
+      border: 1px solid #000 !important;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.08),
+        0 1px 2px rgba(0,0,0,0.06),
+        0 10px 28px -10px rgba(0,0,0,0.32) !important;
+      transition: transform 120ms ease, background 160ms ease, box-shadow 160ms ease !important;
+    }
+    .btn--primary:hover {
+      background: #1a1a1a !important;
+      transform: translateY(-1px);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.10),
+        0 2px 4px rgba(0,0,0,0.08),
+        0 14px 32px -10px rgba(0,0,0,0.36) !important;
+    }
+    .btn--primary .btn-apple-icon { filter: invert(1); opacity: 0.95; }
+
+    .btn--nav {
+      background: #0a0a0a !important;
+      color: #fff !important;
+      border: 1px solid #000 !important;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.10),
+        0 1px 2px rgba(0,0,0,0.05),
+        0 6px 16px -8px rgba(0,0,0,0.30) !important;
+      transition: transform 120ms ease, background 160ms ease, box-shadow 160ms ease !important;
+    }
+    .btn--nav:hover {
+      background: #1a1a1a !important;
+      transform: translateY(-1px);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.12),
+        0 2px 4px rgba(0,0,0,0.08),
+        0 8px 20px -8px rgba(0,0,0,0.36) !important;
+    }
+    .btn--nav .btn-apple-icon { filter: invert(1); opacity: 0.95; }
+
+    /* Headline accent - indigo→violet gradient */
+    .hero__title .accent {
+      background: linear-gradient(180deg, #8b5cf6 0%, #6366f1 100%);
+      -webkit-background-clip: text;
+              background-clip: text;
+      color: transparent;
+    }
+    /* === Mockup polish - silicon / glass, matched to logo === */
+    .hero__visual .mac-window {
+      border-radius: 18px;
+      /* echo the logo's radial gradient on a white surface - indigo wash */
+      background:
+        radial-gradient(ellipse 70% 50% at 20% 0%, rgba(99,102,241,0.05), transparent 60%),
+        radial-gradient(ellipse 50% 40% at 100% 100%, rgba(139,92,246,0.05), transparent 60%),
+        #ffffff;
+      box-shadow:
+        0 0 0 1px rgba(10,10,10,0.04),
+        0 1px 0 rgba(255,255,255,0.95) inset,
+        0 30px 70px -28px rgba(99,102,241,0.28),
+        0 70px 140px -40px rgba(10,10,10,0.22);
+    }
+    .hero__visual .mac-titlebar {
+      height: 44px;
+      background: rgba(250,250,251,0.65);
+      -webkit-backdrop-filter: blur(14px);
+              backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(10,10,10,0.05);
+    }
+    .hero__visual .mac-title {
+      font-family: 'Ancizar Serif', Georgia, serif;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0;
+      color: #6b7280;
+    }
+    /* Mockup needs its own stacking context, below badges */
+    .hero__visual .mac-window { position: relative; z-index: 1; }
+    .hero__visual .mac-sidebar {
+      background: linear-gradient(180deg, rgba(250,250,251,0.7), rgba(244,244,245,0.4));
+      -webkit-backdrop-filter: blur(8px);
+              backdrop-filter: blur(8px);
+      border-right: 1px solid rgba(10,10,10,0.04);
+      padding-top: 16px;
+      padding-bottom: 18px;
+    }
+    .hero__visual .sb-item { border-radius: 8px; }
+    .hero__visual .sb-item--active {
+      background: linear-gradient(180deg, rgba(99,102,241,0.10), rgba(139,92,246,0.04));
+      box-shadow: inset 0 0 0 1px rgba(99,102,241,0.12);
+    }
+    /* Taller window - extra breathing room in the main area */
+    .hero__visual .mac-main {
+      padding: 22px 22px 28px;
+      min-height: 480px;
+    }
+    .hero__visual .meeting-row {
+      border-radius: 10px;
+      transition: background 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+      padding: 12px 14px;
+    }
+    .hero__visual .meeting-row--active {
+      background: linear-gradient(180deg, rgba(99,102,241,0.07), rgba(139,92,246,0.03));
+      border-color: rgba(99,102,241,0.22) !important;
+      box-shadow:
+        0 1px 0 rgba(99,102,241,0.06),
+        0 0 0 1px rgba(99,102,241,0.08);
+    }
+    .hero__visual .btn-rec {
+      border-radius: 6px;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.18),
+        0 1px 2px rgba(220,38,38,0.20);
+    }
+    .hero__visual .btn-skip { border-radius: 6px; }
+
+    /* === Hero subtitle cycling word - char-by-char typewriter loop ======== */
+    .hero-cycle {
+      display: inline-block;
+      position: relative;
+      vertical-align: baseline;
+      min-width: 14ch;
+      height: 1.2em;
+      line-height: inherit;
+    }
+    .hero-cycle__word {
+      position: absolute;
+      left: 0;
+      top: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 0;
+      opacity: 0;
+      font-family: 'Ancizar Serif', Georgia, serif;
+      font-style: italic;
+      font-weight: 400;
+      color: inherit;
+      animation-duration: 12s;
+      animation-iteration-count: infinite;
+    }
+    .hero-cycle__word:nth-child(1) { animation-name: hero-cycle-1; }
+    .hero-cycle__word:nth-child(2) { animation-name: hero-cycle-2; }
+    .hero-cycle__word:nth-child(3) { animation-name: hero-cycle-3; }
+
+    /* Each word: char-by-char type-in (steps timing during the typing phase),
+       hold full, then instant clear, hidden until its turn. */
+    @keyframes hero-cycle-1 {
+      0%       { width: 0;   opacity: 1; animation-timing-function: steps(8, end); }
+      9%       { width: 8ch; opacity: 1; animation-timing-function: linear; }
+      31%      { width: 8ch; opacity: 1; }
+      32%      { width: 0;   opacity: 0; }
+      100%     { width: 0;   opacity: 0; }
+    }
+    @keyframes hero-cycle-2 {
+      0%, 33%  { width: 0;    opacity: 0; }
+      34%      { width: 0;    opacity: 1; animation-timing-function: steps(10, end); }
+      43%      { width: 10ch; opacity: 1; animation-timing-function: linear; }
+      64%      { width: 10ch; opacity: 1; }
+      65%      { width: 0;    opacity: 0; }
+      100%     { width: 0;    opacity: 0; }
+    }
+    @keyframes hero-cycle-3 {
+      0%, 66%  { width: 0;    opacity: 0; }
+      67%      { width: 0;    opacity: 1; animation-timing-function: steps(14, end); }
+      76%      { width: 14ch; opacity: 1; animation-timing-function: linear; }
+      97%      { width: 14ch; opacity: 1; }
+      98%      { width: 0;    opacity: 0; }
+      100%     { width: 0;    opacity: 0; }
+    }
+
+    /* Override rec-pulse - opacity-only (no scale) so dots just blink subtly */
+    @keyframes rec-pulse {
+      0%, 100% { opacity: 1;   transform: scale(1); }
+      50%      { opacity: 0.35; transform: scale(1); }
+    }
+
+    /* "Record" - outlined ghost button on upcoming meetings */
+    .hero__visual .btn-record {
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      background: #fff;
+      color: var(--text);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: background 160ms ease, border-color 160ms ease;
+    }
+    .hero__visual .btn-record:hover {
+      background: var(--bg-gray);
+      border-color: var(--border-strong);
+    }
+
+    /* Recording indicator in meta line */
+    .hero__visual .mr-recording {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: #dc2626;
+      font-weight: 600;
+    }
+    .hero__visual .mr-recording__dot {
+      width: 6px; height: 6px; border-radius: 999px;
+      background: #ef4444;
+      box-shadow: 0 0 0 3px rgba(239,68,68,0.18);
+      animation: pulse-rec 1.4s ease-in-out infinite;
+    }
+    @keyframes pulse-rec {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.45; }
+    }
+    .hero__visual .last-sent {
+      background: linear-gradient(180deg, rgba(99,102,241,0.06), rgba(139,92,246,0.02));
+      border-radius: 12px;
+      padding: 12px 14px;
+      border: 1px solid rgba(99,102,241,0.14);
+      box-shadow: 0 1px 0 rgba(99,102,241,0.04);
+    }
+    .hero__visual .mac-divider {
+      background: linear-gradient(90deg, transparent, rgba(10,10,10,0.08), transparent);
+      height: 1px;
+    }
+
+    /* === Floating badges - smoother glass cards, in front ==== */
+    .hero-badge {
+      background: rgba(255,255,255,0.82) !important;
+      -webkit-backdrop-filter: blur(14px);
+              backdrop-filter: blur(14px);
+      border-radius: 14px !important;
+      padding: 12px 16px !important;
+      z-index: 3 !important;
+      box-shadow:
+        0 0 0 1px rgba(10,10,10,0.05),
+        0 14px 36px -10px rgba(10,10,10,0.20),
+        0 2px 6px rgba(10,10,10,0.05) !important;
+    }
+    .hero-badge__icon {
+      width: 30px !important;
+      height: 30px !important;
+      border-radius: 9px !important;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.55);
+    }
+    .hero-badge__icon--teal { background: linear-gradient(180deg, #ccfbf1, #99f6e4) !important; }
+    .hero-badge__icon--amber { background: linear-gradient(180deg, #fef3c7, #fde68a) !important; }
+    .hero-badge__icon--gray { background: linear-gradient(180deg, #f4f4f5, #e4e4e7) !important; }
+    .hero-badge__icon--blue { background: linear-gradient(180deg, #dbeafe, #bfdbfe) !important; }
+
+    .hero-badge__label-top {
+      font-size: 10px;
+      color: var(--text-subtle);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .hero-badge__label-bottom {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* === Transcript badge with live dialog - now on RIGHT === */
+    .hero-badge--transcript {
+      width: 290px;
+      left: auto !important;
+      right: -32px !important;
+      top: 90px !important;
+      align-items: flex-start !important;
+      padding: 14px 18px !important;
+      white-space: normal !important;
+    }
+    .hero-badge--transcript .hero-badge__body { flex: 1; min-width: 0; }
+    .hero-badge__dialog {
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      min-height: 88px;
+    }
+    .hero-badge__line {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      opacity: 0;
+      transform: translateY(2px);
+    }
+    /* 7s loop - faster cycle, ~0.3s dead time */
+    .hero-badge__line:nth-child(1) { animation: dialog-line-1 7s ease-in-out infinite; }
+    .hero-badge__line:nth-child(2) { animation: dialog-line-2 7s ease-in-out infinite; }
+    .hero-badge__line:nth-child(3) { animation: dialog-line-3 7s ease-in-out infinite; }
+    .hero-badge__speaker {
+      font-size: 8.5px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #4338ca;
+      background: rgba(99,102,241,0.10);
+      padding: 2px 5px;
+      border-radius: 4px;
+      flex-shrink: 0;
+      line-height: 1.3;
+      margin-top: 1px;
+    }
+    .hero-badge__said {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      font-weight: 400;
+      line-height: 1.4;
+    }
+    @keyframes dialog-line-1 {
+      0%       { opacity: 0; transform: translateY(2px); }
+      6%, 92%  { opacity: 1; transform: translateY(0); }
+      98%, 100% { opacity: 0; transform: translateY(0); }
+    }
+    @keyframes dialog-line-2 {
+      0%, 22%  { opacity: 0; transform: translateY(2px); }
+      28%, 92% { opacity: 1; transform: translateY(0); }
+      98%, 100% { opacity: 0; transform: translateY(0); }
+    }
+    @keyframes dialog-line-3 {
+      0%, 50%  { opacity: 0; transform: translateY(2px); }
+      56%, 92% { opacity: 1; transform: translateY(0); }
+      98%, 100% { opacity: 0; transform: translateY(0); }
+    }
+
+    /* === macOS native-style notification ==================== */
+    .mac-notif {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      background: rgba(255,255,255,0.92);
+      -webkit-backdrop-filter: blur(20px);
+              backdrop-filter: blur(20px);
+      border: 1px solid rgba(10,10,10,0.06);
+      border-radius: 14px;
+      box-shadow:
+        0 0 0 1px rgba(10,10,10,0.03),
+        0 10px 30px -10px rgba(10,10,10,0.18),
+        0 2px 6px rgba(10,10,10,0.05);
+    }
+    .mac-notif__icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: transparent;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .mac-notif__icon img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      filter: none;
+      opacity: 1;
+      border-radius: 8px;
+    }
+    .mac-notif__body { flex: 1; min-width: 0; }
+    .mac-notif__row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      gap: 8px;
+      margin-bottom: 2px;
+    }
+    .mac-notif__app { font-size: 11px; font-weight: 600; color: #1c1c1e; letter-spacing: 0.01em; }
+    .mac-notif__time { font-size: 10px; color: #8e8e93; }
+    .mac-notif__title { font-size: 12.5px; font-weight: 500; color: #1c1c1e; line-height: 1.3; margin-bottom: 1px; }
+    .mac-notif__sub { font-size: 11px; color: #6b7280; }
+
+    /* In cal-mockup (How it works), place notif on top, floating */
+    .cal-mockup { position: relative; }
+    .cal-mockup .mac-notif {
+      position: absolute;
+      top: -18px;
+      right: -16px;
+      width: 280px;
+      z-index: 3;
+      animation: notif-pop 4s ease-out both;
+    }
+    @keyframes notif-pop {
+      0%   { opacity: 0; transform: translateY(-6px); }
+      8%   { opacity: 1; transform: translateY(0); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* === Features mockup container ========================== */
+    .feat-mockup {
+      margin-top: 18px;
+      padding-top: 4px;
+    }
+    .mac-notif--feat { width: 100%; }
+
+    /* === No bots viz ======================================== */
+    .nobots-card {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: #fff;
+    }
+    .nobots-row {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .nobots-x {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 16px; height: 16px;
+      border-radius: 4px;
+      background: #fee2e2; color: #b91c1c;
+      font-size: 10px; font-weight: 700;
+    }
+    .nobots-check {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 16px; height: 16px;
+      border-radius: 4px;
+      background: rgba(99,102,241,0.12); color: #4338ca;
+      font-size: 10px; font-weight: 700;
+    }
+    .nobots-row--off { color: #9ca3af; text-decoration: line-through; }
+    .nobots-row--on  { color: var(--text); }
+    .nobots-mac {
+      margin-top: 4px;
+      align-self: center;
+      width: 140px;
+    }
+    .nobots-mac__screen {
+      background: #0a0a0a;
+      color: #f4f4f5;
+      border-radius: 8px 8px 2px 2px;
+      padding: 8px 10px;
+      font-size: 10px;
+      font-weight: 500;
+      display: flex; align-items: center; gap: 6px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 4px 12px -4px rgba(10,10,10,0.20);
+    }
+    .nobots-mac__dot {
+      width: 5px; height: 5px; border-radius: 999px;
+      background: #ef4444;
+      animation: pulse-rec 1.4s ease-in-out infinite;
+    }
+    .nobots-mac__base {
+      height: 4px;
+      background: linear-gradient(180deg, #d4d4d8, #a1a1aa);
+      border-radius: 0 0 6px 6px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* === Models tile ======================================== */
+    .models-tile {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .models-tile__header {
+      display: flex; justify-content: space-between; align-items: baseline;
+      margin-bottom: 4px;
+    }
+    .models-tile__label {
+      font-size: 10px; font-weight: 600;
+      color: var(--text-subtle);
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .models-tile__count {
+      font-size: 10px; color: var(--text-subtle);
+    }
+    .model-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 10px;
+      border-radius: 8px;
+      background: #fafafa;
+      border: 1px solid transparent;
+    }
+    .model-row--active {
+      background: linear-gradient(180deg, rgba(99,102,241,0.07), rgba(139,92,246,0.03));
+      border-color: rgba(99,102,241,0.18);
+    }
+    .model-row__name { font-size: 12px; font-weight: 600; color: var(--text); }
+    .model-row__meta { display: flex; align-items: center; gap: 8px; font-size: 10px; }
+    .model-row__size { color: var(--text-subtle); }
+    .model-row__status {
+      color: #4338ca; font-weight: 600;
+      padding: 2px 6px; border-radius: 4px;
+      background: rgba(99,102,241,0.10);
+    }
+    .model-row__status--idle { color: var(--text-subtle); background: var(--bg-gray); }
+
+    /* === Quick Dictation typewriter ========================= */
+    .dict-text--typed {
+      display: inline-flex; align-items: center; gap: 1px;
+      overflow: hidden;
+      flex: 1;
+      min-width: 0;
+    }
+    .dict-typewriter {
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      vertical-align: bottom;
+      width: 0;
+      animation: typewriter 9s steps(43) infinite;
+      font-size: 12px;
+      color: #1c1c1e;
+    }
+    .dict-typewriter::before {
+      content: "Sync the designs by Thursday and ping Sarah";
+    }
+    @keyframes typewriter {
+      0%        { width: 0; }
+      48%, 72%  { width: 43ch; }
+      88%, 100% { width: 0; }
+    }
+
+    /* === How it works: step 2 size + REC pattern ============ */
+    .hiw__layout .mini-mockup { min-height: 220px; display: flex; flex-direction: column; }
+    .hiw__layout .mm-rec-body { padding: 28px 14px; flex: 1; justify-content: center; }
+    .hiw__layout .mm-transcript-body { flex: 1; }
+
+    /* "Record" ghost button in cal-mockup */
+    .cal-mockup .btn-record {
+      padding: 5px 11px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      background: #fff;
+      color: var(--text);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: background 160ms ease, border-color 160ms ease;
+    }
+    .cal-mockup .btn-record:hover {
+      background: var(--bg-gray);
+      border-color: var(--border-strong);
+    }
+
+    /* === Privacy section: contained card with subtle grid === */
+    .privacy {
+      background: transparent !important;
+      padding: 100px 0 !important;
+    }
+    .privacy .container { position: relative; }
+    .privacy__inner {
+      background: linear-gradient(180deg, rgba(99,102,241,0.04), rgba(139,92,246,0.06)) !important;
+      border: 1px solid rgba(99,102,241,0.12);
+      border-radius: 28px;
+      padding: 72px 56px !important;
+      position: relative;
+      overflow: hidden;
+      max-width: 1040px !important;
+      box-shadow: 0 30px 80px -40px rgba(99,102,241,0.20);
+    }
+    .privacy__inner::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(to right, rgba(99,102,241,0.07) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(99,102,241,0.07) 1px, transparent 1px);
+      background-size: 80px 80px;
+      -webkit-mask-image: radial-gradient(ellipse 75% 70% at 50% 50%, #000 25%, transparent 85%);
+              mask-image: radial-gradient(ellipse 75% 70% at 50% 50%, #000 25%, transparent 85%);
+      opacity: 0.7;
+    }
+    .privacy__inner > * { position: relative; z-index: 1; }
+
+    /* === Integrations: no border, no shadow, no hover bg ==== */
+    .int-grid {
+      row-gap: 36px !important;
+    }
+    .int-item {
+      box-shadow: none !important;
+      border: none !important;
+      background: transparent !important;
+    }
+    .int-item:hover {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    /* === No Bots: allow text wrap to second line =========== */
+    .nobots-card { flex-wrap: nowrap; }
+    .nobots-row {
+      flex-wrap: nowrap !important;
+      white-space: normal !important;
+      align-items: flex-start !important;
+    }
+    .nobots-x, .nobots-check { flex-shrink: 0; margin-top: 1px; }
+
+    /* === Mobile (≤768) responsive ============================ */
+    @media (max-width: 768px) {
+      .hero { padding-top: 110px !important; }
+      .hero-pill { font-size: 12px; }
+      .hero__aurora { height: 700px; bottom: -380px; opacity: 0.65; }
+      .hero__visual .mac-main { min-height: 0; }
+      .privacy__inner { padding: 48px 24px !important; border-radius: 20px; }
+
+      /* Meeting rows: actions wrap to a 2nd row, centered if 1 button */
+      .hero__visual .meeting-row,
+      .hiw__layout .cal-event {
+        flex-wrap: wrap !important;
+      }
+      .hero__visual .meeting-row > div:nth-child(2),
+      .hiw__layout .cal-event__body {
+        flex: 1 1 auto;
+        min-width: 0;
+      }
+      .hero__visual .mr-actions,
+      .hiw__layout .cal-event__actions {
+        width: 100% !important;
+        flex-basis: 100% !important;
+        margin-top: 8px;
+        display: flex !important;
+        justify-content: center !important;
+        gap: 8px !important;
+      }
+      .hero__visual .btn-rec,
+      .hero__visual .btn-rec--wide,
+      .hero__visual .btn-record,
+      .hero__visual .btn-skip,
+      .hiw__layout .btn-rec,
+      .hiw__layout .btn-record,
+      .hiw__layout .btn-skip {
+        flex: 0 0 auto;
+      }
+      .hiw__layout .btn-rec,
+      .hiw__layout .btn-record,
+      .hiw__layout .btn-skip {
+        padding: 8px 22px !important;
+        font-size: 12px !important;
+        min-width: 100px;
+      }
+
+      /* Features: enforce 1 column, full width */
+      .features-grid { grid-template-columns: 1fr !important; }
+      .feat-card { width: 100% !important; max-width: 100% !important; }
+
+      /* How it works step cards: no padding, no border, transparent */
+      .hiw__layout .step-card {
+        padding: 0 !important;
+        border: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+      }
+
+      /* Privacy items - stacked 1 col */
+      .privacy__trio {
+        grid-template-columns: 1fr !important;
+        gap: 32px !important;
+      }
+
+      /* Features - stacked 1 col */
+      .features-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      /* Hero shimmer on mobile - reposition vertical lines to fit narrow viewport */
+      .hero__shimmer .shim--v:nth-of-type(4) { left: 64px  !important; }
+      .hero__shimmer .shim--v:nth-of-type(5) { left: 160px !important; }
+      .hero__shimmer .shim--v:nth-of-type(6) { left: 256px !important; }
+      .hero__shimmer .shim--v:nth-of-type(7) { display: none !important; }
+      /* Mobile shimmer - identical shape to desktop, only color differs by mode */
+      .shim--h {
+        background-image: linear-gradient(90deg,
+          transparent 0%, transparent 35%,
+          rgba(129,140,248,0.55) 50%,
+          transparent 65%, transparent 100%) !important;
+      }
+      .shim--v {
+        background-image: linear-gradient(180deg,
+          transparent 0%, transparent 35%,
+          rgba(129,140,248,0.55) 50%,
+          transparent 65%, transparent 100%) !important;
+      }
+      [data-theme="dark"] .shim--h {
+        background-image: linear-gradient(90deg,
+          transparent 0%, transparent 35%,
+          rgba(255,255,255,0.16) 50%,
+          transparent 65%, transparent 100%) !important;
+      }
+      [data-theme="dark"] .shim--v {
+        background-image: linear-gradient(180deg,
+          transparent 0%, transparent 35%,
+          rgba(255,255,255,0.16) 50%,
+          transparent 65%, transparent 100%) !important;
+      }
+    }
+
+    /* === REC button wider for "Recording" text ============== */
+    .hero__visual .btn-rec--wide {
+      padding-left: 10px;
+      padding-right: 10px;
+      min-width: 88px;
+    }
+    /* "REC" label in meta line - now red+dot like the old recording */
+    .hero__visual .mr-recording {
+      letter-spacing: 0.06em;
+    }
+
+    /* === How it works: equalize step card heights ============ */
+    .hiw__layout { align-items: stretch !important; }
+    .hiw__layout .step-card {
+      display: flex;
+      flex-direction: column;
+    }
+    /* Push the mockup to the bottom of card so steps align */
+    .hiw__layout .step-card > .cal-mockup,
+    .hiw__layout .step-card > .mini-mockup,
+    .hiw__layout .step-card > .send-mockup {
+      margin-top: auto;
+    }
+    .hiw__layout .mini-mockup { min-height: 280px; }
+
+    /* === Privacy section - refined ========================== */
+    .privacy__inner {
+      background: linear-gradient(180deg, rgba(99,102,241,0.025), rgba(139,92,246,0.04)) !important;
+      border: 1px solid rgba(99,102,241,0.08) !important;
+      box-shadow: 0 20px 50px -30px rgba(99,102,241,0.12) !important;
+      padding: 44px 40px !important;
+    }
+    .privacy__inner::before {
+      background-image:
+        linear-gradient(to right, rgba(99,102,241,0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(99,102,241,0.05) 1px, transparent 1px) !important;
+      opacity: 0.5 !important;
+    }
+    .privacy__title {
+      font-size: clamp(26px, 3.2vw, 38px) !important;
+      letter-spacing: -0.02em;
+      margin-bottom: 48px !important;
+    }
+    .privacy__trio {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px !important;
+      padding: 16px 0 0;
+    }
+    .priv-item {
+      padding: 0;
+      align-items: flex-start !important;
+      text-align: left !important;
+    }
+    .priv-item__icon {
+      width: 36px !important;
+      height: 36px !important;
+      border-radius: 9px !important;
+      background: linear-gradient(180deg, rgba(99,102,241,0.14), rgba(139,92,246,0.08)) !important;
+      border: 1px solid rgba(99,102,241,0.15);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+      font-size: 16px !important;
+      margin-bottom: 8px;
+    }
+    .priv-item__label { font-size: 14px !important; letter-spacing: -0.005em; }
+    .priv-item__desc { font-size: 13px !important; line-height: 1.55 !important; }
+
+    /* === Features grid - fix typewriter expanding the card === */
+    .features-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+    .feat-card { min-width: 0; overflow: hidden; }
+    .dict-illus { max-width: 100%; box-sizing: border-box; }
+    .dict-input {
+      width: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+    .dict-text--typed {
+      display: flex !important;
+      flex: 1 1 0;
+      min-width: 0;
+      max-width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+    .dict-typewriter {
+      display: inline-block;
+      max-width: 100%;
+      min-width: 0;
+      flex-shrink: 1;
+    }
+
+    /* === Flow mockup (step 4 - Lands where you work) ======== */
+    .flow-mockup {
+      position: relative;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 16px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 4px;
+      min-height: 280px;
+    }
+    .flow-mockup__hub {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .flow-mockup__hub-icon {
+      width: 56px; height: 56px;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: none;
+    }
+    .flow-mockup__hub-icon img {
+      width: 100%; height: 100%; display: block;
+    }
+    .flow-mockup__lines {
+      width: 100%;
+      height: 220px;
+      display: block;
+    }
+    .flow-mockup__targets {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+      align-items: flex-start;
+    }
+    .flow-target {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px 6px 8px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      box-shadow: 0 1px 2px rgba(10,10,10,0.04);
+      min-width: 130px;
+    }
+    .flow-target__logo {
+      width: 22px; height: 22px;
+      border-radius: 6px;
+      background: var(--bg-gray);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .flow-target__logo img { width: 16px; height: 16px; display: block; }
+    .flow-target__name { font-size: 12px; font-weight: 600; color: var(--text); }
+
+    /* === Works everywhere (mini flow inside feat-card) ====== */
+    .works-flow {
+      position: relative;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      border: none;
+      padding: 0;
+      margin-top: 6px;
+    }
+    .works-flow__hub {
+      width: 44px; height: 44px;
+      border-radius: 11px;
+      overflow: hidden;
+      box-shadow: none;
+    }
+    .works-flow__hub img { width: 100%; height: 100%; display: block; }
+    .works-flow__lines {
+      width: 100%;
+      height: 140px;
+      display: block;
+    }
+    .works-flow__targets {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+    }
+    .works-flow__target {
+      width: 28px; height: 28px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 1px 2px rgba(10,10,10,0.05);
+    }
+    .works-flow__target img { width: 18px; height: 18px; display: block; }
+
+    /* === Folder structure (Context for LLM) ================= */
+    .folders {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .folder-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--text);
+    }
+    .folder-row--indent { padding-left: 16px; }
+    .folder-row--deep   { padding-left: 32px; }
+    /* macOS-style blue folder (CSS shape) */
+    .folder {
+      width: 18px;
+      height: 14px;
+      position: relative;
+      flex-shrink: 0;
+      background: linear-gradient(180deg, #74b9ff 0%, #4a90e2 100%);
+      border-radius: 2px 2px 3px 3px;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.45),
+        0 1px 2px rgba(74,144,226,0.30);
+    }
+    .folder::before {
+      content: "";
+      position: absolute;
+      top: -3px;
+      left: 0;
+      width: 8px;
+      height: 5px;
+      background: linear-gradient(180deg, #74b9ff, #5fa0e0);
+      border-radius: 2px 2px 0 0;
+    }
+    .folder--open {
+      background: linear-gradient(180deg, #5fa0e0 0%, #3b82f6 100%);
+    }
+    .folder-name { font-size: 12px; color: var(--text); font-weight: 500; }
+    .file-md {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px; height: 16px;
+      border-radius: 3px;
+      background: rgba(99,102,241,0.14);
+      color: #4338ca;
+      font-size: 8.5px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      border: 1px solid rgba(99,102,241,0.20);
+      flex-shrink: 0;
+    }
+
+    /* Step 4 should not span 2 cols anymore - keep at 1 col */
+    .hiw__layout .step-card--featured { grid-column: auto; }
+
+    /* === No Bots: refined "Recording locally" pill ========== */
+    .nobots-mac { margin: 8px auto 0; width: auto; }
+    .nobots-mac__base { display: none; }
+    .nobots-mac__screen {
+      display: inline-flex;
+      background: rgba(99,102,241,0.08);
+      color: #4338ca;
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 11px;
+      font-weight: 600;
+      border: 1px solid rgba(99,102,241,0.16);
+      box-shadow: none;
+    }
+    .nobots-mac__dot {
+      width: 6px; height: 6px; border-radius: 999px;
+      background: #ef4444;
+      box-shadow: 0 0 0 3px rgba(239,68,68,0.16);
+      animation: pulse-rec 1.4s ease-in-out infinite;
+    }
+
+    /* ========================================================
+       MODAL POPUP - match site aesthetic
+       ======================================================== */
+    .modal-overlay {
+      background: rgba(10,10,10,0.50) !important;
+      -webkit-backdrop-filter: blur(6px);
+              backdrop-filter: blur(6px);
+    }
+    .modal {
+      border-radius: 20px !important;
+      box-shadow:
+        0 0 0 1px rgba(10,10,10,0.05),
+        0 30px 80px -20px rgba(10,10,10,0.30),
+        0 10px 30px -10px rgba(10,10,10,0.15) !important;
+    }
+    .modal__title {
+      font-family: 'Ancizar Serif', Georgia, serif;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .modal__close {
+      border-radius: 9px !important;
+    }
+    .modal__input {
+      background: #fff !important;
+      border: 1px solid var(--border) !important;
+      border-radius: 10px !important;
+    }
+    .modal__input:focus {
+      background: #fff !important;
+      border-color: var(--accent) !important;
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.12) !important;
+    }
+    /* Primary submit - matches black hero CTA */
+    .modal__submit {
+      background: #0a0a0a !important;
+      color: #fff !important;
+      border: 1px solid #000 !important;
+      border-radius: 10px !important;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.08),
+        0 1px 2px rgba(0,0,0,0.06),
+        0 10px 28px -10px rgba(0,0,0,0.32) !important;
+      transition: background 160ms ease, transform 120ms ease, box-shadow 160ms ease !important;
+    }
+    .modal__submit:hover {
+      background: #1a1a1a !important;
+      transform: translateY(-1px);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.10),
+        0 2px 4px rgba(0,0,0,0.08),
+        0 14px 32px -10px rgba(0,0,0,0.36) !important;
+    }
+    /* Secondary action: ghost / outlined */
+    .modal__submit--secondary {
+      background: transparent !important;
+      color: var(--text) !important;
+      border: 1px solid var(--border-strong) !important;
+      box-shadow: none !important;
+    }
+    .modal__submit--secondary:hover {
+      background: var(--bg-gray) !important;
+      border-color: var(--text-muted) !important;
+      transform: none;
+      box-shadow: none !important;
+    }
+    .install-step__num {
+      background: rgba(99,102,241,0.10) !important;
+      color: var(--accent) !important;
+    }
+
+    /* ========================================================
+       THEME TOGGLE BUTTON
+       ======================================================== */
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 36px;
+      border-radius: 9px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      cursor: pointer;
+      margin-right: 4px;
+      transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+    }
+    .theme-toggle:hover {
+      background: var(--bg-gray);
+      color: var(--text);
+      border-color: var(--border-strong);
+    }
+    .theme-toggle__icon { display: block; }
+    .theme-toggle__icon--sun { display: none; }
+    [data-theme="dark"] .theme-toggle__icon--moon { display: none; }
+    [data-theme="dark"] .theme-toggle__icon--sun { display: block; }
+
+    /* ========================================================
+       DARK MODE
+       ======================================================== */
+    [data-theme="dark"] {
+      --bg: #171717;
+      --bg-subtle: #1c1c1e;
+      --bg-gray: #262629;
+      --text: #fafafa;
+      --text-muted: #a1a1aa;
+      --text-subtle: #71717a;
+      --accent: #818cf8;
+      --accent-hover: #a5b4fc;
+      --accent-soft: rgba(99,102,241,0.14);
+      --border: rgba(255,255,255,0.08);
+      --border-strong: rgba(255,255,255,0.14);
+    }
+
+    /* smooth transitions between modes */
+    body, .nav, .feat-card, .step-card, .int-item, .site-footer,
+    .mac-window, .mini-mockup, .cal-mockup, .send-mockup, .meeting-row,
+    .cal-event, .send-dest, .modal, .privacy__inner, .hero-badge,
+    .nobots-card, .models-tile, .mac-notif, .kbd, .dict-input {
+      transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
+    }
+
+    [data-theme="dark"] body { background: #171717; color: var(--text); }
+
+    /* Subtle SVG noise/grain overlay */
+    [data-theme="dark"] body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+      opacity: 0.55;
+      mix-blend-mode: overlay;
+    }
+
+    /* Hero in dark */
+    [data-theme="dark"] .hero { background: #171717 !important; }
+    [data-theme="dark"] .hero::after {
+      background: linear-gradient(180deg, transparent, #171717) !important;
+    }
+    [data-theme="dark"] .hero__bg::after {
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px) !important;
+    }
+    /* Dark mode aurora handled by .hero__aurora-svg above (uses feGaussianBlur) */
+
+    /* Nav */
+    [data-theme="dark"] .nav { background: rgba(23,23,23,0.7) !important; }
+    [data-theme="dark"] .nav--scrolled {
+      background: rgba(23,23,23,0.85) !important;
+      border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+    }
+    [data-theme="dark"] .nav__logo-img { filter: invert(1) brightness(1.05); }
+    [data-theme="dark"] .nav__link { color: var(--text-muted); }
+    [data-theme="dark"] .nav__link:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+    [data-theme="dark"] .nav__links { border-right-color: rgba(255,255,255,0.10); }
+
+    /* Primary + nav CTA invert in dark (white bg, dark text) */
+    [data-theme="dark"] .btn--primary,
+    [data-theme="dark"] .btn--nav {
+      background: #fafafa !important;
+      color: #0a0a0a !important;
+      border: 1px solid rgba(255,255,255,0.10) !important;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.50),
+        0 1px 2px rgba(0,0,0,0.30),
+        0 8px 24px -8px rgba(0,0,0,0.50) !important;
+    }
+    [data-theme="dark"] .btn--primary:hover,
+    [data-theme="dark"] .btn--nav:hover { background: #fff !important; }
+    [data-theme="dark"] .btn--primary .btn-apple-icon,
+    [data-theme="dark"] .btn--nav .btn-apple-icon { filter: none !important; }
+
+    /* Pill - dark glass */
+    [data-theme="dark"] .hero-pill {
+      background: rgba(255,255,255,0.05) !important;
+      border-color: rgba(255,255,255,0.10) !important;
+      color: #fafafa;
+    }
+    [data-theme="dark"] .hero-pill:hover {
+      background: rgba(255,255,255,0.08) !important;
+      border-color: rgba(255,255,255,0.16) !important;
+    }
+    [data-theme="dark"] .hero-pill__tag { color: #a5b4fc; }
+
+    /* Headline accent - brighter gradient in dark */
+    [data-theme="dark"] .hero__title .accent {
+      background: linear-gradient(180deg, #a78bfa 0%, #818cf8 100%) !important;
+      -webkit-background-clip: text !important;
+              background-clip: text !important;
+      color: transparent !important;
+    }
+
+    /* Mac window dark */
+    [data-theme="dark"] .hero__visual .mac-window {
+      background:
+        radial-gradient(ellipse 70% 50% at 20% 0%, rgba(99,102,241,0.10), transparent 60%),
+        radial-gradient(ellipse 50% 40% at 100% 100%, rgba(139,92,246,0.10), transparent 60%),
+        #1c1c1e !important;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.06),
+        0 30px 70px -28px rgba(99,102,241,0.30),
+        0 70px 140px -40px rgba(0,0,0,0.5) !important;
+    }
+    [data-theme="dark"] .hero__visual .mac-titlebar {
+      background: rgba(28,28,30,0.7) !important;
+      border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+    }
+    [data-theme="dark"] .hero__visual .mac-title { color: #9ca3af !important; }
+    [data-theme="dark"] .hero__visual .mac-sidebar {
+      background: linear-gradient(180deg, rgba(38,38,41,0.55), rgba(28,28,30,0.30)) !important;
+      border-right: 1px solid rgba(255,255,255,0.05) !important;
+    }
+    [data-theme="dark"] .sb-label { color: #71717a !important; }
+    [data-theme="dark"] .sb-item { color: #d4d4d8 !important; }
+    [data-theme="dark"] .hero__visual .sb-item--active {
+      background: linear-gradient(180deg, rgba(99,102,241,0.20), rgba(139,92,246,0.10)) !important;
+      box-shadow: inset 0 0 0 1px rgba(99,102,241,0.30) !important;
+      color: #fafafa !important;
+    }
+    [data-theme="dark"] .mac-main__title { color: #fafafa !important; }
+    [data-theme="dark"] .mac-main__date { color: #71717a !important; }
+    [data-theme="dark"] .meeting-row {
+      background: rgba(38,38,41,0.35) !important;
+      border-color: rgba(255,255,255,0.05) !important;
+    }
+    [data-theme="dark"] .meeting-row:hover {
+      background: rgba(38,38,41,0.55) !important;
+      border-color: rgba(255,255,255,0.10) !important;
+    }
+    [data-theme="dark"] .hero__visual .meeting-row--active {
+      background: linear-gradient(180deg, rgba(99,102,241,0.18), rgba(139,92,246,0.06)) !important;
+      border-color: rgba(99,102,241,0.30) !important;
+    }
+    [data-theme="dark"] .mr-time__main,
+    [data-theme="dark"] .mr-title { color: #fafafa !important; }
+    [data-theme="dark"] .mr-meta,
+    [data-theme="dark"] .mr-time__sub { color: #a1a1aa !important; }
+    [data-theme="dark"] .mr-platform { background: rgba(255,255,255,0.05) !important; color: #d4d4d8 !important; }
+    [data-theme="dark"] .hero__visual .btn-record,
+    [data-theme="dark"] .cal-mockup .btn-record {
+      background: rgba(255,255,255,0.04) !important;
+      color: #fafafa !important;
+      border-color: rgba(255,255,255,0.10) !important;
+    }
+    [data-theme="dark"] .hero__visual .btn-record:hover,
+    [data-theme="dark"] .cal-mockup .btn-record:hover {
+      background: rgba(255,255,255,0.08) !important;
+      border-color: rgba(255,255,255,0.18) !important;
+    }
+    [data-theme="dark"] .btn-skip {
+      background: rgba(255,255,255,0.04) !important;
+      color: #a1a1aa !important;
+      border-color: rgba(255,255,255,0.08) !important;
+    }
+    [data-theme="dark"] .hero__visual .last-sent {
+      background: linear-gradient(180deg, rgba(99,102,241,0.16), rgba(139,92,246,0.06)) !important;
+      border-color: rgba(99,102,241,0.22) !important;
+    }
+    [data-theme="dark"] .last-sent__label,
+    [data-theme="dark"] .last-sent__name { color: #c7d2fe !important; }
+    [data-theme="dark"] .notion-badge { background: #262629 !important; color: #fafafa !important; }
+    [data-theme="dark"] .last-sent__destination { color: #c7d2fe !important; }
+    [data-theme="dark"] .mac-divider {
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.10), transparent) !important;
+    }
+
+    /* Floating badges dark glass */
+    [data-theme="dark"] .hero-badge {
+      background: rgba(28,28,30,0.72) !important;
+      border-color: rgba(255,255,255,0.08) !important;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.06),
+        0 14px 36px -10px rgba(0,0,0,0.55),
+        0 2px 6px rgba(0,0,0,0.30) !important;
+    }
+    [data-theme="dark"] .hero-badge__label-top { color: #71717a !important; }
+    [data-theme="dark"] .hero-badge__label-bottom { color: #fafafa !important; }
+    [data-theme="dark"] .hero-badge__said { color: #d4d4d8 !important; }
+    [data-theme="dark"] .hero-badge__speaker {
+      background: rgba(99,102,241,0.20) !important;
+      color: #a5b4fc !important;
+    }
+    [data-theme="dark"] .hero-badge__icon--gray {
+      background: linear-gradient(180deg, #404044, #262629) !important;
+    }
+    [data-theme="dark"] .hero-badge__icon--blue {
+      background: linear-gradient(180deg, #4c1d95, #312e81) !important;
+    }
+    [data-theme="dark"] .hero-badge__icon--teal {
+      background: linear-gradient(180deg, #312e81, #1e1b4b) !important;
+    }
+    [data-theme="dark"] .hero-badge__icon--amber {
+      background: linear-gradient(180deg, #78350f, #422006) !important;
+    }
+
+    /* How it works cards */
+    [data-theme="dark"] .step-card {
+      background: #1c1c1e !important;
+      border-color: rgba(255,255,255,0.06) !important;
+    }
+    [data-theme="dark"] .step-num {
+      background: rgba(255,255,255,0.05) !important;
+      color: #a1a1aa !important;
+    }
+    [data-theme="dark"] .step-title { color: #fafafa !important; }
+    [data-theme="dark"] .step-desc { color: #a1a1aa !important; }
+
+    /* Calendar / mini / send mockups inside steps */
+    [data-theme="dark"] .cal-mockup,
+    [data-theme="dark"] .mini-mockup,
+    [data-theme="dark"] .send-mockup {
+      background: #262629 !important;
+      border-color: rgba(255,255,255,0.06) !important;
+    }
+    [data-theme="dark"] .cal-mockup__header,
+    [data-theme="dark"] .mm-bar {
+      background: rgba(255,255,255,0.03) !important;
+      border-bottom-color: rgba(255,255,255,0.06) !important;
+    }
+    [data-theme="dark"] .cal-mockup__title,
+    [data-theme="dark"] .cal-event__name,
+    [data-theme="dark"] .mm-ts-title,
+    [data-theme="dark"] .mm-rec-timer { color: #fafafa !important; }
+    [data-theme="dark"] .cal-mockup__date,
+    [data-theme="dark"] .cal-mockup__day-label,
+    [data-theme="dark"] .cal-event__time,
+    [data-theme="dark"] .cal-event__meta,
+    [data-theme="dark"] .mm-bar__label,
+    [data-theme="dark"] .mm-ts-meta,
+    [data-theme="dark"] .mm-ts-time,
+    [data-theme="dark"] .mm-ts-line,
+    [data-theme="dark"] .mm-ts-footer,
+    [data-theme="dark"] .mm-private-tag { color: #a1a1aa !important; }
+    [data-theme="dark"] .cal-event,
+    [data-theme="dark"] .send-dest {
+      background: rgba(255,255,255,0.02) !important;
+      border-color: rgba(255,255,255,0.05) !important;
+    }
+    [data-theme="dark"] .cal-event--active {
+      background: rgba(99,102,241,0.14) !important;
+      border-color: rgba(99,102,241,0.25) !important;
+    }
+    [data-theme="dark"] .send-dest--sent {
+      background: rgba(99,102,241,0.12) !important;
+      border-color: rgba(99,102,241,0.25) !important;
+    }
+    [data-theme="dark"] .send-dest__name { color: #d4d4d8 !important; }
+    [data-theme="dark"] .send-dest__dots { color: #71717a !important; }
+    [data-theme="dark"] .sync-badge { color: #a5b4fc !important; }
+    [data-theme="dark"] .send-header {
+      background: rgba(99,102,241,0.14) !important;
+      border-bottom-color: rgba(99,102,241,0.20) !important;
+      color: #a5b4fc !important;
+    }
+    [data-theme="dark"] .send-footer { color: #71717a !important; border-top-color: rgba(255,255,255,0.06) !important; }
+    [data-theme="dark"] .mac-divider, [data-theme="dark"] .cal-divider {
+      background: rgba(255,255,255,0.06) !important;
+    }
+    [data-theme="dark"] .mm-fade { background: linear-gradient(to bottom, transparent, #262629) !important; }
+
+    /* macOS notification - dark */
+    [data-theme="dark"] .mac-notif {
+      background: rgba(38,38,41,0.85) !important;
+      border-color: rgba(255,255,255,0.08) !important;
+    }
+    [data-theme="dark"] .mac-notif__app,
+    [data-theme="dark"] .mac-notif__title { color: #fafafa !important; }
+    [data-theme="dark"] .mac-notif__sub { color: #a1a1aa !important; }
+    [data-theme="dark"] .mac-notif__time { color: #71717a !important; }
+    [data-theme="dark"] .mac-notif__icon { background: linear-gradient(180deg, #6366f1, #4338ca) !important; }
+
+    /* No bots card */
+    [data-theme="dark"] .nobots-card,
+    [data-theme="dark"] .models-tile {
+      background: #1c1c1e !important;
+      border-color: rgba(255,255,255,0.06) !important;
+    }
+    [data-theme="dark"] .nobots-x { background: rgba(220,38,38,0.18) !important; color: #fca5a5 !important; }
+    [data-theme="dark"] .nobots-check { background: rgba(99,102,241,0.20) !important; color: #a5b4fc !important; }
+    [data-theme="dark"] .model-row { background: rgba(255,255,255,0.03) !important; }
+    [data-theme="dark"] .model-row__name { color: #fafafa !important; }
+    [data-theme="dark"] .model-row--active {
+      background: linear-gradient(180deg, rgba(99,102,241,0.18), rgba(139,92,246,0.06)) !important;
+      border-color: rgba(99,102,241,0.30) !important;
+    }
+    [data-theme="dark"] .model-row__status { background: rgba(99,102,241,0.20) !important; color: #a5b4fc !important; }
+    [data-theme="dark"] .model-row__status--idle { background: rgba(255,255,255,0.05) !important; color: #a1a1aa !important; }
+    [data-theme="dark"] .model-row__size { color: #71717a !important; }
+
+    /* Feature cards */
+    [data-theme="dark"] .feat-card {
+      background: #1c1c1e !important;
+      border-color: rgba(255,255,255,0.06) !important;
+    }
+    [data-theme="dark"] .feat-card:hover {
+      border-color: rgba(255,255,255,0.12) !important;
+    }
+    [data-theme="dark"] .feat-card__icon {
+      background: rgba(255,255,255,0.04) !important;
+    }
+    [data-theme="dark"] .feat-card__title { color: #fafafa !important; }
+    [data-theme="dark"] .feat-card__desc { color: #a1a1aa !important; }
+
+    /* Quick dictation tile - dark themed */
+    [data-theme="dark"] .dict-illus {
+      background: rgba(255,255,255,0.02) !important;
+      border: 1px solid rgba(255,255,255,0.06) !important;
+    }
+    [data-theme="dark"] .kbd {
+      background: rgba(255,255,255,0.06) !important;
+      color: #fafafa !important;
+      border: 1px solid rgba(255,255,255,0.10) !important;
+      border-bottom: 2px solid rgba(255,255,255,0.14) !important;
+      box-shadow: inset 0 -1px 0 rgba(0,0,0,0.30), 0 1px 2px rgba(0,0,0,0.30) !important;
+    }
+    [data-theme="dark"] .dict-hint,
+    [data-theme="dark"] .kbd-plus { color: #a1a1aa !important; }
+    [data-theme="dark"] .dict-input {
+      background: rgba(255,255,255,0.03) !important;
+      border-color: rgba(99,102,241,0.40) !important;
+    }
+    [data-theme="dark"] .dict-text,
+    [data-theme="dark"] .dict-typewriter { color: #fafafa !important; }
+    [data-theme="dark"] .dict-typewriter::before { color: #fafafa; }
+    [data-theme="dark"] .dict-cursor { background: var(--accent) !important; }
+    [data-theme="dark"] .dict-wbar,
+    [data-theme="dark"] .wbar { background: var(--accent) !important; }
+
+    /* Privacy section - dark elevated card */
+    [data-theme="dark"] .privacy { background: transparent !important; }
+    [data-theme="dark"] .privacy__inner {
+      background: linear-gradient(180deg, rgba(99,102,241,0.10), rgba(139,92,246,0.16)) !important;
+      border-color: rgba(99,102,241,0.20) !important;
+      box-shadow: 0 30px 80px -40px rgba(99,102,241,0.40) !important;
+    }
+    [data-theme="dark"] .privacy__inner::before {
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px) !important;
+    }
+    [data-theme="dark"] .privacy__title { color: #fafafa !important; }
+    [data-theme="dark"] .privacy__title em { color: #a5b4fc !important; }
+    [data-theme="dark"] .priv-item__icon { background: rgba(255,255,255,0.06) !important; }
+    [data-theme="dark"] .priv-item__label { color: #fafafa !important; }
+    [data-theme="dark"] .priv-item__desc { color: #a1a1aa !important; }
+
+    /* Integrations grid - flat, no border/shadow, no hover change */
+    [data-theme="dark"] .integrations { background: transparent !important; }
+    [data-theme="dark"] .int-item {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+    [data-theme="dark"] .int-item:hover {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+    [data-theme="dark"] .int-item--soon { opacity: 0.7; }
+    [data-theme="dark"] .int-item__name { color: #fafafa !important; }
+    [data-theme="dark"] .int-item__logo {
+      background: rgba(255,255,255,0.06) !important;
+      border-radius: 10px;
+      padding: 4px;
+    }
+    [data-theme="dark"] .int-soon {
+      color: #a1a1aa !important;
+      background: rgba(255,255,255,0.06) !important;
+    }
+
+    /* CTA section */
+    [data-theme="dark"] .cta { background: #171717 !important; }
+    [data-theme="dark"] .cta__title { color: #fafafa !important; }
+    [data-theme="dark"] .cta__sub,
+    [data-theme="dark"] .cta__note { color: #a1a1aa !important; }
+
+    /* Footer */
+    [data-theme="dark"] .site-footer {
+      background: #171717 !important;
+      border-top-color: rgba(255,255,255,0.06) !important;
+      color: #71717a !important;
+    }
+    [data-theme="dark"] .site-footer a { color: #a1a1aa !important; }
+    [data-theme="dark"] .site-footer a:hover { color: #fafafa !important; }
+
+    /* Modal - dark */
+    [data-theme="dark"] .modal-overlay {
+      background: rgba(0,0,0,0.65) !important;
+    }
+    [data-theme="dark"] .modal {
+      background: #1c1c1e !important;
+      color: #fafafa !important;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.06),
+        0 30px 80px -20px rgba(0,0,0,0.8),
+        0 10px 30px -10px rgba(0,0,0,0.5) !important;
+    }
+    [data-theme="dark"] .modal__title { color: #fafafa !important; }
+    [data-theme="dark"] .modal__sub,
+    [data-theme="dark"] .modal__fine { color: #a1a1aa !important; }
+    [data-theme="dark"] .modal__label { color: #d4d4d8 !important; }
+    [data-theme="dark"] .modal__input {
+      background: rgba(255,255,255,0.04) !important;
+      color: #fafafa !important;
+      border-color: rgba(255,255,255,0.10) !important;
+    }
+    [data-theme="dark"] .modal__input:focus {
+      background: rgba(255,255,255,0.06) !important;
+      border-color: var(--accent) !important;
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.20) !important;
+    }
+    [data-theme="dark"] .modal__close { color: #a1a1aa !important; }
+    [data-theme="dark"] .modal__close:hover {
+      background: rgba(255,255,255,0.08) !important;
+      color: #fafafa !important;
+    }
+    /* Primary submit inverted in dark (white bg) */
+    [data-theme="dark"] .modal__submit {
+      background: #fafafa !important;
+      color: #0a0a0a !important;
+      border: 1px solid rgba(255,255,255,0.10) !important;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.50),
+        0 1px 2px rgba(0,0,0,0.30),
+        0 8px 24px -8px rgba(0,0,0,0.50) !important;
+    }
+    [data-theme="dark"] .modal__submit:hover {
+      background: #fff !important;
+    }
+    [data-theme="dark"] .modal__submit--secondary {
+      background: transparent !important;
+      color: #fafafa !important;
+      border: 1px solid rgba(255,255,255,0.14) !important;
+      box-shadow: none !important;
+    }
+    [data-theme="dark"] .modal__submit--secondary:hover {
+      background: rgba(255,255,255,0.06) !important;
+      border-color: rgba(255,255,255,0.22) !important;
+    }
+    [data-theme="dark"] .install-step__num {
+      background: rgba(99,102,241,0.20) !important;
+      color: #a5b4fc !important;
+    }
+
+    /* Flow mockup (step 4) dark */
+    [data-theme="dark"] .flow-mockup {
+      background: #1c1c1e !important;
+      border-color: rgba(255,255,255,0.06) !important;
+    }
+    [data-theme="dark"] .flow-mockup__hub-label { color: #fafafa !important; }
+    [data-theme="dark"] .flow-target {
+      background: #262629 !important;
+      border-color: rgba(255,255,255,0.06) !important;
+    }
+    [data-theme="dark"] .flow-target__logo { background: rgba(255,255,255,0.06) !important; }
+    [data-theme="dark"] .flow-target__name { color: #fafafa !important; }
+    [data-theme="dark"] .flow-mockup__lines path[stroke^="rgba(99,102,241,0.18)"] {
+      stroke: rgba(99,102,241,0.30) !important;
+    }
+
+    /* Works everywhere mini-flow dark - no purple bg, transparent */
+    [data-theme="dark"] .works-flow {
+      background: transparent !important;
+      border: none !important;
+      padding: 0 !important;
+    }
+    [data-theme="dark"] .works-flow__target {
+      background: #262629 !important;
+      border-color: rgba(255,255,255,0.08) !important;
+    }
+    [data-theme="dark"] .works-flow__lines path[stroke^="rgba(99,102,241,0.18)"] {
+      stroke: rgba(99,102,241,0.30) !important;
+    }
+
+    /* Folder structure dark */
+    [data-theme="dark"] .folders {
+      background: #1c1c1e !important;
+      border-color: rgba(255,255,255,0.06) !important;
+    }
+    [data-theme="dark"] .folder-row,
+    [data-theme="dark"] .folder-name { color: #fafafa !important; }
+    [data-theme="dark"] .file-md {
+      background: rgba(99,102,241,0.20) !important;
+      color: #a5b4fc !important;
+      border-color: rgba(99,102,241,0.30) !important;
+    }
+
+    /* Section headers labels */
+    [data-theme="dark"] .label { color: var(--accent); }
+    [data-theme="dark"] h1,
+    [data-theme="dark"] h2,
+    [data-theme="dark"] h3 { color: #fafafa; }
+    [data-theme="dark"] .hero__sub { color: #a1a1aa !important; }
+    [data-theme="dark"] .hero__meta { color: #71717a; }
+    [data-theme="dark"] .hero__meta-sep { color: rgba(255,255,255,0.10); }
+  </style>
 </head>
 <body>
 
@@ -34,6 +1863,18 @@
         <a href="#features" class="nav__link">Features</a>
         <a href="#integrations" class="nav__link">Integrations</a>
       </nav>
+      <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode" type="button">
+        <svg class="theme-toggle__icon theme-toggle__icon--moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="theme-toggle__icon theme-toggle__icon--sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"/>
+          <line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/>
+          <line x1="4.93" y1="4.93" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.07" y2="19.07"/>
+          <line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/>
+          <line x1="4.93" y1="19.07" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.07" y2="4.93"/>
+        </svg>
+      </button>
       <button class="btn btn--nav" data-modal-open><img src="assets/icons/apple.svg" width="13" height="13" alt="" aria-hidden="true" class="btn-apple-icon"> Download for Mac</button>
     </div>
   </nav>
@@ -42,47 +1883,57 @@
 <main>
 
   <!-- ============================================================
-       HERO
+       HERO v3 - modern silicon (preview)
        ============================================================ -->
   <section class="hero" id="hero">
-    <div class="hero__bg" aria-hidden="true">
-      <svg viewBox="0 0 1440 720" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <filter id="blob-blur" x="-60%" y="-60%" width="220%" height="220%">
-            <feGaussianBlur stdDeviation="80"/>
-          </filter>
-          <pattern id="diag" x="0" y="0" width="64" height="64" patternUnits="userSpaceOnUse" patternTransform="rotate(-50 0 0)">
-            <line x1="0" y1="0" x2="0" y2="64" stroke="rgba(13,148,136,0.1)" stroke-width="1"/>
-          </pattern>
-          <pattern id="diag2" x="20" y="20" width="64" height="64" patternUnits="userSpaceOnUse" patternTransform="rotate(-50 0 0)">
-            <line x1="0" y1="0" x2="0" y2="64" stroke="rgba(13,148,136,0.04)" stroke-width="0.5"/>
-          </pattern>
-          <radialGradient id="vg" cx="50%" cy="42%" r="52%">
-            <stop offset="0%"   stop-color="white" stop-opacity="0"/>
-            <stop offset="68%"  stop-color="white" stop-opacity="0"/>
-            <stop offset="100%" stop-color="white" stop-opacity="1"/>
-          </radialGradient>
-          <mask id="vm">
-            <rect width="1440" height="720" fill="white"/>
-            <rect width="1440" height="720" fill="url(#vg)"/>
-          </mask>
-        </defs>
-        <rect width="1440" height="720" fill="url(#diag)"  mask="url(#vm)"/>
-        <rect width="1440" height="720" fill="url(#diag2)" mask="url(#vm)"/>
-        <ellipse cx="720"  cy="90"  rx="520" ry="200" fill="rgba(13,148,136,0.18)" filter="url(#blob-blur)"/>
-        <ellipse cx="180"  cy="420" rx="240" ry="180" fill="rgba(13,148,136,0.14)" filter="url(#blob-blur)"/>
-        <ellipse cx="1280" cy="380" rx="220" ry="170" fill="rgba(13,148,136,0.14)" filter="url(#blob-blur)"/>
-      </svg>
+    <div class="hero__bg" aria-hidden="true"></div>
+    <div class="hero__deepbg" aria-hidden="true"></div>
+    <svg class="hero__aurora-svg" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1000 700" aria-hidden="true">
+      <defs>
+        <filter id="aurora-smooth" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="55"/>
+        </filter>
+        <filter id="aurora-grain" x="0" y="0" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+          <feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.10 0"/>
+          <feComposite in2="SourceGraphic" operator="in"/>
+        </filter>
+        <radialGradient id="aurora-rg" cx="50%" cy="92%" r="62%">
+          <stop offset="0%"   stop-color="#8b5cf6" stop-opacity="0.62"/>
+          <stop offset="14%"  stop-color="#8b5cf6" stop-opacity="0.50"/>
+          <stop offset="28%"  stop-color="#8b5cf6" stop-opacity="0.36"/>
+          <stop offset="44%"  stop-color="#8b5cf6" stop-opacity="0.22"/>
+          <stop offset="60%"  stop-color="#8b5cf6" stop-opacity="0.11"/>
+          <stop offset="78%"  stop-color="#8b5cf6" stop-opacity="0.03"/>
+          <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect width="1000" height="700" fill="url(#aurora-rg)" filter="url(#aurora-smooth)"/>
+      <rect width="1000" height="700" fill="url(#aurora-rg)" filter="url(#aurora-grain)" opacity="0.45"/>
+    </svg>
+    <div class="hero__shimmer" aria-hidden="true">
+      <div class="shim shim--h" style="top:   96px; background-size: 62% 100%; animation-duration: 9.2s;  animation-delay: -1.4s;"></div>
+      <div class="shim shim--h" style="top:  384px; background-size: 32% 100%; animation-duration: 7.8s;  animation-delay:  0.6s;"></div>
+      <div class="shim shim--h" style="top:  576px; background-size: 48% 100%; animation-duration: 10.7s; animation-delay:  3.2s;"></div>
+      <div class="shim shim--v" style="left: 192px;  background-size: 100% 22%; animation-duration: 8s;    animation-delay: -0.6s;"></div>
+      <div class="shim shim--v" style="left: 576px;  background-size: 100% 65%; animation-duration: 12.2s; animation-delay:  1.9s;"></div>
+      <div class="shim shim--v" style="left: 864px;  background-size: 100% 38%; animation-duration: 8.5s;  animation-delay:  4.3s;"></div>
+      <div class="shim shim--v" style="left: 1248px; background-size: 100% 52%; animation-duration: 10s;   animation-delay:  2.3s;"></div>
     </div>
+    <div class="hero__aurora" aria-hidden="true"></div>
 
     <div class="container">
       <div class="hero__text">
-        <p class="label reveal">Private Meeting Intelligence for Mac</p>
+        <a class="hero-pill reveal" href="#privacy">
+          <span class="hero-pill__dot" aria-hidden="true"></span>
+          <span><span class="hero-pill__tag">Privacy</span> &nbsp;On-device transcription</span>
+          <span class="hero-pill__arrow" aria-hidden="true">→</span>
+        </a>
         <h1 class="hero__title reveal d1">
           <span class="line">Every conversation, <span class="accent">captured.</span></span>
           <span class="line">Nothing leaves your Mac.</span>
         </h1>
-        <p class="hero__sub reveal d2">TNN records your meetings locally, transcribes them privately, and sends structured notes wherever you work — automatically.</p>
+        <p class="hero__sub reveal d2">Record. Transcribe. Build context.</p>
         <div class="hero__actions reveal d3">
           <button class="btn btn--primary" data-modal-open>
             <img src="assets/icons/apple.svg" width="15" height="15" alt="" aria-hidden="true" class="btn-apple-icon">
@@ -100,21 +1951,33 @@
 
       <div class="hero__visual reveal d4">
         <div class="hero-badge" aria-hidden="true">
-          <div class="hero-badge__icon hero-badge__icon--teal">✓</div>
-          <div>
-            <div class="hero-badge__label-top">Transcribed &amp; sent</div>
-            <div class="hero-badge__label-bottom">Weekly Standup → Notion</div>
-          </div>
-        </div>
-        <div class="hero-badge" aria-hidden="true">
           <div class="hero-badge__icon hero-badge__icon--amber">⚡</div>
           <div>
             <div class="hero-badge__label-top">On-device AI</div>
             <div class="hero-badge__label-bottom">No cloud. No upload.</div>
           </div>
         </div>
+        <div class="hero-badge hero-badge--transcript" aria-hidden="true">
+          <div class="hero-badge__body">
+            <div class="hero-badge__label-top">Transcription</div>
+            <div class="hero-badge__dialog">
+              <div class="hero-badge__line">
+                <span class="hero-badge__speaker">SPEAKER_01</span>
+                <span class="hero-badge__said">Let's sync on the Q3 roadmap.</span>
+              </div>
+              <div class="hero-badge__line">
+                <span class="hero-badge__speaker">SPEAKER_02</span>
+                <span class="hero-badge__said">Sure, pulling up the doc now.</span>
+              </div>
+              <div class="hero-badge__line">
+                <span class="hero-badge__speaker">SPEAKER_01</span>
+                <span class="hero-badge__said">Great. Let's start with priorities.</span>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="hero-badge" aria-hidden="true">
-          <div class="hero-badge__icon hero-badge__icon--teal">🔒</div>
+          <div class="hero-badge__icon hero-badge__icon--gray">🔒</div>
           <div>
             <div class="hero-badge__label-top">100% private</div>
             <div class="hero-badge__label-bottom">Stays on your Mac</div>
@@ -126,7 +1989,7 @@
             <div class="mac-btn mac-btn--red"></div>
             <div class="mac-btn mac-btn--yellow"></div>
             <div class="mac-btn mac-btn--green"></div>
-            <div class="mac-title">Thoughts Not Notes</div>
+            <div class="mac-title"></div>
           </div>
           <div class="mac-body">
             <div class="mac-sidebar" aria-hidden="true">
@@ -136,6 +1999,8 @@
               <div class="sb-item"><div class="sb-dot sb-dot--inactive"></div>All recordings</div>
               <div class="sb-label sb-label--spaced">Tools</div>
               <div class="sb-item">⚡ Quick dictation</div>
+              <div class="sb-item">📞 Instant meeting</div>
+              <div class="sb-item">🧠 Models</div>
               <div class="sb-item">⚙️ Settings</div>
             </div>
             <div class="mac-main">
@@ -147,11 +2012,10 @@
                 <div><div class="mr-time__main">10:00</div><div class="mr-time__sub">AM</div></div>
                 <div>
                   <div class="mr-title">Design Review</div>
-                  <div class="mr-meta"><span class="mr-platform">Google Meet</span>45 min · Starts in 5 min</div>
+                  <div class="mr-meta"><span class="mr-platform">Google Meet</span><span class="mr-recording"><span class="mr-recording__dot"></span>REC</span> · 17 min left</div>
                 </div>
                 <div class="mr-actions">
-                  <button class="btn-rec"><div class="rec-dot"></div>REC</button>
-                  <button class="btn-skip">Skip</button>
+                  <button class="btn-rec btn-rec--wide"><div class="rec-dot"></div>Recording</button>
                 </div>
               </div>
               <div class="meeting-row">
@@ -161,7 +2025,7 @@
                   <div class="mr-meta"><span class="mr-platform">Zoom</span>60 min</div>
                 </div>
                 <div class="mr-actions">
-                  <button class="btn-rec"><div class="rec-dot" style="animation-delay:.3s"></div>REC</button>
+                  <button class="btn-record">Record</button>
                   <button class="btn-skip">Skip</button>
                 </div>
               </div>
@@ -172,15 +2036,15 @@
                   <div class="mr-meta"><span class="mr-platform">Teams</span>30 min</div>
                 </div>
                 <div class="mr-actions">
-                  <button class="btn-rec"><div class="rec-dot" style="animation-delay:.6s"></div>REC</button>
+                  <button class="btn-record">Record</button>
                   <button class="btn-skip">Skip</button>
                 </div>
               </div>
               <div class="mac-divider"></div>
               <div class="last-sent">
-                <div class="last-sent__icon" aria-hidden="true">📄</div>
+                <div class="last-sent__icon" aria-hidden="true">💬</div>
                 <div class="last-sent__body">
-                  <div class="last-sent__label">Last recording sent</div>
+                  <div class="last-sent__label">Last recording transcribed</div>
                   <div class="last-sent__name">Weekly Standup · 9:15 AM · 22 min</div>
                 </div>
                 <div class="last-sent__destination">
@@ -190,8 +2054,6 @@
             </div>
           </div>
         </div>
-
-        <div class="hero__fade" aria-hidden="true"></div>
       </div>
     </div>
   </section>
@@ -210,7 +2072,7 @@
         <div class="step-card reveal">
           <div class="step-num" aria-hidden="true">01</div>
           <h3 class="step-title">Connect your calendar</h3>
-          <p class="step-desc">Your meetings appear automatically — straight from Google Calendar. TNN suggests recording 5 minutes before each call. No setup, no friction, no bots joining your calls.</p>
+          <p class="step-desc">Your meetings appear automatically, straight from Google Calendar. TNN suggests recording 1 minute before each call with a native macOS notification. No setup, no friction, no bots joining your calls.</p>
           <div class="cal-mockup" aria-hidden="true">
             <div class="cal-mockup__header">
               <div class="cal-mockup__title">
@@ -224,12 +2086,11 @@
               <div class="cal-event__bar cal-event__bar--teal"></div>
               <div class="cal-event__body">
                 <div class="cal-event__name">Design Review</div>
-                <div class="cal-event__meta"><span class="event-platform event-platform--active">Google Meet</span>45 min · In 5 min</div>
+                <div class="cal-event__meta"><span class="event-platform event-platform--active">Google Meet</span>45 min · In 1 min</div>
               </div>
               <div class="cal-event__time cal-event__time--active">10:00<br>AM</div>
               <div class="cal-event__actions">
                 <button class="btn-rec"><div class="rec-dot"></div>REC</button>
-                <button class="btn-skip">Skip</button>
               </div>
             </div>
             <div class="cal-event">
@@ -240,7 +2101,7 @@
               </div>
               <div class="cal-event__time">2:00<br>PM</div>
               <div class="cal-event__actions">
-                <button class="btn-rec"><div class="rec-dot" style="animation-delay:.25s"></div>REC</button>
+                <button class="btn-record">Record</button>
                 <button class="btn-skip">Skip</button>
               </div>
             </div>
@@ -252,7 +2113,7 @@
               </div>
               <div class="cal-event__time">4:30<br>PM</div>
               <div class="cal-event__actions">
-                <button class="btn-rec"><div class="rec-dot" style="animation-delay:.5s"></div>REC</button>
+                <button class="btn-record">Record</button>
                 <button class="btn-skip">Skip</button>
               </div>
             </div>
@@ -271,7 +2132,7 @@
         <div class="step-card reveal d1">
           <div class="step-num" aria-hidden="true">02</div>
           <h3 class="step-title">TNN listens. Privately.</h3>
-          <p class="step-desc">Audio never leaves your Mac. Transcription runs on-device using a local AI model — no cloud, no subscription, no data sharing.</p>
+          <p class="step-desc">Audio never leaves your Mac. Transcription runs on-device using a local AI model - no cloud, no subscription, no data sharing.</p>
           <div class="mini-mockup" aria-hidden="true">
             <div class="mm-bar">
               <div class="mm-dot mm-dot--red"></div>
@@ -303,8 +2164,8 @@
 
         <div class="step-card reveal d2">
           <div class="step-num" aria-hidden="true">03</div>
-          <h3 class="step-title">You get the transcript.</h3>
-          <p class="step-desc">The moment the call ends, TNN processes the audio and delivers a clean, timestamped transcript — saved locally on your Mac, ready in seconds.</p>
+          <h3 class="step-title">You get the transcript in MD format.</h3>
+          <p class="step-desc">The moment the call ends, TNN processes the audio and delivers a clean, timestamped Markdown transcript - saved locally on your Mac, ready in seconds. Drop it into Claude, ChatGPT, Obsidian, or any tool that speaks Markdown.</p>
           <div class="mini-mockup" aria-hidden="true">
             <div class="mm-bar">
               <div class="mm-dot mm-dot--red"></div>
@@ -319,7 +2180,7 @@
               </div>
               <div class="mm-ts-line"><span class="mm-ts-time">0:00</span><span class="who">Dom: </span>Let's start with the new onboarding flow…</div>
               <div class="mm-ts-line"><span class="mm-ts-time">0:42</span><span class="who">Sarah: </span>The modal needs more breathing room.</div>
-              <div class="mm-ts-line"><span class="mm-ts-time">1:05</span><span class="who">Alex: </span>Agreed. And the color palette—</div>
+              <div class="mm-ts-line"><span class="mm-ts-time">1:05</span><span class="who">Alex: </span>Agreed. And the color palette-</div>
               <div class="mm-ts-line"><span class="mm-ts-time">1:28</span><span class="who">Dom: </span>Let's pull the tokens from Figma directly.</div>
               <div class="mm-fade"></div>
             </div>
@@ -330,71 +2191,64 @@
         <div class="step-card step-card--featured reveal d3">
           <div class="step-num" aria-hidden="true">04</div>
           <h3 class="step-title">Lands where you work.</h3>
-          <p class="step-desc">The transcript is automatically pushed to Notion, Slack, Obsidian, or any tool in your workflow — the moment the call ends. No copy-paste. No switching tabs.</p>
-          <div class="send-mockup" aria-hidden="true">
-            <div class="send-header">
-              <div class="sync-dot"></div>
-              Design Review · sent 2s ago
-            </div>
-            <div class="send-grid">
-              <div class="send-dest send-dest--sent">
-                <div class="send-dest__logo">
-                  <img src="assets/icons/notion.svg" width="20" height="20" alt="Notion">
-                </div>
-                <div class="send-dest__name">Notion</div>
-                <div class="send-dest__check">✓</div>
-              </div>
-              <div class="send-dest send-dest--sent">
-                <div class="send-dest__logo">
-                  <img src="assets/icons/slack.svg" width="20" height="20" alt="Slack">
-                </div>
-                <div class="send-dest__name">Slack</div>
-                <div class="send-dest__check">✓</div>
-              </div>
-              <div class="send-dest send-dest--sent">
-                <div class="send-dest__logo">
-                  <img src="assets/icons/obsidian.svg" width="20" height="20" alt="Obsidian">
-                </div>
-                <div class="send-dest__name">Obsidian</div>
-                <div class="send-dest__check">✓</div>
-              </div>
-              <div class="send-dest send-dest--sent">
-                <div class="send-dest__logo">
-                  <img src="assets/icons/linear.svg" width="20" height="20" alt="Linear">
-                </div>
-                <div class="send-dest__name">Linear</div>
-                <div class="send-dest__check">✓</div>
-              </div>
-              <div class="send-dest send-dest--sent">
-                <div class="send-dest__logo">
-                  <img src="assets/icons/airtable.svg" width="20" height="20" alt="Airtable">
-                </div>
-                <div class="send-dest__name">Airtable</div>
-                <div class="send-dest__check">✓</div>
-              </div>
-              <div class="send-dest">
-                <div class="send-dest__logo">
-                  <img src="assets/icons/zapier.svg" width="20" height="20" alt="Zapier">
-                </div>
-                <div class="send-dest__name">Zapier</div>
-                <div class="send-dest__dots">···</div>
-              </div>
-              <div class="send-dest">
-                <div class="send-dest__logo">
-                  <img src="assets/icons/github.svg" width="20" height="20" alt="GitHub">
-                </div>
-                <div class="send-dest__name">GitHub</div>
-                <div class="send-dest__dots">···</div>
-              </div>
-              <div class="send-dest">
-                <div class="send-dest__logo">
-                  <img src="assets/icons/confluence.svg" width="20" height="20" alt="Confluence">
-                </div>
-                <div class="send-dest__name">Confluence</div>
-                <div class="send-dest__dots">···</div>
+          <p class="step-desc">The transcript is automatically pushed to Notion, Slack, Obsidian, or any tool in your workflow - the moment the call ends. No copy-paste. No switching tabs.</p>
+          <div class="flow-mockup" aria-hidden="true">
+            <div class="flow-mockup__hub">
+              <div class="flow-mockup__hub-icon">
+                <img src="assets/logo-icon.svg" alt="" width="56" height="56">
               </div>
             </div>
-            <div class="send-footer">+ 4 more integrations available</div>
+            <svg class="flow-mockup__lines" viewBox="0 0 300 220" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="flow-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="rgba(99,102,241,0)"/>
+                  <stop offset="50%" stop-color="rgba(99,102,241,0.95)"/>
+                  <stop offset="100%" stop-color="rgba(99,102,241,0)"/>
+                </linearGradient>
+              </defs>
+              <path d="M0,110 C150,110 150,20 300,20"  stroke="rgba(99,102,241,0.18)" stroke-width="1.5" fill="none"/>
+              <path d="M0,110 C150,110 150,65 300,65"  stroke="rgba(99,102,241,0.18)" stroke-width="1.5" fill="none"/>
+              <path d="M0,110 L300,110"                 stroke="rgba(99,102,241,0.18)" stroke-width="1.5" fill="none"/>
+              <path d="M0,110 C150,110 150,155 300,155" stroke="rgba(99,102,241,0.18)" stroke-width="1.5" fill="none"/>
+              <path d="M0,110 C150,110 150,200 300,200" stroke="rgba(99,102,241,0.18)" stroke-width="1.5" fill="none"/>
+              <path d="M0,110 C150,110 150,20 300,20"  stroke="url(#flow-grad)" stroke-width="2" fill="none" stroke-dasharray="50 600" stroke-dashoffset="650">
+                <animate attributeName="stroke-dashoffset" from="650" to="0" dur="3s" begin="0s"   repeatCount="indefinite"/>
+              </path>
+              <path d="M0,110 C150,110 150,65 300,65"  stroke="url(#flow-grad)" stroke-width="2" fill="none" stroke-dasharray="50 600" stroke-dashoffset="650">
+                <animate attributeName="stroke-dashoffset" from="650" to="0" dur="3s" begin="0.5s" repeatCount="indefinite"/>
+              </path>
+              <path d="M0,110 L300,110"                 stroke="url(#flow-grad)" stroke-width="2" fill="none" stroke-dasharray="50 600" stroke-dashoffset="650">
+                <animate attributeName="stroke-dashoffset" from="650" to="0" dur="3s" begin="1s"   repeatCount="indefinite"/>
+              </path>
+              <path d="M0,110 C150,110 150,155 300,155" stroke="url(#flow-grad)" stroke-width="2" fill="none" stroke-dasharray="50 600" stroke-dashoffset="650">
+                <animate attributeName="stroke-dashoffset" from="650" to="0" dur="3s" begin="1.5s" repeatCount="indefinite"/>
+              </path>
+              <path d="M0,110 C150,110 150,200 300,200" stroke="url(#flow-grad)" stroke-width="2" fill="none" stroke-dasharray="50 600" stroke-dashoffset="650">
+                <animate attributeName="stroke-dashoffset" from="650" to="0" dur="3s" begin="2s"   repeatCount="indefinite"/>
+              </path>
+            </svg>
+            <div class="flow-mockup__targets">
+              <div class="flow-target">
+                <span class="flow-target__logo"><img src="assets/icons/notion.svg" width="20" height="20" alt=""></span>
+                <span class="flow-target__name">Notion</span>
+              </div>
+              <div class="flow-target">
+                <span class="flow-target__logo"><img src="assets/icons/slack.svg" width="20" height="20" alt=""></span>
+                <span class="flow-target__name">Slack</span>
+              </div>
+              <div class="flow-target">
+                <span class="flow-target__logo"><img src="assets/icons/obsidian.svg" width="20" height="20" alt=""></span>
+                <span class="flow-target__name">Obsidian</span>
+              </div>
+              <div class="flow-target">
+                <span class="flow-target__logo"><img src="assets/icons/github.svg" width="20" height="20" alt=""></span>
+                <span class="flow-target__name">GitHub</span>
+              </div>
+              <div class="flow-target">
+                <span class="flow-target__logo"><img src="assets/icons/confluence.svg" width="20" height="20" alt=""></span>
+                <span class="flow-target__name">Confluence</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -417,7 +2271,7 @@
           <div class="priv-item reveal d2">
             <div class="priv-item__icon" aria-hidden="true">🔒</div>
             <div class="priv-item__label">No servers storing your audio</div>
-            <p class="priv-item__desc">We have no infrastructure to store your data — because we never receive it.</p>
+            <p class="priv-item__desc">We have no infrastructure to store your data - because we never receive it.</p>
           </div>
           <div class="priv-item reveal d3">
             <div class="priv-item__icon" aria-hidden="true">🆓</div>
@@ -442,22 +2296,66 @@
         <div class="feat-card reveal">
           <div class="feat-card__icon" aria-hidden="true">📅</div>
           <h3 class="feat-card__title">Calendar-aware</h3>
-          <p class="feat-card__desc">Sees your Google Calendar. Suggests recording 5 minutes before each meeting — no manual setup needed.</p>
+          <p class="feat-card__desc">Sees your Google Calendar. A native macOS notification pings you 1 minute before each meeting. No manual setup needed.</p>
+          <div class="feat-mockup" aria-hidden="true">
+            <div class="mac-notif mac-notif--feat">
+              <div class="mac-notif__icon">
+                <img src="assets/logo-icon.svg" alt="" width="36" height="36">
+              </div>
+              <div class="mac-notif__body">
+                <div class="mac-notif__title">Design Review starts in 1 minute</div>
+                <div class="mac-notif__sub">Tap to start recording</div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="feat-card reveal d1">
-          <div class="feat-card__icon" aria-hidden="true">⏺️</div>
-          <h3 class="feat-card__title">One click to record</h3>
-          <p class="feat-card__desc"><strong>No bots. No meeting links.</strong> No intrusive participants. Just press record — works with any call app or in person.</p>
+          <div class="feat-card__icon" aria-hidden="true">🚫</div>
+          <h3 class="feat-card__title">No bots</h3>
+          <p class="feat-card__desc">No meeting links to share, no third-party assistant joining your calls. Everything happens locally on your Mac, invisibly.</p>
+          <div class="feat-mockup" aria-hidden="true">
+            <div class="nobots-card">
+              <div class="nobots-row nobots-row--off"><span class="nobots-x">✕</span> Bot joining your call</div>
+              <div class="nobots-row nobots-row--off"><span class="nobots-x">✕</span> Meeting link required</div>
+              <div class="nobots-row nobots-row--on"><span class="nobots-check">✓</span> Audio captured on this Mac</div>
+              <div class="nobots-mac">
+                <div class="nobots-mac__screen">
+                  <span class="nobots-mac__dot"></span> Recording locally
+                </div>
+                <div class="nobots-mac__base"></div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="feat-card reveal d2">
           <div class="feat-card__icon" aria-hidden="true">⚡</div>
           <h3 class="feat-card__title">Transcript in seconds</h3>
-          <p class="feat-card__desc">On-device AI transcribes your meeting the moment it ends. Structured, searchable, ready to paste into any AI tool.</p>
+          <p class="feat-card__desc">On-device AI transcribes your meeting the moment it ends. Pick the model that fits your Mac - everything runs locally.</p>
+          <div class="feat-mockup" aria-hidden="true">
+            <div class="models-tile">
+              <div class="models-tile__header">
+                <span class="models-tile__label">On-device models</span>
+                <span class="models-tile__count">3 installed</span>
+              </div>
+              <div class="model-row model-row--active">
+                <div class="model-row__name">Whisper Large v3</div>
+                <div class="model-row__meta"><span class="model-row__size">500 MB</span><span class="model-row__status">Active</span></div>
+              </div>
+              <div class="model-row">
+                <div class="model-row__name">Whisper Medium</div>
+                <div class="model-row__meta"><span class="model-row__size">150 MB</span><span class="model-row__status model-row__status--idle">Ready</span></div>
+              </div>
+              <div class="model-row">
+                <div class="model-row__name">Apple Speech</div>
+                <div class="model-row__meta"><span class="model-row__size">Built-in</span><span class="model-row__status model-row__status--idle">Ready</span></div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="feat-card reveal d1">
           <div class="feat-card__icon" aria-hidden="true">🎤</div>
           <h3 class="feat-card__title">Quick Dictation</h3>
-          <p class="feat-card__desc">Hold a hotkey, speak, release. Text appears at your cursor instantly — in any app.</p>
+          <p class="feat-card__desc">Hold a hotkey, speak, release. Text appears at your cursor instantly - in any app.</p>
           <div class="dict-illus" aria-hidden="true">
             <div class="dict-shortcut">
               <div class="kbd">⌥</div>
@@ -473,8 +2371,7 @@
                 <div class="dict-wbar" style="--wh:16px; animation-delay:0.3s"></div>
                 <div class="dict-wbar" style="--wh:8px;  animation-delay:0.4s"></div>
               </div>
-              <div class="dict-text">Sync the designs by Thursday</div>
-              <div class="dict-cursor"></div>
+              <div class="dict-text dict-text--typed"><span class="dict-typewriter"></span><span class="dict-cursor"></span></div>
             </div>
           </div>
         </div>
@@ -482,11 +2379,77 @@
           <div class="feat-card__icon" aria-hidden="true">🔗</div>
           <h3 class="feat-card__title">Works everywhere</h3>
           <p class="feat-card__desc">Send your transcript to Notion, Obsidian, Slack, or anywhere via integrations. More shipping every month.</p>
+          <div class="feat-mockup" aria-hidden="true">
+            <div class="works-flow">
+              <div class="works-flow__hub">
+                <img src="assets/logo-icon.svg" alt="" width="34" height="34">
+              </div>
+              <svg class="works-flow__lines" viewBox="0 0 160 140" preserveAspectRatio="none" aria-hidden="true">
+                <defs>
+                  <linearGradient id="works-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="rgba(99,102,241,0)"/>
+                    <stop offset="50%" stop-color="rgba(99,102,241,0.95)"/>
+                    <stop offset="100%" stop-color="rgba(99,102,241,0)"/>
+                  </linearGradient>
+                </defs>
+                <path d="M0,70 C80,70 80,18 160,18" stroke="rgba(99,102,241,0.18)" stroke-width="1.4" fill="none"/>
+                <path d="M0,70 C80,70 80,52 160,52" stroke="rgba(99,102,241,0.18)" stroke-width="1.4" fill="none"/>
+                <path d="M0,70 C80,70 80,88 160,88" stroke="rgba(99,102,241,0.18)" stroke-width="1.4" fill="none"/>
+                <path d="M0,70 C80,70 80,122 160,122" stroke="rgba(99,102,241,0.18)" stroke-width="1.4" fill="none"/>
+                <path d="M0,70 C80,70 80,18 160,18" stroke="url(#works-grad)" stroke-width="2" fill="none" stroke-dasharray="40 400" stroke-dashoffset="440">
+                  <animate attributeName="stroke-dashoffset" from="440" to="0" dur="2.6s" begin="0s"   repeatCount="indefinite"/>
+                </path>
+                <path d="M0,70 C80,70 80,52 160,52" stroke="url(#works-grad)" stroke-width="2" fill="none" stroke-dasharray="40 400" stroke-dashoffset="440">
+                  <animate attributeName="stroke-dashoffset" from="440" to="0" dur="2.6s" begin="0.5s" repeatCount="indefinite"/>
+                </path>
+                <path d="M0,70 C80,70 80,88 160,88" stroke="url(#works-grad)" stroke-width="2" fill="none" stroke-dasharray="40 400" stroke-dashoffset="440">
+                  <animate attributeName="stroke-dashoffset" from="440" to="0" dur="2.6s" begin="1s"   repeatCount="indefinite"/>
+                </path>
+                <path d="M0,70 C80,70 80,122 160,122" stroke="url(#works-grad)" stroke-width="2" fill="none" stroke-dasharray="40 400" stroke-dashoffset="440">
+                  <animate attributeName="stroke-dashoffset" from="440" to="0" dur="2.6s" begin="1.5s" repeatCount="indefinite"/>
+                </path>
+              </svg>
+              <div class="works-flow__targets">
+                <span class="works-flow__target"><img src="assets/icons/notion.svg" width="18" height="18" alt=""></span>
+                <span class="works-flow__target"><img src="assets/icons/slack.svg" width="18" height="18" alt=""></span>
+                <span class="works-flow__target"><img src="assets/icons/obsidian.svg" width="18" height="18" alt=""></span>
+                <span class="works-flow__target"><img src="assets/icons/github.svg" width="18" height="18" alt=""></span>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="feat-card reveal d3">
-          <div class="feat-card__icon" aria-hidden="true">🤖</div>
-          <h3 class="feat-card__title">Analyze your way</h3>
-          <p class="feat-card__desc">Paste your transcript into ChatGPT, Claude, or any AI tool. Build your own post-meeting workflow — TNN gives you the raw material.</p>
+          <div class="feat-card__icon" aria-hidden="true">🧠</div>
+          <h3 class="feat-card__title">Context for your LLM</h3>
+          <p class="feat-card__desc">Every meeting becomes a clean Markdown file in your folder structure. Feed Claude, ChatGPT, or any local model the full context, not just snippets.</p>
+          <div class="feat-mockup" aria-hidden="true">
+            <div class="folders">
+              <div class="folder-row">
+                <span class="folder folder--open"></span>
+                <span class="folder-name">Meetings</span>
+              </div>
+              <div class="folder-row folder-row--indent">
+                <span class="folder folder--open"></span>
+                <span class="folder-name">Q3 Planning</span>
+              </div>
+              <div class="folder-row folder-row--deep">
+                <span class="file-md">MD</span>
+                <span class="folder-name">design-review.md</span>
+              </div>
+              <div class="folder-row folder-row--deep">
+                <span class="file-md">MD</span>
+                <span class="folder-name">sprint-planning.md</span>
+              </div>
+              <div class="folder-row folder-row--indent">
+                <span class="folder"></span>
+                <span class="folder-name">1:1s</span>
+              </div>
+              <div class="folder-row folder-row--indent">
+                <span class="folder"></span>
+                <span class="folder-name">Customer calls</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -621,7 +2584,7 @@
     <button class="modal__close" aria-label="Close" data-modal-close>×</button>
     <div class="modal__icon" aria-hidden="true">💻</div>
     <h3 class="modal__title" id="mobile-modal-title">TNN is for Mac</h3>
-    <p class="modal__sub">The app requires macOS 13 or later. Enter your email and we'll send the download link — open it on your Mac.</p>
+    <p class="modal__sub">The app requires macOS 13 or later. Enter your email and we'll send the download link - open it on your Mac.</p>
     <form id="send-link-form" novalidate>
       <label class="modal__label" for="send-link-email">Your email</label>
       <input class="modal__input" type="email" id="send-link-email" name="email" placeholder="you@example.com" autocomplete="email" required>
@@ -631,7 +2594,7 @@
     <div class="modal__success" id="send-link-success" aria-live="polite">
       <div class="modal__success-icon" aria-hidden="true">✉️</div>
       <h4>Check your inbox.</h4>
-      <p>We sent the download link — open it on your Mac.</p>
+      <p>We sent the download link - open it on your Mac.</p>
     </div>
   </div>
 </div>
@@ -654,6 +2617,39 @@
 </div>
 
 <script src="js/main.js" defer></script>
+<script>
+  // Theme toggle - OS preference detection + persist user choice in localStorage
+  (function () {
+    var KEY = 'tnn-theme';
+    var root = document.documentElement;
+    var mql = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+    var stored = localStorage.getItem(KEY);
+    var prefersDark = mql && mql.matches;
+    // If user has manual choice -> respect it; otherwise follow the OS
+    var effective = stored ? stored : (prefersDark ? 'dark' : 'light');
+    if (effective === 'dark') root.setAttribute('data-theme', 'dark');
+
+    var btn = document.querySelector('[data-theme-toggle]');
+    if (btn) {
+      btn.addEventListener('click', function () {
+        var isDark = root.getAttribute('data-theme') === 'dark';
+        var next = isDark ? 'light' : 'dark';
+        if (next === 'dark') root.setAttribute('data-theme', 'dark');
+        else root.removeAttribute('data-theme');
+        localStorage.setItem(KEY, next);
+      });
+    }
+
+    // Live-follow OS changes when user hasn't manually picked
+    if (mql && mql.addEventListener) {
+      mql.addEventListener('change', function (e) {
+        if (localStorage.getItem(KEY)) return; // user override wins
+        if (e.matches) root.setAttribute('data-theme', 'dark');
+        else root.removeAttribute('data-theme');
+      });
+    }
+  })();
+</script>
 
 </body>
 </html>
