@@ -7,59 +7,285 @@
   <meta name="description" content="Terms of service for Thoughts Not Notes (TNN), a private, on-device meeting transcription app for Mac.">
   <meta name="robots" content="index,follow">
 
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#171717" media="(prefers-color-scheme: dark)">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Ancizar+Serif:ital,wght@0,400;0,600;1,400;1,600&family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900;1,14..32,300&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/style.css">
+
   <style>
-    .legal { padding: 80px 0 96px; }
-    .legal__header { text-align: center; margin-bottom: 56px; }
+    /* ============================================================
+       Legal pages - aligned with home v4 style guide
+       Indigo/violet accent, dark/light mode, refined typography.
+       ============================================================ */
+
+    /* === Global accent override: teal → indigo/violet === */
+    :root {
+      --accent: #6366f1;
+      --accent-hover: #4f46e5;
+      --accent-soft: #eef2ff;
+    }
+
+    /* === Nav: thin line on scroll, no big shadow === */
+    .nav--scrolled {
+      background: rgba(255,255,255,0.78) !important;
+      box-shadow: none !important;
+      border-bottom: 1px solid rgba(10,10,10,0.06) !important;
+    }
+
+    /* === Theme toggle button === */
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 36px;
+      border-radius: 9px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      cursor: pointer;
+      margin-right: 4px;
+      transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+    }
+    .theme-toggle:hover {
+      background: var(--bg-gray);
+      color: var(--text);
+      border-color: var(--border-strong);
+    }
+    .theme-toggle__icon { display: block; }
+    .theme-toggle__icon--sun { display: none; }
+    [data-theme="dark"] .theme-toggle__icon--moon { display: none; }
+    [data-theme="dark"] .theme-toggle__icon--sun { display: block; }
+
+    /* === Legal layout === */
+    .legal {
+      padding: 140px 0 120px;
+      position: relative;
+      isolation: isolate;
+    }
+
+    /* Subtle grid backdrop, hero-style — fades behind content */
+    .legal::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background-image:
+        linear-gradient(to right, rgba(10,10,10,0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(10,10,10,0.05) 1px, transparent 1px);
+      background-size: 96px 96px;
+      -webkit-mask-image: radial-gradient(ellipse 60% 45% at 50% 0%, #000 0%, transparent 75%);
+              mask-image: radial-gradient(ellipse 60% 45% at 50% 0%, #000 0%, transparent 75%);
+    }
+
+    .legal__header { text-align: center; margin-bottom: 72px; }
     .legal__header h1 {
       font-family: 'Ancizar Serif', Georgia, serif;
       font-weight: 600;
-      font-size: clamp(36px, 4.5vw, 52px);
-      line-height: 1.1;
+      font-size: clamp(40px, 5vw, 60px);
+      line-height: 1.05;
       letter-spacing: -0.02em;
+      margin-top: 4px;
     }
-    .legal__updated { color: var(--text-subtle); font-size: 13px; margin-top: 12px; }
-    .legal__body { max-width: 760px; margin: 0 auto; }
+    .legal__updated {
+      color: var(--text-subtle);
+      font-size: 13px;
+      margin-top: 18px;
+      letter-spacing: 0.01em;
+    }
+
+    .legal__body { max-width: 720px; margin: 0 auto; }
+
     .legal__body h2 {
-      font-size: 24px;
-      margin-top: 48px;
+      font-family: 'Ancizar Serif', Georgia, serif;
+      font-size: clamp(22px, 2.4vw, 26px);
+      font-weight: 600;
+      margin-top: 56px;
       margin-bottom: 16px;
+      letter-spacing: -0.015em;
+      color: var(--text);
     }
     .legal__body h3 {
-      font-size: 18px;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
       margin-top: 28px;
       margin-bottom: 10px;
+      letter-spacing: -0.005em;
+      color: var(--text);
     }
+
     .legal__body p,
     .legal__body li {
       font-size: 16px;
-      color: var(--text);
+      color: var(--text-muted);
       line-height: 1.75;
+      font-weight: 300;
     }
     .legal__body p { margin-bottom: 14px; }
     .legal__body ul { margin: 0 0 16px 22px; }
     .legal__body li { margin-bottom: 8px; }
-    .legal__body strong { font-weight: 600; }
-    .legal__body a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    .legal__body strong { font-weight: 600; color: var(--text); }
+    .legal__body em { font-style: italic; }
+    .legal__body code {
+      font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.88em;
+      background: var(--bg-gray);
+      padding: 2px 6px;
+      border-radius: 5px;
+      color: var(--text);
+    }
+    .legal__body a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-thickness: 1px;
+      transition: color 160ms ease;
+    }
     .legal__body a:hover { color: var(--accent-hover); }
+
     .legal__callout {
-      border: 1px solid var(--border);
+      border: 1px solid rgba(99,102,241,0.18);
       background: var(--accent-soft);
       border-radius: var(--radius);
-      padding: 18px 22px;
-      margin: 24px 0;
+      padding: 20px 24px;
+      margin: 32px 0;
       font-size: 15px;
+      color: var(--text);
+      line-height: 1.65;
     }
+    .legal__callout strong { color: var(--text); }
+
     .legal__contact {
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 20px 24px;
-      margin-top: 48px;
+      padding: 24px 28px;
+      margin-top: 64px;
       background: var(--bg-subtle);
+    }
+    .legal__contact h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-top: 0 !important;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    .legal__contact p { margin-bottom: 0 !important; }
+
+    /* ============================================================
+       DARK MODE
+       ============================================================ */
+    [data-theme="dark"] {
+      --bg: #171717;
+      --bg-subtle: #1c1c1e;
+      --bg-gray: #262629;
+      --text: #fafafa;
+      --text-muted: #a1a1aa;
+      --text-subtle: #71717a;
+      --accent: #818cf8;
+      --accent-hover: #a5b4fc;
+      --accent-soft: rgba(99,102,241,0.14);
+      --border: rgba(255,255,255,0.08);
+      --border-strong: rgba(255,255,255,0.14);
+    }
+
+    body, .nav, .site-footer, .legal__callout, .legal__contact, .theme-toggle {
+      transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
+    }
+
+    [data-theme="dark"] html { background: #171717; }
+    [data-theme="dark"] body { background: #171717; color: var(--text); }
+
+    /* Subtle SVG noise/grain overlay (matches home) */
+    [data-theme="dark"] body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+      opacity: 0.55;
+      mix-blend-mode: overlay;
+    }
+
+    /* Grid backdrop: lighter lines on dark */
+    [data-theme="dark"] .legal::before {
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px) !important;
+    }
+
+    /* Nav */
+    [data-theme="dark"] .nav { background: rgba(23,23,23,0.7) !important; }
+    [data-theme="dark"] .nav--scrolled {
+      background: rgba(23,23,23,0.85) !important;
+      border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+    }
+    [data-theme="dark"] .nav__logo-img { filter: invert(1) brightness(1.05); }
+    [data-theme="dark"] .nav__link { color: var(--text-muted); }
+    [data-theme="dark"] .nav__link:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+    [data-theme="dark"] .nav__links { border-right-color: rgba(255,255,255,0.10); }
+
+    /* Nav CTA invert in dark (white bg, dark text) — matches home */
+    [data-theme="dark"] .btn--nav {
+      background: #fafafa !important;
+      color: #0a0a0a !important;
+      border: 1px solid rgba(255,255,255,0.10) !important;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.50),
+        0 1px 2px rgba(0,0,0,0.30),
+        0 8px 24px -8px rgba(0,0,0,0.50) !important;
+    }
+    [data-theme="dark"] .btn--nav:hover { background: #fff !important; }
+
+    /* Section labels + headings */
+    [data-theme="dark"] .label { color: var(--accent); }
+    [data-theme="dark"] h1,
+    [data-theme="dark"] h2,
+    [data-theme="dark"] h3 { color: #fafafa; }
+
+    /* Body copy in dark */
+    [data-theme="dark"] .legal__body p,
+    [data-theme="dark"] .legal__body li { color: #c9c9d1; }
+    [data-theme="dark"] .legal__body strong { color: #fafafa; }
+    [data-theme="dark"] .legal__body code {
+      background: rgba(255,255,255,0.06);
+      color: #e4e4e7;
+    }
+
+    [data-theme="dark"] .legal__callout {
+      background: rgba(129,140,248,0.10) !important;
+      border-color: rgba(129,140,248,0.22) !important;
+      color: #fafafa;
+    }
+    [data-theme="dark"] .legal__contact {
+      background: #1c1c1e !important;
+      border-color: rgba(255,255,255,0.08) !important;
+    }
+
+    /* Footer */
+    [data-theme="dark"] .site-footer {
+      border-top-color: rgba(255,255,255,0.08) !important;
+      color: #71717a !important;
+    }
+    [data-theme="dark"] .site-footer a { color: #a1a1aa !important; }
+    [data-theme="dark"] .site-footer a:hover { color: #fafafa !important; }
+
+    /* ============================================================
+       Mobile
+       ============================================================ */
+    @media (max-width: 720px) {
+      .legal { padding: 110px 0 80px; }
+      .legal__header { margin-bottom: 48px; }
+      .legal__header h1 { font-size: clamp(32px, 8vw, 42px); }
+      .legal__body h2 { font-size: 21px; margin-top: 44px; }
+      .legal__body p, .legal__body li { font-size: 15px; }
+      .legal__callout, .legal__contact { padding: 18px 20px; }
     }
   </style>
 </head>
@@ -76,6 +302,18 @@
         <a href="/#features" class="nav__link">Features</a>
         <a href="/#integrations" class="nav__link">Integrations</a>
       </nav>
+      <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode" type="button">
+        <svg class="theme-toggle__icon theme-toggle__icon--moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="theme-toggle__icon theme-toggle__icon--sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"/>
+          <line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/>
+          <line x1="4.93" y1="4.93" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.07" y2="19.07"/>
+          <line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/>
+          <line x1="4.93" y1="19.07" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.07" y2="4.93"/>
+        </svg>
+      </button>
       <a href="/" class="btn btn--nav">Back to home</a>
     </div>
   </nav>
@@ -144,8 +382,8 @@
         <p>These Terms constitute the entire agreement between you and us regarding the Service. If any provision is held unenforceable, the remaining provisions will remain in full force and effect. Our failure to enforce a provision is not a waiver. You may not assign these Terms; we may assign them in connection with a merger, acquisition, or sale of assets.</p>
 
         <div class="legal__contact">
-          <h3 style="margin-top:0">Contact</h3>
-          <p style="margin-bottom:0">Questions about these Terms? Write to <a href="mailto:dom.ziarno@gmail.com">dom.ziarno@gmail.com</a>.</p>
+          <h3>Contact</h3>
+          <p>Questions about these Terms? Write to <a href="mailto:dom.ziarno@gmail.com">dom.ziarno@gmail.com</a>.</p>
         </div>
 
       </div>
@@ -163,6 +401,48 @@
     <a href="/terms.html">Terms</a>
   </span>
 </footer>
+
+<script>
+  // Theme toggle — OS preference detection + persist user choice in localStorage.
+  // Matches behavior in index.html.
+  (function () {
+    var KEY = 'tnn-theme';
+    var root = document.documentElement;
+    var mql = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+    var stored = localStorage.getItem(KEY);
+    var prefersDark = mql && mql.matches;
+    var effective = stored ? stored : (prefersDark ? 'dark' : 'light');
+    if (effective === 'dark') root.setAttribute('data-theme', 'dark');
+
+    var btn = document.querySelector('[data-theme-toggle]');
+    if (btn) {
+      btn.addEventListener('click', function () {
+        var isDark = root.getAttribute('data-theme') === 'dark';
+        var next = isDark ? 'light' : 'dark';
+        if (next === 'dark') root.setAttribute('data-theme', 'dark');
+        else root.removeAttribute('data-theme');
+        localStorage.setItem(KEY, next);
+      });
+    }
+
+    if (mql && mql.addEventListener) {
+      mql.addEventListener('change', function (e) {
+        if (localStorage.getItem(KEY)) return;
+        if (e.matches) root.setAttribute('data-theme', 'dark');
+        else root.removeAttribute('data-theme');
+      });
+    }
+  })();
+
+  // Nav scroll shadow — match index.html
+  (function () {
+    var nav = document.getElementById('nav');
+    if (!nav) return;
+    window.addEventListener('scroll', function () {
+      nav.classList.toggle('nav--scrolled', window.scrollY > 12);
+    }, { passive: true });
+  })();
+</script>
 
 </body>
 </html>
