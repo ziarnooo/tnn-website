@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="icon" type="image/svg+xml" href="assets/logo-icon.svg">
+  <link rel="apple-touch-icon" href="assets/logo-icon.svg">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HP9XZCGX2S"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HP9XZCGX2S');
+  </script>
+
+  <!-- MailerLite Universal -->
+  <script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2363499');
+  </script>
+  <!-- End MailerLite Universal -->
+
+  <title>Zapraszam do wersji beta TNN - Thoughts Not Notes</title>
+  <meta name="description" content="Zbudujmy razem kontekst projektów w Masterbornie. Beta TNN dla product visionarsów.">
+  <meta name="robots" content="noindex,nofollow">
+
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#171717" media="(prefers-color-scheme: dark)">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ancizar+Serif:ital,wght@0,400;0,600;1,400;1,600&family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900;1,14..32,300&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    /* ============================================================
+       Beta onboarding page - matches home v4 / legal style
+       Indigo/violet accent, dark/light mode.
+       ============================================================ */
+
+    :root {
+      --accent: #6366f1;
+      --accent-hover: #4f46e5;
+      --accent-soft: #eef2ff;
+    }
+
+    .nav--scrolled {
+      background: rgba(255,255,255,0.78) !important;
+      box-shadow: none !important;
+      border-bottom: 1px solid rgba(10,10,10,0.06) !important;
+    }
+
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 36px;
+      border-radius: 9px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      cursor: pointer;
+      margin-right: 4px;
+      transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+    }
+    .theme-toggle:hover {
+      background: var(--bg-gray);
+      color: var(--text);
+      border-color: var(--border-strong);
+    }
+    .theme-toggle__icon { display: block; }
+    .theme-toggle__icon--sun { display: none; }
+    [data-theme="dark"] .theme-toggle__icon--moon { display: none; }
+    [data-theme="dark"] .theme-toggle__icon--sun { display: block; }
+
+    /* Reuse legal-page layout */
+    .beta {
+      padding: 140px 0 120px;
+      position: relative;
+      isolation: isolate;
+    }
+    .beta::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background-image:
+        linear-gradient(to right, rgba(10,10,10,0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(10,10,10,0.05) 1px, transparent 1px);
+      background-size: 96px 96px;
+      -webkit-mask-image: radial-gradient(ellipse 60% 45% at 50% 0%, #000 0%, transparent 75%);
+              mask-image: radial-gradient(ellipse 60% 45% at 50% 0%, #000 0%, transparent 75%);
+    }
+
+    .beta__header { text-align: center; margin-bottom: 64px; }
+    .beta__header h1 {
+      font-family: 'Ancizar Serif', Georgia, serif;
+      font-weight: 600;
+      font-size: clamp(40px, 5vw, 60px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-top: 4px;
+    }
+    .beta__lede {
+      max-width: 620px;
+      margin: 20px auto 0;
+      color: var(--text-muted);
+      font-size: 17px;
+      line-height: 1.65;
+      font-weight: 300;
+    }
+    .beta__cta-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      align-items: center;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+
+    /* No underline on <a class="btn ..."> elements */
+    a.btn, a.btn:hover, a.btn:focus, a.btn:visited { text-decoration: none; }
+
+    /* Secondary button: matches .btn--primary sizing, outline style */
+    .btn--secondary {
+      background: transparent;
+      color: var(--text);
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      border: 1px solid var(--border-strong);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    }
+    .btn--secondary:hover {
+      background: var(--bg-gray);
+      border-color: var(--text-subtle);
+      transform: translateY(-1px);
+    }
+    [data-theme="dark"] .btn--secondary {
+      color: #fafafa;
+      border-color: rgba(255,255,255,0.14);
+    }
+    [data-theme="dark"] .btn--secondary:hover {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.24);
+    }
+
+    .beta__body { max-width: 760px; margin: 0 auto; }
+
+    .beta__body h2 {
+      font-family: 'Ancizar Serif', Georgia, serif;
+      font-size: clamp(24px, 2.6vw, 28px);
+      font-weight: 600;
+      margin-top: 64px;
+      margin-bottom: 18px;
+      letter-spacing: -0.015em;
+      color: var(--text);
+    }
+    .beta__body h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      margin-top: 28px;
+      margin-bottom: 10px;
+      letter-spacing: -0.005em;
+      color: var(--text);
+    }
+    .beta__body p,
+    .beta__body li {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.75;
+      font-weight: 300;
+    }
+    .beta__body p { margin-bottom: 14px; }
+    .beta__body ul,
+    .beta__body ol { margin: 0 0 16px 22px; }
+    .beta__body li { margin-bottom: 8px; }
+    .beta__body strong { font-weight: 600; color: var(--text); }
+    .beta__body em { font-style: italic; }
+    .beta__body code {
+      font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.88em;
+      background: var(--bg-gray);
+      padding: 2px 6px;
+      border-radius: 5px;
+      color: var(--text);
+    }
+    .beta__body a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-thickness: 1px;
+      transition: color 160ms ease;
+    }
+    .beta__body a:hover { color: var(--accent-hover); }
+
+    .beta__callout {
+      border: 1px solid rgba(99,102,241,0.18);
+      background: var(--accent-soft);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin: 32px 0;
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.65;
+    }
+    .beta__callout strong { color: var(--text); }
+
+    /* Prominent goal panel - hero card for "Cel tej bety" */
+    .goal-panel {
+      position: relative;
+      margin: 48px 0 16px;
+      padding: 36px 40px 32px;
+      border-radius: 16px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(99,102,241,0.22);
+      overflow: hidden;
+    }
+    .goal-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(to right, rgba(99,102,241,0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(99,102,241,0.06) 1px, transparent 1px);
+      background-size: 32px 32px;
+      -webkit-mask-image: radial-gradient(ellipse 80% 80% at 100% 0%, #000 0%, transparent 70%);
+              mask-image: radial-gradient(ellipse 80% 80% at 100% 0%, #000 0%, transparent 70%);
+    }
+    .goal-panel > * { position: relative; }
+    .goal-panel__label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .goal-panel__label::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(99,102,241,0.18);
+    }
+    .goal-panel h2 {
+      font-family: 'Ancizar Serif', Georgia, serif !important;
+      font-size: clamp(24px, 2.6vw, 30px) !important;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      margin: 0 0 18px !important;
+      color: var(--text);
+    }
+    .goal-panel__intro {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin: 0 0 22px !important;
+    }
+    .goal-list {
+      list-style: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      display: grid;
+      gap: 10px;
+    }
+    .goal-list li {
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    .goal-check {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 160ms ease;
+      user-select: none;
+    }
+    .goal-check:hover { background: rgba(99,102,241,0.06); }
+    .goal-check input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      flex: 0 0 22px;
+      width: 22px;
+      height: 22px;
+      margin: 0;
+      margin-top: 1px;
+      border-radius: 6px;
+      background: rgba(99,102,241,0.10);
+      border: 1px solid rgba(99,102,241,0.32);
+      cursor: pointer;
+      position: relative;
+      transition: background 160ms ease, border-color 160ms ease;
+    }
+    .goal-check input[type="checkbox"]:hover {
+      border-color: rgba(99,102,241,0.55);
+    }
+    .goal-check input[type="checkbox"]:checked {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .goal-check input[type="checkbox"]:checked::after {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 4px;
+      width: 8px;
+      height: 12px;
+      border-right: 2px solid #fff;
+      border-bottom: 2px solid #fff;
+      transform: rotate(45deg);
+    }
+    .goal-check span {
+      font-size: 15.5px;
+      color: var(--text);
+      line-height: 1.55;
+    }
+    .goal-check input[type="checkbox"]:checked ~ span {
+      color: var(--text-subtle);
+      text-decoration: line-through;
+      text-decoration-color: rgba(99,102,241,0.5);
+    }
+    .goal-panel__outro {
+      margin: 22px 0 0 !important;
+      font-size: 14.5px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    [data-theme="dark"] .goal-check:hover {
+      background: rgba(129,140,248,0.10);
+    }
+    [data-theme="dark"] .goal-check input[type="checkbox"] {
+      background: rgba(129,140,248,0.10);
+      border-color: rgba(129,140,248,0.40);
+    }
+    [data-theme="dark"] .goal-check span { color: #e4e4e7; }
+
+    /* Yellow warning banner */
+    .warn-banner {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 18px 22px;
+      margin: 14px 0 22px;
+      border-radius: 12px;
+      background: #fffbeb;
+      border: 1px solid rgba(217,119,6,0.28);
+      color: #78350f;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .warn-banner__icon {
+      flex: 0 0 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      background: #fde68a;
+      color: #92400e;
+      font-size: 13px;
+      font-weight: 700;
+      margin-top: 1px;
+    }
+    .warn-banner__title {
+      display: block;
+      font-weight: 600;
+      color: #78350f;
+      margin-bottom: 6px;
+    }
+    .warn-banner ul {
+      margin: 8px 0 0 18px !important;
+    }
+    .warn-banner li {
+      font-size: 14.5px !important;
+      color: #78350f !important;
+      line-height: 1.55 !important;
+      margin-bottom: 4px !important;
+    }
+    .warn-banner code {
+      background: rgba(217,119,6,0.12) !important;
+      color: #78350f !important;
+    }
+    [data-theme="dark"] .warn-banner {
+      background: rgba(252,211,77,0.07);
+      border-color: rgba(252,211,77,0.22);
+      color: #fde68a;
+    }
+    [data-theme="dark"] .warn-banner__icon {
+      background: rgba(252,211,77,0.22);
+      color: #fde68a;
+    }
+    [data-theme="dark"] .warn-banner__title { color: #fcd34d; }
+    [data-theme="dark"] .warn-banner li { color: #fde68a !important; }
+    [data-theme="dark"] .warn-banner code {
+      background: rgba(252,211,77,0.14) !important;
+      color: #fde68a !important;
+    }
+
+    /* Screenshot card inside a step */
+    .step-figure {
+      display: block;
+      margin: 14px 0 0;
+      padding: 8px;
+      border-radius: 12px;
+      background: var(--bg-gray);
+      border: 1px solid var(--border);
+    }
+    .step-figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+    .step-figure figcaption {
+      font-size: 13px;
+      color: var(--text-subtle);
+      padding: 10px 6px 4px;
+      line-height: 1.5;
+    }
+    [data-theme="dark"] .step-figure {
+      background: #1c1c1e;
+      border-color: rgba(255,255,255,0.08);
+    }
+
+    /* Info note (not numbered) - sits between steps */
+    .info-note {
+      margin: 16px 0 0;
+      padding: 16px 20px;
+      border-radius: 10px;
+      background: var(--bg-subtle);
+      border: 1px dashed var(--border-strong);
+      font-size: 14.5px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .info-note__label {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-right: 8px;
+      vertical-align: 1px;
+    }
+    .info-note strong { color: var(--text); }
+    [data-theme="dark"] .info-note {
+      background: #1c1c1e;
+      border-color: rgba(255,255,255,0.18);
+    }
+    [data-theme="dark"] .goal-panel {
+      background: rgba(129,140,248,0.08);
+      border-color: rgba(129,140,248,0.22);
+    }
+    [data-theme="dark"] .goal-panel::before {
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
+    }
+    [data-theme="dark"] .goal-list li { color: #e4e4e7; }
+    [data-theme="dark"] .goal-list li::before {
+      background: rgba(129,140,248,0.14);
+      border-color: rgba(129,140,248,0.32);
+    }
+    [data-theme="dark"] .goal-list li::after {
+      border-color: #a5b4fc;
+    }
+    @media (max-width: 720px) {
+      .goal-panel { padding: 26px 22px 22px; margin: 36px 0 8px; }
+      .goal-list li { font-size: 14.5px; }
+    }
+
+    /* Numbered step cards */
+    .steps {
+      list-style: none;
+      margin: 24px 0 8px !important;
+      padding: 0;
+      counter-reset: step;
+      display: grid;
+      gap: 14px;
+    }
+    .steps > li {
+      counter-increment: step;
+      position: relative;
+      padding: 18px 22px 18px 64px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg-subtle);
+      color: var(--text-muted);
+      font-size: 15.5px;
+      line-height: 1.65;
+      margin: 0 !important;
+    }
+    .steps > li::before {
+      content: counter(step);
+      position: absolute;
+      left: 18px;
+      top: 16px;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .steps strong { color: var(--text); }
+    .steps code {
+      font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.88em;
+      background: var(--bg-gray);
+      padding: 2px 6px;
+      border-radius: 5px;
+      color: var(--text);
+    }
+
+    .beta__contact {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      margin-top: 64px;
+      background: var(--bg-subtle);
+    }
+    .beta__contact h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-top: 0 !important;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    .beta__contact p { margin-bottom: 0 !important; }
+
+    .label--beta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .label--beta::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(99,102,241,0.18);
+    }
+
+    /* ============================================================
+       DARK MODE
+       ============================================================ */
+    [data-theme="dark"] {
+      --bg: #171717;
+      --bg-subtle: #1c1c1e;
+      --bg-gray: #262629;
+      --text: #fafafa;
+      --text-muted: #a1a1aa;
+      --text-subtle: #71717a;
+      --accent: #818cf8;
+      --accent-hover: #a5b4fc;
+      --accent-soft: rgba(99,102,241,0.14);
+      --border: rgba(255,255,255,0.08);
+      --border-strong: rgba(255,255,255,0.14);
+    }
+
+    body, .nav, .site-footer, .beta__callout, .beta__contact, .theme-toggle, .steps > li {
+      transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
+    }
+
+    [data-theme="dark"] html { background: #171717; }
+    [data-theme="dark"] body { background: #171717; color: var(--text); }
+
+    [data-theme="dark"] body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+      opacity: 0.55;
+      mix-blend-mode: overlay;
+    }
+
+    [data-theme="dark"] .beta::before {
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px) !important;
+    }
+
+    [data-theme="dark"] .nav { background: rgba(23,23,23,0.7) !important; }
+    [data-theme="dark"] .nav--scrolled {
+      background: rgba(23,23,23,0.85) !important;
+      border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+    }
+    [data-theme="dark"] .nav__logo-img { filter: invert(1) brightness(1.05); }
+    [data-theme="dark"] .nav__link { color: var(--text-muted); }
+    [data-theme="dark"] .nav__link:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+    [data-theme="dark"] .nav__links { border-right-color: rgba(255,255,255,0.10); }
+
+    [data-theme="dark"] .btn--nav {
+      background: #fafafa !important;
+      color: #0a0a0a !important;
+      border: 1px solid rgba(255,255,255,0.10) !important;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.50),
+        0 1px 2px rgba(0,0,0,0.30),
+        0 8px 24px -8px rgba(0,0,0,0.50) !important;
+    }
+    [data-theme="dark"] .btn--nav:hover { background: #fff !important; }
+
+    [data-theme="dark"] .label { color: var(--accent); }
+    [data-theme="dark"] h1,
+    [data-theme="dark"] h2,
+    [data-theme="dark"] h3 { color: #fafafa; }
+
+    [data-theme="dark"] .beta__body p,
+    [data-theme="dark"] .beta__body li { color: #c9c9d1; }
+    [data-theme="dark"] .beta__body strong { color: #fafafa; }
+    [data-theme="dark"] .beta__body code {
+      background: rgba(255,255,255,0.06);
+      color: #e4e4e7;
+    }
+
+    [data-theme="dark"] .beta__callout {
+      background: rgba(129,140,248,0.10) !important;
+      border-color: rgba(129,140,248,0.22) !important;
+      color: #fafafa;
+    }
+    [data-theme="dark"] .beta__contact,
+    [data-theme="dark"] .steps > li {
+      background: #1c1c1e !important;
+      border-color: rgba(255,255,255,0.08) !important;
+    }
+    [data-theme="dark"] .steps strong { color: #fafafa; }
+
+    [data-theme="dark"] .site-footer {
+      border-top-color: rgba(255,255,255,0.08) !important;
+      color: #71717a !important;
+    }
+    [data-theme="dark"] .site-footer a { color: #a1a1aa !important; }
+    [data-theme="dark"] .site-footer a:hover { color: #fafafa !important; }
+
+    /* ============================================================
+       Mobile
+       ============================================================ */
+    @media (max-width: 720px) {
+      .beta { padding: 110px 0 80px; }
+      .beta__header { margin-bottom: 48px; }
+      .beta__header h1 { font-size: clamp(32px, 8vw, 42px); }
+      .beta__lede { font-size: 15.5px; }
+      .beta__body h2 { font-size: 22px; margin-top: 48px; }
+      .beta__body p, .beta__body li { font-size: 15px; }
+      .beta__callout, .beta__contact { padding: 18px 20px; }
+      .steps > li { padding: 16px 18px 16px 58px; font-size: 14.5px; }
+      .steps > li::before { left: 14px; top: 14px; width: 28px; height: 28px; font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <nav class="nav" id="nav">
+    <a href="/" class="nav__logo">
+      <img src="assets/logo-dark.svg" alt="Thoughts Not Notes" class="nav__logo-img">
+    </a>
+    <div class="nav__right">
+      <nav class="nav__links" aria-label="Main navigation">
+        <a href="/#how-it-works" class="nav__link">How it works</a>
+        <a href="/#features" class="nav__link">Features</a>
+        <a href="/#integrations" class="nav__link">Integrations</a>
+      </nav>
+      <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode" type="button">
+        <svg class="theme-toggle__icon theme-toggle__icon--moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="theme-toggle__icon theme-toggle__icon--sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"/>
+          <line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/>
+          <line x1="4.93" y1="4.93" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.07" y2="19.07"/>
+          <line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/>
+          <line x1="4.93" y1="19.07" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.07" y2="4.93"/>
+        </svg>
+      </button>
+      <a href="/" class="btn btn--nav">Back to home</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <section class="beta">
+    <div class="container">
+
+      <div class="beta__header">
+        <h1>Zapraszam do wersji beta TNN.</h1>
+        <p class="beta__lede">
+          Zbudujmy razem kontekst naszych projektów w Masterbornie. TNN nagrywa Wasze spotkania,
+          robi z nich transkrypcję lokalnie na Waszym Macu i daje Wam materiał, z którego Claude potrafi
+          wygenerować notatkę. Wszystko offline, nic nie wychodzi z komputera.
+        </p>
+        <div class="beta__cta-row">
+          <button class="btn btn--primary" data-modal-open>
+            <img src="assets/icons/apple.svg" width="15" height="15" alt="" aria-hidden="true" class="btn-apple-icon">
+            Pobierz TNN dla Maca
+          </button>
+          <a class="btn btn--secondary" href="https://masterborn.slack.com/archives/DH485LULX" data-feedback-link target="_blank" rel="noopener">
+            Wyślij feedback
+          </a>
+        </div>
+      </div>
+
+      <div class="beta__body">
+
+        <div class="goal-panel">
+          <span class="goal-panel__label">Cel tej bety</span>
+          <h2>Sprawdź, czy to flow u Was działa.</h2>
+          <p class="goal-panel__intro">
+            Każdy powinien przejść całą ścieżkę i potwierdzić, że wszystko działa.
+            W przeciwnym razie proszę o wysłanie feedbacku.
+          </p>
+          <ul class="goal-list">
+            <li><label class="goal-check"><input type="checkbox"><span>Da się zainstalować aplikację.</span></label></li>
+            <li><label class="goal-check"><input type="checkbox"><span>Udało się połączyć Google Calendar.</span></label></li>
+            <li><label class="goal-check"><input type="checkbox"><span>Aplikacja poprawnie nagrywa spotkanie.</span></label></li>
+            <li><label class="goal-check"><input type="checkbox"><span>Powstaje transkrypcja (plik <code>.md</code> lokalnie u Was).</span></label></li>
+            <li><label class="goal-check"><input type="checkbox"><span>Z transkrypcji robicie sobie notatkę ze spotkania.</span></label></li>
+          </ul>
+          <p class="goal-panel__outro">
+            Zaznaczcie sobie kroki, które już macie zaliczone. Te checkboxy żyją tylko w Waszej przeglądarce -
+            służą Wam, żeby nie zgubić się w teście.
+          </p>
+        </div>
+
+        <h2>Po co to robimy</h2>
+        <p>
+          Chcę, żebyśmy zaczęli budować wspólny kontekst firmowy. Wiedza w MasterBorn żyje dziś w głowach,
+          w wątkach na Slacku, w pojedynczych dokumentach. Bardzo dużo z niej po prostu ginie po spotkaniach.
+        </p>
+        <p>
+          Jeśli zaczniemy systematycznie zapisywać i porządkować to, co się dzieje w projektach,
+          otwiera nam to wiele rzeczy. Poniżej kilka z nich:
+        </p>
+        <ul>
+          <li>
+            <strong>Onboarding nowych osób przyspiesza.</strong> Nowa osoba w projekcie (albo Wy w nowym projekcie)
+            może w jednym miejscu przeczytać wszystko, co ktokolwiek z MasterBorn już na ten temat powiedział.
+            Growth, PPO, designerzy, calle z klientem.
+          </li>
+          <li>
+            <strong>Wiedza przestaje ginąć i jest wspólna dla wszystkich.</strong> Decyzje, ustalenia z klientem,
+            kontekst „dlaczego coś jest tak, a nie inaczej" zostają zapisane, są wyszukiwalne
+            i dostępne dla każdej osoby w MasterBorn - zamiast wyparowywać po spotkaniu.
+          </li>
+        </ul>
+        <p>
+          Ta beta to pierwszy krok. Sprawdzamy najpierw, czy mamy dobre nagrania i dobre podsumowania.
+          Kolejny duży milestone to wrzucanie odpowiedniego kontekstu w odpowiednie miejsca - ale o tym za chwilę.
+        </p>
+
+        <h2>Instrukcja</h2>
+        <ol class="steps">
+          <li>
+            <strong>Pobierzcie aplikację</strong> z <a href="https://thoughtsnotnotes.com">thoughtsnotnotes.com</a>.
+            Dostaniecie plik <code>.dmg</code> do ręcznej instalacji.
+          </li>
+        </ol>
+
+        <div class="warn-banner">
+          <span class="warn-banner__icon" aria-hidden="true">!</span>
+          <div>
+            <strong class="warn-banner__title">Aplikację trzeba potwierdzić ręcznie</strong>
+            Apka jest w becie, więc nie jest jeszcze podpisana ani przez App Store, ani przez Google.
+            Przy pierwszym uruchomieniu macOS ją zablokuje. Żeby ją odpalić:
+            <ul>
+              <li>Wejdźcie w <strong>System Settings → Privacy &amp; Security</strong></li>
+              <li>Przewińcie w dół do sekcji <strong>Security</strong></li>
+              <li>Zobaczycie komunikat <em>"TNN.app was blocked"</em> - kliknijcie <strong>Open Anyway</strong></li>
+            </ul>
+            Po tym pierwszym razie kolejne uruchomienia będą już bezproblemowe.
+          </div>
+        </div>
+
+        <ol class="steps" start="2" style="counter-reset: step 1;">
+          <li>
+            <strong>Podepnijcie swój kalendarz.</strong> Aplikacja zacznie czytać Wasze spotkania i minutę przed każdym
+            wyświetli powiadomienie z propozycją włączenia nagrywania jednym kliknięciem.
+          </li>
+          <li>
+            <strong>Nagrajcie spotkanie i normalnie w nim uczestniczcie.</strong> Wszystko powinno się nagrać.
+            Możecie zatrzymać nagrywanie ręcznie albo zatrzyma się samo po kilkudziesięciu sekundach ciszy.
+            Audio zapisuje się lokalnie u Was na komputerze (godzinna rozmowa to ok. 1 GB).
+          </li>
+          <li>
+            <strong>Poczekajcie na transkrypcję.</strong> W tle aplikacja przerabia audio lokalnym modelem
+            <strong>Whisper</strong> (~500 MB, pobiera się raz, służy wyłącznie do transkrypcji i nie powinien Wam
+            obciążać kompa). Efekt to plik <code>.md</code> w folderze <code>~/Documents/TNN</code>:
+            <figure class="step-figure">
+              <img src="assets/beta/tnn-folder.png" alt="Folder Documents / TNN z plikami transkrypcji .md">
+              <figcaption>Pliki nazywane są w schemacie <code>YYYY-MM-DD_HH-MM_nazwa-spotkania.md</code>, więc łatwo je potem znaleźć i odnieść do siebie.</figcaption>
+            </figure>
+          </li>
+          <li>
+            <strong>Wygenerujcie podsumowanie w Claude Cowork.</strong> To dla mnie domyślna ścieżka na tę betę.
+            W Claude Cowork dajcie sobie dostęp do folderu <code>~/Documents/TNN</code>
+            (czyli ten sam folder, w którym leżą pliki <code>.md</code>) - i Claude może Wam podsumować spotkania
+            wprost z transkrypcji:
+            <figure class="step-figure">
+              <img src="assets/beta/claude-cowork.png" alt="Claude Cowork z podpiętym folderem TNN gotowy do podsumowania spotkania">
+              <figcaption>Wystarczy prosty prompt typu <em>„podsumuj mi dzisiejsze spotkania, pliki .md z transkrypcją znajdziesz w folderze TNN"</em>.</figcaption>
+            </figure>
+          </li>
+          <li>
+            <strong>Dajcie feedback.</strong> Pingnijcie mnie na Slacku - co działa, co nie działa, co Was wkurzyło,
+            czego brakuje. Przy okazji - Claude'a możecie też zapytać, żeby od razu wrzucił Wam podsumowanie
+            w Slacku. U mnie to wygląda tak:
+            <figure class="step-figure">
+              <img src="assets/beta/slack-summary.png" alt="Podsumowanie spotkania wysłane przez Claude'a na Slacka">
+              <figcaption>Claude wysyła samodzielnie strukturalne podsumowanie do mojego Slacka po przeczytaniu transkrypcji z folderu TNN.</figcaption>
+            </figure>
+          </li>
+        </ol>
+
+        <div class="info-note">
+          <span class="info-note__label">FYI</span>
+          Jest też <strong>integracja z Notion</strong> - aplikacja może wysyłać transkrypcję wprost do Waszej bazy w Notion,
+          gdzie dalej obrabia ją Notion AI. Planuję więcej integracji. Jeśli pracujecie na konkretnych narzędziach,
+          które fajnie byłoby tu podłączyć, <strong>dajcie mi znać w feedbacku</strong> - to będę rozkminiał, jak to zrobić.
+        </div>
+
+        <div class="beta__cta-row" style="justify-content: flex-start; margin-top: 24px;">
+          <a class="btn btn--secondary" href="https://masterborn.slack.com/archives/DH485LULX" data-feedback-link target="_blank" rel="noopener">
+            Wyślij feedback
+          </a>
+        </div>
+
+        <h2>Zadanie na szóstkę</h2>
+        <p>
+          Następny krok, taki „na szóstkę", to przygotowanie <strong>skilla do pisania notatek ze spotkań</strong>.
+          Czyli ustalonego promptu / agenta, który z transkrypcji robi notatkę dokładnie w takiej formie,
+          jakiej potrzebujemy w MasterBorn - z naszymi sekcjami, naszym tonem, naszymi heurystykami.
+        </p>
+        <p>
+          Ja będę nad tym myślał. <strong>Chętnie przyjmę pomoc</strong> - jeśli ktoś z Was chce się tego podjąć,
+          piszcie. To dobre zadanie do wkręcenia się w temat i realnie przyspieszy nam całą resztę pracy.
+        </p>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <span>© 2026 Thoughts Not Notes</span>
+  <span>
+    <a href="/">Home</a>
+    &nbsp;·&nbsp;
+    <a href="/privacy.html">Privacy</a>
+    &nbsp;·&nbsp;
+    <a href="/terms.html">Terms</a>
+  </span>
+</footer>
+
+<!-- ============================================================
+     WAITLIST / DOWNLOAD MODALS (identical to home page)
+     ============================================================ -->
+<div id="mobile-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="mobile-modal-title">
+  <div class="modal">
+    <button class="modal__close" aria-label="Close" data-modal-close>×</button>
+    <div class="modal__icon" aria-hidden="true">💻</div>
+    <h3 class="modal__title" id="mobile-modal-title">TNN is for Mac</h3>
+    <p class="modal__sub">The app requires macOS 13 or later. Drop your email and we'll send the download link - open it on your Mac.</p>
+    <div class="ml-embedded" data-form="GQaCbC"></div>
+  </div>
+</div>
+
+<div id="install-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="install-modal-title">
+  <div class="modal">
+    <button class="modal__close" aria-label="Close" data-modal-close>×</button>
+    <div class="modal__icon" aria-hidden="true">🎉</div>
+    <h3 class="modal__title" id="install-modal-title">Download started</h3>
+    <p class="modal__sub">Your download is on its way. Here's how to install TNN:</p>
+    <ol class="install-steps">
+      <li><span class="install-step__num">1</span><span>Open <strong>TNN.dmg</strong> from your Downloads folder</span></li>
+      <li><span class="install-step__num">2</span><span>Drag <strong>TNN</strong> to the Applications folder</span></li>
+      <li><span class="install-step__num">3</span><span>Open TNN from Applications or Spotlight <kbd>⌘ Space</kbd></span></li>
+      <li><span class="install-step__num">4</span><span>Grant microphone access when prompted</span></li>
+    </ol>
+    <button class="modal__submit" data-modal-close>Got it</button>
+  </div>
+</div>
+
+<script src="js/main.js" defer></script>
+<script>
+  (function () {
+    var KEY = 'tnn-theme';
+    var root = document.documentElement;
+    var mql = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+    var stored = localStorage.getItem(KEY);
+    var prefersDark = mql && mql.matches;
+    var effective = stored ? stored : (prefersDark ? 'dark' : 'light');
+    if (effective === 'dark') root.setAttribute('data-theme', 'dark');
+
+    var btn = document.querySelector('[data-theme-toggle]');
+    if (btn) {
+      btn.addEventListener('click', function () {
+        var isDark = root.getAttribute('data-theme') === 'dark';
+        var next = isDark ? 'light' : 'dark';
+        if (next === 'dark') root.setAttribute('data-theme', 'dark');
+        else root.removeAttribute('data-theme');
+        localStorage.setItem(KEY, next);
+      });
+    }
+
+    if (mql && mql.addEventListener) {
+      mql.addEventListener('change', function (e) {
+        if (localStorage.getItem(KEY)) return;
+        if (e.matches) root.setAttribute('data-theme', 'dark');
+        else root.removeAttribute('data-theme');
+      });
+    }
+  })();
+
+  (function () {
+    var nav = document.getElementById('nav');
+    if (!nav) return;
+    window.addEventListener('scroll', function () {
+      nav.classList.toggle('nav--scrolled', window.scrollY > 12);
+    }, { passive: true });
+  })();
+</script>
+
+</body>
+</html>
