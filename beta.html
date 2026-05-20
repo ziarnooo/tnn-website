@@ -26,7 +26,7 @@
   </script>
   <!-- End MailerLite Universal -->
 
-  <title>Zapraszam do wersji beta TNN - Thoughts Not Notes</title>
+  <title>Wersja TNN dla Wizjonerów MB - Thoughts Not Notes</title>
   <meta name="description" content="Zbudujmy razem kontekst projektów w Masterbornie. Beta TNN dla product visionarsów.">
   <meta name="robots" content="noindex,nofollow">
 
@@ -680,55 +680,39 @@
       position: fixed;
       top: 0;
       left: 0;
-      width: 8px;
+      width: 9px;
       height: 14px;
       pointer-events: none;
       z-index: 9998;
       will-change: transform, opacity;
-      animation: confetti-fall 1500ms cubic-bezier(0.2, 0.6, 0.2, 1) forwards;
+      animation: confetti-burst 1800ms cubic-bezier(0.16, 0.84, 0.32, 1) forwards;
     }
-    @keyframes confetti-fall {
-      0%   { transform: translate3d(var(--x0, 0), var(--y0, 0), 0) rotate(0deg); opacity: 1; }
-      100% { transform: translate3d(calc(var(--x0, 0) + var(--dx, 0)), calc(var(--y0, 0) + var(--dy, 280px)), 0) rotate(var(--rot, 360deg)); opacity: 0; }
+    @keyframes confetti-burst {
+      0%   { transform: translate3d(var(--x0, 0), var(--y0, 0), 0) rotate(0deg) scale(0.6); opacity: 1; }
+      18%  { opacity: 1; }
+      100% {
+        transform: translate3d(calc(var(--x0, 0) + var(--dx, 0)), calc(var(--y0, 0) + var(--dy, 0)), 0)
+                   rotate(var(--rot, 720deg)) scale(1);
+        opacity: 0;
+      }
     }
 
+    /* Sad cat: appears at a random spot on the screen, no caption */
     .sad-cat {
       position: fixed;
-      left: 50%;
-      bottom: -260px;
-      transform: translateX(-50%);
       z-index: 9999;
       pointer-events: none;
-      background: #fff;
-      border: 1px solid rgba(10,10,10,0.08);
-      border-radius: 18px 18px 0 0;
-      padding: 20px 32px 28px;
-      box-shadow: 0 -16px 40px -12px rgba(0,0,0,0.18);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      min-width: 220px;
-      transition: bottom 480ms cubic-bezier(0.2, 0.7, 0.2, 1);
-    }
-    .sad-cat--show { bottom: 0; }
-    .sad-cat__emoji {
-      font-size: 56px;
+      font-size: 72px;
       line-height: 1;
-      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.10));
+      opacity: 0;
+      transform: scale(0.6);
+      filter: drop-shadow(0 6px 14px rgba(0,0,0,0.18));
+      transition: opacity 240ms ease, transform 280ms cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-    .sad-cat__text {
-      font-family: 'Inter', sans-serif;
-      font-size: 13.5px;
-      color: var(--text-muted);
-      letter-spacing: -0.005em;
+    .sad-cat--show {
+      opacity: 1;
+      transform: scale(1);
     }
-    [data-theme="dark"] .sad-cat {
-      background: #1c1c1e;
-      border-color: rgba(255,255,255,0.10);
-      box-shadow: 0 -16px 40px -12px rgba(0,0,0,0.50);
-    }
-    [data-theme="dark"] .sad-cat__text { color: #a1a1aa; }
 
     /* === Toast (clipboard copy hint) ========================= */
     .toast {
@@ -909,7 +893,7 @@
     <div class="container">
 
       <div class="beta__header">
-        <h1>Zapraszam do wersji beta TNN.</h1>
+        <h1>Wersja TNN dla Wizjonerów MB.</h1>
         <p class="beta__lede">
           Zbudujmy razem kontekst naszych projektów w Masterbornie. TNN nagrywa Wasze spotkania,
           robi z nich transkrypcję lokalnie na Waszym Macu i daje Wam materiał, z którego Claude potrafi
@@ -939,23 +923,19 @@
 
         <h2 id="why">Po co to robimy</h2>
         <p>
-          Chcę, żebyśmy zaczęli budować wspólny kontekst firmowy. Wiedza w MasterBorn żyje dziś w głowach,
-          w wątkach na Slacku, w pojedynczych dokumentach. Bardzo dużo z niej po prostu ginie po spotkaniach.
-        </p>
-        <p>
-          Jeśli zaczniemy systematycznie zapisywać i porządkować to, co się dzieje w projektach,
-          otwiera nam to wiele rzeczy, np.:
+          Chcę, żebyśmy zaczęli budować wspólny kontekst firmowy. Jeśli zaczniemy systematycznie zapisywać
+          i porządkować to, co się dzieje w projektach, otwiera nam to wiele rzeczy, np.:
         </p>
         <ul>
           <li>
-            <strong>Onboarding nowych osób przyspiesza.</strong> Nowa osoba w projekcie (albo Wy w nowym projekcie)
-            może w jednym miejscu przeczytać wszystko, co ktokolwiek z MasterBorn już na ten temat powiedział.
-            Growth, PPO, designerzy, calle z klientem.
+            <strong>Lepszy kontekst do LLM o tym, co robimy = wygodniejsza praca z LLM.</strong>
+            <em>(short term)</em>
           </li>
           <li>
-            <strong>Wspólny mózg o projekcie dla wszystkich.</strong> Decyzje, ustalenia z klientem,
-            kontekst „dlaczego coś jest tak, a nie inaczej" zostają zapisane, są wyszukiwalne
-            i dostępne dla każdej osoby w MasterBorn - zamiast wyparowywać po spotkaniu.
+            <strong>Onboarding nowych osób przyspiesza.</strong> <em>(mid term)</em>
+          </li>
+          <li>
+            <strong>Wspólny mózg o projekcie dla wszystkich.</strong> <em>(end game!)</em>
           </li>
         </ul>
         <p>
@@ -989,30 +969,25 @@
 
         <ol class="steps" start="2" style="counter-reset: step 1;">
           <li>
-            <strong>Podepnijcie swój kalendarz.</strong> Aplikacja zacznie czytać Wasze spotkania i minutę przed każdym
-            wyświetli powiadomienie z propozycją włączenia nagrywania jednym kliknięciem.
+            <strong>Podepnijcie swój kalendarz.</strong> Aplikacja minutę przed spotkaniem wyświetli powiadomienie
+            z propozycją włączenia nagrywania.
           </li>
           <li>
-            <strong>Nagrajcie spotkanie i normalnie w nim uczestniczcie.</strong> Wszystko powinno się nagrać.
-            Możecie zatrzymać nagrywanie ręcznie albo zatrzyma się samo po kilkudziesięciu sekundach ciszy.
-            Audio zapisuje się lokalnie u Was na komputerze (godzinna rozmowa to ok. 1 GB).
-            TNN siedzi w menubarze i pokazuje nadchodzące spotkania - wystarczy kliknąć <strong>Record</strong>:
-            <figure class="step-figure">
-              <img src="assets/beta/menubar.png" alt="TNN w pasku menu z listą nadchodzących spotkań i przyciskiem Record">
-              <figcaption>Apka czyta Wasz kalendarz i pokazuje nadchodzące spotkania w menubarze - jedno kliknięcie i nagrywa.</figcaption>
-            </figure>
+            <strong>Normalnie uczestniczycie w spotkaniu.</strong> Po spotkaniu możecie zatrzymać nagrywanie ręcznie
+            albo zatrzyma się samo po kilkudziesięciu sekundach ciszy. Audio zapisuje się lokalnie u Was na komputerze
+            (godzinna rozmowa to ok. 1 GB).
           </li>
           <li>
-            <strong>Poczekajcie na transkrypcję.</strong> W tle aplikacja przerabia audio lokalnym modelem
-            <strong>Whisper</strong> (~500 MB, pobiera się raz, służy wyłącznie do transkrypcji i nie powinien Wam
-            obciążać kompa). Efekt to plik <code>.md</code> w folderze <code>~/Documents/TNN</code>:
+            <strong>Poczekajcie na transkrypcję.</strong> Trafi do pliku <code>.md</code> w folderze
+            <code>~/Documents/TNN</code>. Aplikacja przerabia audio lokalnym modelem
+            <strong>Whisper</strong> (~500 MB, pobiera się raz, służy wyłącznie do transkrypcji).
             <figure class="step-figure">
               <img src="assets/beta/tnn-folder.png" alt="Folder Documents / TNN z plikami transkrypcji .md">
               <figcaption>Pliki nazywane są w schemacie <code>YYYY-MM-DD_HH-MM_nazwa-spotkania.md</code>, więc łatwo je potem znaleźć i odnieść do siebie.</figcaption>
             </figure>
           </li>
           <li>
-            <strong>Wygenerujcie podsumowanie w Claude Cowork.</strong> To dla mnie domyślna ścieżka na tę betę.
+            <strong>Wygenerujcie podsumowanie w Claude Cowork.</strong>
             W Claude Cowork dajcie sobie dostęp do folderu <code>~/Documents/TNN</code>
             (czyli ten sam folder, w którym leżą pliki <code>.md</code>) - i Claude może Wam podsumować spotkania
             wprost z transkrypcji:
@@ -1022,7 +997,7 @@
             </figure>
           </li>
           <li>
-            <strong>Możecie wysłać sobie podsumowanie konektorem na Slacka.</strong> Claude przez konektora Slacka
+            <strong>Możecie wysłać sobie podsumowanie connector'em na Slacka.</strong> Claude przez connector'a Slacka
             może od razu wrzucić strukturalne podsumowanie spotkania na wybrany kanał albo do Was na DMa.
             U mnie wygląda to tak:
             <figure class="step-figure">
@@ -1046,20 +1021,19 @@
 
         <div class="info-note">
           <span class="info-note__label">FYI</span>
-          Jest też <strong>integracja z Notion</strong> - aplikacja może wysyłać transkrypcję wprost do Waszej bazy w Notion,
-          gdzie dalej obrabia ją Notion AI. Planuję więcej integracji. Jeśli pracujecie na konkretnych narzędziach,
+          Jest też <strong>integracja z Notion</strong> - aplikacja może wysyłać transkrypcję wprost do Waszej bazy w Notion.
+          Planuję więcej integracji. Jeśli pracujecie na konkretnych narzędziach,
           które fajnie byłoby tu podłączyć, <strong>dajcie mi znać w feedbacku</strong> - to będę rozkminiał, jak to zrobić.
         </div>
 
         <h2>Zadanie na szóstkę</h2>
         <p>
-          Następny krok, taki „na szóstkę", to przygotowanie <strong>skilla do pisania notatek ze spotkań</strong>.
-          Czyli ustalonego promptu / agenta, który z transkrypcji robi notatkę dokładnie w takiej formie,
-          jakiej potrzebujemy w MasterBorn - z naszymi sekcjami, naszym tonem, naszymi heurystykami.
+          Następny krok, taki „na szóstkę", to przygotowanie <strong>skilla do pisania notatek ze spotkań</strong>,
+          który z transkrypcji robi notatkę dokładnie w takiej formie, jakiej potrzebujemy w MasterBorn.
         </p>
         <p>
-          Ja będę nad tym myślał. <strong>Chętnie przyjmę pomoc</strong> - jeśli ktoś z Was chce się tego podjąć,
-          <a href="https://masterborn.slack.com/archives/DH485LULX" data-feedback-link target="_blank" rel="noopener">wrzućcie na Slacka</a>.
+          <strong>Chętnie przyjmę pomoc</strong> - jeśli ktoś z Was chce się tego podjąć,
+          napiszcie na <a href="https://app.slack.com/client/TGVHQAUFR/C05UNJ3MGGH" target="_blank" rel="noopener">#product_design_visionaries</a>.
           To dobre zadanie do wkręcenia się w temat i realnie przyspieszy nam całą resztę pracy.
         </p>
 
@@ -1147,22 +1121,26 @@
     }, { passive: true });
   })();
 
-  // === Confetti on check, sad cat on uncheck =================
+  // === Confetti on check, random sad cat on uncheck ==========
   (function () {
     var checks = document.querySelectorAll('[data-goal]');
     if (!checks.length) return;
-    var COLORS = ['#6366f1', '#818cf8', '#a78bfa', '#fbbf24', '#f472b6', '#34d399', '#60a5fa'];
+    var COLORS = ['#6366f1', '#818cf8', '#a78bfa', '#fbbf24', '#f472b6', '#34d399', '#60a5fa', '#f87171'];
 
     function fireConfetti(target) {
       var rect = target.getBoundingClientRect();
       var x0 = rect.left + rect.width / 2;
       var y0 = rect.top + rect.height / 2;
-      for (var i = 0; i < 24; i++) {
+      var count = 60;
+      for (var i = 0; i < count; i++) {
         var piece = document.createElement('span');
         piece.className = 'confetti-piece';
-        var dx = (Math.random() - 0.5) * 260;
-        var dy = 140 + Math.random() * 260;
-        var rot = (Math.random() * 720 - 360) + 'deg';
+        // Polar burst - angle around the full circle, with random radius
+        var angle = Math.random() * Math.PI * 2;
+        var radius = 120 + Math.random() * 240;
+        var dx = Math.cos(angle) * radius;
+        var dy = Math.sin(angle) * radius + (Math.random() * 80); // small gravity nudge
+        var rot = (Math.random() * 1080 - 540) + 'deg';
         var color = COLORS[Math.floor(Math.random() * COLORS.length)];
         piece.style.background = color;
         piece.style.setProperty('--x0', x0 + 'px');
@@ -1170,35 +1148,43 @@
         piece.style.setProperty('--dx', dx + 'px');
         piece.style.setProperty('--dy', dy + 'px');
         piece.style.setProperty('--rot', rot);
+        // jitter individual durations a bit for organic look
+        piece.style.animationDuration = (1500 + Math.random() * 700) + 'ms';
         document.body.appendChild(piece);
         (function (el) {
-          setTimeout(function () { el.remove(); }, 1700);
+          setTimeout(function () { el.remove(); }, 2300);
         })(piece);
       }
     }
 
-    var sadCat = null;
-    var sadCatTimer = null;
-    function showSadCat() {
-      if (!sadCat) {
-        sadCat = document.createElement('div');
-        sadCat.className = 'sad-cat';
-        sadCat.innerHTML = '<div class="sad-cat__emoji">😿</div><div class="sad-cat__text">Nie no, dawaj wróć…</div>';
-        document.body.appendChild(sadCat);
-      }
-      // force reflow so animation runs
-      void sadCat.offsetHeight;
-      sadCat.classList.add('sad-cat--show');
-      if (sadCatTimer) clearTimeout(sadCatTimer);
-      sadCatTimer = setTimeout(function () {
-        sadCat.classList.remove('sad-cat--show');
-      }, 2400);
+    function spawnSadCat() {
+      var cat = document.createElement('div');
+      cat.className = 'sad-cat';
+      cat.textContent = '😿';
+
+      // Pick a random position that stays comfortably on screen
+      var size = 90;
+      var marginX = 24;
+      var marginY = 24;
+      var maxX = Math.max(marginX, window.innerWidth - size - marginX);
+      var maxY = Math.max(marginY + 80, window.innerHeight - size - marginY); // keep below nav
+      var x = marginX + Math.random() * (maxX - marginX);
+      var y = (marginY + 80) + Math.random() * (maxY - (marginY + 80));
+      cat.style.left = x + 'px';
+      cat.style.top = y + 'px';
+
+      document.body.appendChild(cat);
+      // Force reflow so the transition runs from the initial state
+      void cat.offsetHeight;
+      cat.classList.add('sad-cat--show');
+      setTimeout(function () { cat.classList.remove('sad-cat--show'); }, 1700);
+      setTimeout(function () { cat.remove(); }, 2200);
     }
 
     checks.forEach(function (ch) {
       ch.addEventListener('change', function () {
         if (ch.checked) fireConfetti(ch);
-        else showSadCat();
+        else spawnSadCat();
       });
     });
   })();
