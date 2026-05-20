@@ -57,6 +57,13 @@
       border-bottom: 1px solid rgba(10,10,10,0.06) !important;
     }
 
+    /* No trailing CTA after the menu → drop the divider */
+    .nav__links {
+      border-right: 0 !important;
+      padding-right: 0 !important;
+      margin-right: 0 !important;
+    }
+
     .theme-toggle {
       display: inline-flex;
       align-items: center;
@@ -157,6 +164,47 @@
       background: rgba(255,255,255,0.06);
       border-color: rgba(255,255,255,0.24);
     }
+
+    /* === Black CTAs - matches index.html === */
+    .btn--primary {
+      background: #0a0a0a !important;
+      color: #fff !important;
+      border: 1px solid #000 !important;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.08),
+        0 1px 2px rgba(0,0,0,0.06),
+        0 10px 28px -10px rgba(0,0,0,0.32) !important;
+      transition: transform 120ms ease, background 160ms ease, box-shadow 160ms ease !important;
+    }
+    .btn--primary:hover {
+      background: #1a1a1a !important;
+      transform: translateY(-1px);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.10),
+        0 2px 4px rgba(0,0,0,0.08),
+        0 14px 32px -10px rgba(0,0,0,0.36) !important;
+    }
+    .btn--primary .btn-apple-icon { filter: invert(1); opacity: 0.95; }
+
+    .btn--nav {
+      background: #0a0a0a !important;
+      color: #fff !important;
+      border: 1px solid #000 !important;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.10),
+        0 1px 2px rgba(0,0,0,0.05),
+        0 6px 16px -8px rgba(0,0,0,0.30) !important;
+      transition: transform 120ms ease, background 160ms ease, box-shadow 160ms ease !important;
+    }
+    .btn--nav:hover {
+      background: #1a1a1a !important;
+      transform: translateY(-1px);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.12),
+        0 2px 4px rgba(0,0,0,0.08),
+        0 8px 20px -8px rgba(0,0,0,0.36) !important;
+    }
+    .btn--nav .btn-apple-icon { filter: invert(1); opacity: 0.95; }
 
     .beta__body { max-width: 760px; margin: 0 auto; }
 
@@ -572,6 +620,147 @@
       box-shadow: 0 0 0 4px rgba(99,102,241,0.18);
     }
 
+    /* Smooth scroll + clear anchor headroom under fixed nav */
+    html { scroll-behavior: smooth; }
+    #cele, #why, #instrukcja { scroll-margin-top: 88px; }
+
+    /* === Thanks card (final step) ============================ */
+    .steps__thanks {
+      counter-increment: step;
+      position: relative;
+      padding: 28px 32px !important;
+      border-radius: 14px !important;
+      background: var(--accent-soft) !important;
+      border: 1px solid rgba(99,102,241,0.22) !important;
+      list-style: none;
+      margin: 0 !important;
+    }
+    .steps__thanks::before {
+      content: counter(step);
+      position: absolute;
+      left: 22px;
+      top: 26px;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .steps__thanks > .thanks-inner {
+      padding-left: 50px;
+    }
+    .steps__thanks h3 {
+      margin: 0 0 10px !important;
+      font-family: 'Ancizar Serif', Georgia, serif !important;
+      font-size: 22px !important;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+    .steps__thanks p {
+      margin: 0 0 18px !important;
+      font-size: 15.5px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      font-weight: 300;
+    }
+    [data-theme="dark"] .steps__thanks {
+      background: rgba(129,140,248,0.10) !important;
+      border-color: rgba(129,140,248,0.22) !important;
+    }
+
+    /* === Confetti & sad cat ================================== */
+    .confetti-piece {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 8px;
+      height: 14px;
+      pointer-events: none;
+      z-index: 9998;
+      will-change: transform, opacity;
+      animation: confetti-fall 1500ms cubic-bezier(0.2, 0.6, 0.2, 1) forwards;
+    }
+    @keyframes confetti-fall {
+      0%   { transform: translate3d(var(--x0, 0), var(--y0, 0), 0) rotate(0deg); opacity: 1; }
+      100% { transform: translate3d(calc(var(--x0, 0) + var(--dx, 0)), calc(var(--y0, 0) + var(--dy, 280px)), 0) rotate(var(--rot, 360deg)); opacity: 0; }
+    }
+
+    .sad-cat {
+      position: fixed;
+      left: 50%;
+      bottom: -260px;
+      transform: translateX(-50%);
+      z-index: 9999;
+      pointer-events: none;
+      background: #fff;
+      border: 1px solid rgba(10,10,10,0.08);
+      border-radius: 18px 18px 0 0;
+      padding: 20px 32px 28px;
+      box-shadow: 0 -16px 40px -12px rgba(0,0,0,0.18);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      min-width: 220px;
+      transition: bottom 480ms cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+    .sad-cat--show { bottom: 0; }
+    .sad-cat__emoji {
+      font-size: 56px;
+      line-height: 1;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.10));
+    }
+    .sad-cat__text {
+      font-family: 'Inter', sans-serif;
+      font-size: 13.5px;
+      color: var(--text-muted);
+      letter-spacing: -0.005em;
+    }
+    [data-theme="dark"] .sad-cat {
+      background: #1c1c1e;
+      border-color: rgba(255,255,255,0.10);
+      box-shadow: 0 -16px 40px -12px rgba(0,0,0,0.50);
+    }
+    [data-theme="dark"] .sad-cat__text { color: #a1a1aa; }
+
+    /* === Toast (clipboard copy hint) ========================= */
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 28px;
+      transform: translate(-50%, 12px);
+      z-index: 10000;
+      pointer-events: none;
+      background: #0a0a0a;
+      color: #fafafa;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: -0.005em;
+      box-shadow: 0 12px 32px -8px rgba(0,0,0,0.4);
+      opacity: 0;
+      transition: opacity 240ms ease, transform 240ms ease;
+      max-width: calc(100% - 32px);
+      text-align: center;
+    }
+    .toast--show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+    [data-theme="dark"] .toast {
+      background: #fafafa;
+      color: #0a0a0a;
+    }
+
     /* ============================================================
        DARK MODE
        ============================================================ */
@@ -623,6 +812,7 @@
     [data-theme="dark"] .nav__link:hover { color: var(--text); background: rgba(255,255,255,0.04); }
     [data-theme="dark"] .nav__links { border-right-color: rgba(255,255,255,0.10); }
 
+    [data-theme="dark"] .btn--primary,
     [data-theme="dark"] .btn--nav {
       background: #fafafa !important;
       color: #0a0a0a !important;
@@ -632,7 +822,10 @@
         0 1px 2px rgba(0,0,0,0.30),
         0 8px 24px -8px rgba(0,0,0,0.50) !important;
     }
+    [data-theme="dark"] .btn--primary:hover,
     [data-theme="dark"] .btn--nav:hover { background: #fff !important; }
+    [data-theme="dark"] .btn--primary .btn-apple-icon,
+    [data-theme="dark"] .btn--nav .btn-apple-icon { filter: none !important; }
 
     [data-theme="dark"] .label { color: var(--accent); }
     [data-theme="dark"] h1,
@@ -691,9 +884,9 @@
     </a>
     <div class="nav__right">
       <nav class="nav__links" aria-label="Main navigation">
-        <a href="/#how-it-works" class="nav__link">How it works</a>
-        <a href="/#features" class="nav__link">Features</a>
-        <a href="/#integrations" class="nav__link">Integrations</a>
+        <a href="#cele" class="nav__link">Cele</a>
+        <a href="#why" class="nav__link">Why</a>
+        <a href="#instrukcja" class="nav__link">Instrukcja</a>
       </nav>
       <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode" type="button">
         <svg class="theme-toggle__icon theme-toggle__icon--moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -707,7 +900,6 @@
           <line x1="4.93" y1="19.07" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.07" y2="4.93"/>
         </svg>
       </button>
-      <a href="/" class="btn btn--nav">Back to home</a>
     </div>
   </nav>
 </header>
@@ -728,42 +920,31 @@
             <img src="assets/icons/apple.svg" width="15" height="15" alt="" aria-hidden="true" class="btn-apple-icon">
             Pobierz TNN dla Maca
           </button>
-          <a class="btn btn--secondary" href="https://masterborn.slack.com/archives/DH485LULX" data-feedback-link target="_blank" rel="noopener">
-            Wyślij feedback
-          </a>
         </div>
       </div>
 
       <div class="beta__body">
 
-        <div class="goal-panel">
+        <div class="goal-panel" id="cele">
           <span class="goal-panel__label">Cel tej bety</span>
           <h2>Sprawdź, czy to flow u Was działa.</h2>
-          <p class="goal-panel__intro">
-            Każdy powinien przejść całą ścieżkę i potwierdzić, że wszystko działa.
-            W przeciwnym razie proszę o wysłanie feedbacku.
-          </p>
           <ul class="goal-list">
-            <li><label class="goal-check"><input type="checkbox"><span>Da się zainstalować aplikację.</span></label></li>
-            <li><label class="goal-check"><input type="checkbox"><span>Udało się połączyć Google Calendar.</span></label></li>
-            <li><label class="goal-check"><input type="checkbox"><span>Aplikacja poprawnie nagrywa spotkanie.</span></label></li>
-            <li><label class="goal-check"><input type="checkbox"><span>Powstaje transkrypcja (plik <code>.md</code> lokalnie u Was).</span></label></li>
-            <li><label class="goal-check"><input type="checkbox"><span>Z transkrypcji robicie sobie notatkę ze spotkania.</span></label></li>
+            <li><label class="goal-check"><input type="checkbox" data-goal><span>Zainstalowałem aplikację!</span></label></li>
+            <li><label class="goal-check"><input type="checkbox" data-goal><span>Połączyłem Google Calendar!</span></label></li>
+            <li><label class="goal-check"><input type="checkbox" data-goal><span>Nagrałem spotkanie!</span></label></li>
+            <li><label class="goal-check"><input type="checkbox" data-goal><span>Mam transkrypcję spotkania!</span></label></li>
+            <li><label class="goal-check"><input type="checkbox" data-goal><span>Zrobiłem notatkę ze spotkania!</span></label></li>
           </ul>
-          <p class="goal-panel__outro">
-            Zaznaczcie sobie kroki, które już macie zaliczone. Te checkboxy żyją tylko w Waszej przeglądarce -
-            służą Wam, żeby nie zgubić się w teście.
-          </p>
         </div>
 
-        <h2>Po co to robimy</h2>
+        <h2 id="why">Po co to robimy</h2>
         <p>
           Chcę, żebyśmy zaczęli budować wspólny kontekst firmowy. Wiedza w MasterBorn żyje dziś w głowach,
           w wątkach na Slacku, w pojedynczych dokumentach. Bardzo dużo z niej po prostu ginie po spotkaniach.
         </p>
         <p>
           Jeśli zaczniemy systematycznie zapisywać i porządkować to, co się dzieje w projektach,
-          otwiera nam to wiele rzeczy. Poniżej kilka z nich:
+          otwiera nam to wiele rzeczy, np.:
         </p>
         <ul>
           <li>
@@ -772,17 +953,18 @@
             Growth, PPO, designerzy, calle z klientem.
           </li>
           <li>
-            <strong>Wiedza przestaje ginąć i jest wspólna dla wszystkich.</strong> Decyzje, ustalenia z klientem,
+            <strong>Wspólny mózg o projekcie dla wszystkich.</strong> Decyzje, ustalenia z klientem,
             kontekst „dlaczego coś jest tak, a nie inaczej" zostają zapisane, są wyszukiwalne
             i dostępne dla każdej osoby w MasterBorn - zamiast wyparowywać po spotkaniu.
           </li>
         </ul>
         <p>
           Ta beta to pierwszy krok. Sprawdzamy najpierw, czy mamy dobre nagrania i dobre podsumowania.
-          Kolejny duży milestone to wrzucanie odpowiedniego kontekstu w odpowiednie miejsca - ale o tym za chwilę.
+          Kolejny duży milestone to wrzucanie odpowiedniego kontekstu w odpowiednie miejsca -
+          do naszego <strong>hivemind</strong> 🐝
         </p>
 
-        <h2>Instrukcja</h2>
+        <h2 id="instrukcja">Instrukcja</h2>
         <ol class="steps">
           <li>
             <strong>Pobierzcie aplikację</strong> z <a href="https://thoughtsnotnotes.com">thoughtsnotnotes.com</a>.
@@ -814,6 +996,11 @@
             <strong>Nagrajcie spotkanie i normalnie w nim uczestniczcie.</strong> Wszystko powinno się nagrać.
             Możecie zatrzymać nagrywanie ręcznie albo zatrzyma się samo po kilkudziesięciu sekundach ciszy.
             Audio zapisuje się lokalnie u Was na komputerze (godzinna rozmowa to ok. 1 GB).
+            TNN siedzi w menubarze i pokazuje nadchodzące spotkania - wystarczy kliknąć <strong>Record</strong>:
+            <figure class="step-figure">
+              <img src="assets/beta/menubar.png" alt="TNN w pasku menu z listą nadchodzących spotkań i przyciskiem Record">
+              <figcaption>Apka czyta Wasz kalendarz i pokazuje nadchodzące spotkania w menubarze - jedno kliknięcie i nagrywa.</figcaption>
+            </figure>
           </li>
           <li>
             <strong>Poczekajcie na transkrypcję.</strong> W tle aplikacja przerabia audio lokalnym modelem
@@ -835,13 +1022,25 @@
             </figure>
           </li>
           <li>
-            <strong>Dajcie feedback.</strong> Pingnijcie mnie na Slacku - co działa, co nie działa, co Was wkurzyło,
-            czego brakuje. Przy okazji - Claude'a możecie też zapytać, żeby od razu wrzucił Wam podsumowanie
-            w Slacku. U mnie to wygląda tak:
+            <strong>Możecie wysłać sobie podsumowanie konektorem na Slacka.</strong> Claude przez konektora Slacka
+            może od razu wrzucić strukturalne podsumowanie spotkania na wybrany kanał albo do Was na DMa.
+            U mnie wygląda to tak:
             <figure class="step-figure">
               <img src="assets/beta/slack-summary.png" alt="Podsumowanie spotkania wysłane przez Claude'a na Slacka">
-              <figcaption>Claude wysyła samodzielnie strukturalne podsumowanie do mojego Slacka po przeczytaniu transkrypcji z folderu TNN.</figcaption>
+              <figcaption>Claude sam wysyła strukturalne podsumowanie na mojego Slacka po przeczytaniu transkrypcji z folderu TNN.</figcaption>
             </figure>
+          </li>
+          <li class="steps__thanks">
+            <div class="thanks-inner">
+              <h3>Dzięki za pomoc 🙏</h3>
+              <p>
+                Bardzo chętnie przyjmę feedback i pięknie Wam dziękuję za pomoc.
+                Mam nadzieję, że razem zbudujemy coś fajnego dla MasterBorn.
+              </p>
+              <a class="btn btn--secondary" href="https://masterborn.slack.com/archives/DH485LULX" data-feedback-link target="_blank" rel="noopener">
+                Wyślij feedback
+              </a>
+            </div>
           </li>
         </ol>
 
@@ -852,12 +1051,6 @@
           które fajnie byłoby tu podłączyć, <strong>dajcie mi znać w feedbacku</strong> - to będę rozkminiał, jak to zrobić.
         </div>
 
-        <div class="beta__cta-row" style="justify-content: flex-start; margin-top: 24px;">
-          <a class="btn btn--secondary" href="https://masterborn.slack.com/archives/DH485LULX" data-feedback-link target="_blank" rel="noopener">
-            Wyślij feedback
-          </a>
-        </div>
-
         <h2>Zadanie na szóstkę</h2>
         <p>
           Następny krok, taki „na szóstkę", to przygotowanie <strong>skilla do pisania notatek ze spotkań</strong>.
@@ -866,7 +1059,8 @@
         </p>
         <p>
           Ja będę nad tym myślał. <strong>Chętnie przyjmę pomoc</strong> - jeśli ktoś z Was chce się tego podjąć,
-          piszcie. To dobre zadanie do wkręcenia się w temat i realnie przyspieszy nam całą resztę pracy.
+          <a href="https://masterborn.slack.com/archives/DH485LULX" data-feedback-link target="_blank" rel="noopener">wrzućcie na Slacka</a>.
+          To dobre zadanie do wkręcenia się w temat i realnie przyspieszy nam całą resztę pracy.
         </p>
 
       </div>
@@ -951,6 +1145,97 @@
     window.addEventListener('scroll', function () {
       nav.classList.toggle('nav--scrolled', window.scrollY > 12);
     }, { passive: true });
+  })();
+
+  // === Confetti on check, sad cat on uncheck =================
+  (function () {
+    var checks = document.querySelectorAll('[data-goal]');
+    if (!checks.length) return;
+    var COLORS = ['#6366f1', '#818cf8', '#a78bfa', '#fbbf24', '#f472b6', '#34d399', '#60a5fa'];
+
+    function fireConfetti(target) {
+      var rect = target.getBoundingClientRect();
+      var x0 = rect.left + rect.width / 2;
+      var y0 = rect.top + rect.height / 2;
+      for (var i = 0; i < 24; i++) {
+        var piece = document.createElement('span');
+        piece.className = 'confetti-piece';
+        var dx = (Math.random() - 0.5) * 260;
+        var dy = 140 + Math.random() * 260;
+        var rot = (Math.random() * 720 - 360) + 'deg';
+        var color = COLORS[Math.floor(Math.random() * COLORS.length)];
+        piece.style.background = color;
+        piece.style.setProperty('--x0', x0 + 'px');
+        piece.style.setProperty('--y0', y0 + 'px');
+        piece.style.setProperty('--dx', dx + 'px');
+        piece.style.setProperty('--dy', dy + 'px');
+        piece.style.setProperty('--rot', rot);
+        document.body.appendChild(piece);
+        (function (el) {
+          setTimeout(function () { el.remove(); }, 1700);
+        })(piece);
+      }
+    }
+
+    var sadCat = null;
+    var sadCatTimer = null;
+    function showSadCat() {
+      if (!sadCat) {
+        sadCat = document.createElement('div');
+        sadCat.className = 'sad-cat';
+        sadCat.innerHTML = '<div class="sad-cat__emoji">😿</div><div class="sad-cat__text">Nie no, dawaj wróć…</div>';
+        document.body.appendChild(sadCat);
+      }
+      // force reflow so animation runs
+      void sadCat.offsetHeight;
+      sadCat.classList.add('sad-cat--show');
+      if (sadCatTimer) clearTimeout(sadCatTimer);
+      sadCatTimer = setTimeout(function () {
+        sadCat.classList.remove('sad-cat--show');
+      }, 2400);
+    }
+
+    checks.forEach(function (ch) {
+      ch.addEventListener('change', function () {
+        if (ch.checked) fireConfetti(ch);
+        else showSadCat();
+      });
+    });
+  })();
+
+  // === Feedback links: copy template to clipboard, open Slack =
+  (function () {
+    var FEEDBACK_TEMPLATE = "Cześć! Mam feedback do bety TNN 🐝\n\n"
+      + "Co działa: \n"
+      + "Co nie działa: \n"
+      + "Co bym zmienił/dodał: \n";
+
+    function showToast(message) {
+      var t = document.createElement('div');
+      t.className = 'toast';
+      t.textContent = message;
+      document.body.appendChild(t);
+      requestAnimationFrame(function () { t.classList.add('toast--show'); });
+      setTimeout(function () {
+        t.classList.remove('toast--show');
+        setTimeout(function () { t.remove(); }, 400);
+      }, 3400);
+    }
+
+    var links = document.querySelectorAll('[data-feedback-link]');
+    links.forEach(function (a) {
+      a.addEventListener('click', function () {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(FEEDBACK_TEMPLATE).then(function () {
+            showToast('Szablon wiadomości skopiowany - wklej (⌘V) na Slacku i wyślij ✌️');
+          }).catch(function () {
+            showToast('Otwieram Slacka - napisz mi feedback w DMie ✌️');
+          });
+        } else {
+          showToast('Otwieram Slacka - napisz mi feedback w DMie ✌️');
+        }
+      });
+    });
   })();
 </script>
 
