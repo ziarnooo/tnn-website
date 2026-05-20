@@ -59,12 +59,28 @@ document.addEventListener('keydown', (e) => {
 // ── Download buttons ──────────────────────────────────────────
 const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
+function trackEvent(name, params) {
+  if (typeof window.gtag === 'function') {
+    window.gtag('event', name, params || {});
+  }
+}
+
 document.querySelectorAll('[data-modal-open]').forEach((btn) => {
   btn.addEventListener('click', () => {
     if (isMobile) {
+      trackEvent('download_intent_mobile', {
+        file_name: 'TNN.dmg',
+        platform: 'mobile',
+      });
       openModal('mobile-modal');
     } else {
       if (DMG_URL) {
+        trackEvent('file_download', {
+          file_name: 'TNN.dmg',
+          file_extension: 'dmg',
+          link_url: DMG_URL,
+          platform: 'desktop',
+        });
         const a = document.createElement('a');
         a.href = DMG_URL;
         a.download = 'TNN.dmg';
@@ -106,6 +122,11 @@ sendLinkForm.addEventListener('submit', async (e) => {
   } catch {
     // show success regardless
   }
+
+  trackEvent('download_link_sent', {
+    file_name: 'TNN.dmg',
+    platform: 'mobile',
+  });
 
   sendLinkForm.style.display = 'none';
   sendLinkSuccess.style.display = 'block';
