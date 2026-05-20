@@ -1,4 +1,3 @@
-const SEND_LINK_ENDPOINT = 'https://submit-formspark.io/f/YOUR_FORM_ID';
 const DMG_URL = 'https://github.com/ziarnooo/tnn-website/releases/latest/download/TNN.dmg';
 
 // ── Scroll-reveal ─────────────────────────────────────────────
@@ -93,41 +92,4 @@ document.querySelectorAll('[data-modal-open]').forEach((btn) => {
   });
 });
 
-// ── Mobile: send download link form ──────────────────────────
-const sendLinkForm    = document.getElementById('send-link-form');
-const sendLinkSuccess = document.getElementById('send-link-success');
-
-sendLinkForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const emailInput = document.getElementById('send-link-email');
-  const email = emailInput.value.trim();
-
-  if (!email || !email.includes('@')) {
-    emailInput.classList.add('modal__input--error');
-    emailInput.focus();
-    setTimeout(() => emailInput.classList.remove('modal__input--error'), 2200);
-    return;
-  }
-
-  const submitBtn = sendLinkForm.querySelector('[type="submit"]');
-  submitBtn.disabled = true;
-  submitBtn.textContent = 'Sending…';
-
-  try {
-    await fetch(SEND_LINK_ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, type: 'send-link' }),
-    });
-  } catch {
-    // show success regardless
-  }
-
-  trackEvent('download_link_sent', {
-    file_name: 'TNN.dmg',
-    platform: 'mobile',
-  });
-
-  sendLinkForm.style.display = 'none';
-  sendLinkSuccess.style.display = 'block';
-});
+// Mobile email collection is handled by the MailerLite embedded form (#mobile-modal).
