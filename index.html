@@ -1099,12 +1099,11 @@
       text-align: left !important;
     }
     .priv-item__icon {
-      width: 36px !important;
-      height: 36px !important;
-      border-radius: 9px !important;
-      background: linear-gradient(180deg, rgba(99,102,241,0.14), rgba(139,92,246,0.08)) !important;
-      border: 1px solid rgba(99,102,241,0.15);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+      width: 96px !important;
+      height: 96px !important;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
       font-size: 16px !important;
       margin-bottom: 8px;
     }
@@ -1724,7 +1723,8 @@
       border-color: rgba(255,255,255,0.12) !important;
     }
     [data-theme="dark"] .feat-card__icon {
-      background: rgba(255,255,255,0.04) !important;
+      background: transparent !important;
+      border: none !important;
     }
     [data-theme="dark"] .feat-card__title { color: #fafafa !important; }
     [data-theme="dark"] .feat-card__desc { color: #a1a1aa !important; }
@@ -1768,7 +1768,7 @@
     }
     [data-theme="dark"] .privacy__title { color: #fafafa !important; }
     [data-theme="dark"] .privacy__title em { color: #a5b4fc !important; }
-    [data-theme="dark"] .priv-item__icon { background: rgba(255,255,255,0.06) !important; }
+    [data-theme="dark"] .priv-item__icon { background: transparent !important; }
     [data-theme="dark"] .priv-item__label { color: #fafafa !important; }
     [data-theme="dark"] .priv-item__desc { color: #a1a1aa !important; }
 
@@ -2337,17 +2337,26 @@
         <h2 class="privacy__title reveal">Your conversations stay<br>on your computer. <em>Period.</em> 💅</h2>
         <div class="privacy__trio">
           <div class="priv-item reveal d1">
-            <div class="priv-item__icon" aria-hidden="true">🚫</div>
+            <div class="priv-item__icon" aria-hidden="true">
+              <img class="icon-img icon-img--light" src="assets/icons/features/NoCloud-1.svg" alt="">
+              <img class="icon-img icon-img--dark" src="assets/icons/features/NoCloud.svg" alt="">
+            </div>
             <div class="priv-item__label">No cloud processing</div>
             <p class="priv-item__desc">Everything runs locally. Your audio never touches a server.</p>
           </div>
           <div class="priv-item reveal d2">
-            <div class="priv-item__icon" aria-hidden="true">🔒</div>
+            <div class="priv-item__icon" aria-hidden="true">
+              <img class="icon-img icon-img--light" src="assets/icons/features/NoServers-1.svg" alt="">
+              <img class="icon-img icon-img--dark" src="assets/icons/features/NoServers.svg" alt="">
+            </div>
             <div class="priv-item__label">No servers storing your audio</div>
             <p class="priv-item__desc">We have no infrastructure to store your data - because we never receive it.</p>
           </div>
           <div class="priv-item reveal d3">
-            <div class="priv-item__icon" aria-hidden="true">🆓</div>
+            <div class="priv-item__icon" aria-hidden="true">
+              <img class="icon-img icon-img--light" src="assets/icons/features/NoSubscription-1.svg" alt="">
+              <img class="icon-img icon-img--dark" src="assets/icons/features/NoSubscription.svg" alt="">
+            </div>
             <div class="priv-item__label">No subscription required</div>
             <p class="priv-item__desc">The AI model lives on your Mac. No monthly fees, no cloud dependency.</p>
           </div>
@@ -2367,7 +2376,10 @@
       </header>
       <div class="features-grid">
         <div class="feat-card reveal">
-          <div class="feat-card__icon" aria-hidden="true">📅</div>
+          <div class="feat-card__icon" aria-hidden="true">
+            <img class="icon-img icon-img--light" src="assets/icons/features/Calendar-1.svg" alt="">
+            <img class="icon-img icon-img--dark" src="assets/icons/features/Calendar.svg" alt="">
+          </div>
           <h3 class="feat-card__title">Calendar-aware</h3>
           <p class="feat-card__desc">Sees your Google Calendar. A native macOS notification pings you 1 minute before each meeting. No manual setup needed.</p>
           <div class="feat-mockup" aria-hidden="true">
@@ -2383,7 +2395,10 @@
           </div>
         </div>
         <div class="feat-card reveal d1">
-          <div class="feat-card__icon" aria-hidden="true">🚫</div>
+          <div class="feat-card__icon" aria-hidden="true">
+            <img class="icon-img icon-img--light" src="assets/icons/features/NoBots-1.svg" alt="">
+            <img class="icon-img icon-img--dark" src="assets/icons/features/NoBots.svg" alt="">
+          </div>
           <h3 class="feat-card__title">No bots</h3>
           <p class="feat-card__desc">No meeting links to share, no third-party assistant joining your calls. Everything happens locally on your Mac, invisibly.</p>
           <div class="feat-mockup" aria-hidden="true">
@@ -2401,7 +2416,10 @@
           </div>
         </div>
         <div class="feat-card reveal d2">
-          <div class="feat-card__icon" aria-hidden="true">⚡</div>
+          <div class="feat-card__icon" aria-hidden="true">
+            <img class="icon-img icon-img--light" src="assets/icons/features/Transcripts-1.svg" alt="">
+            <img class="icon-img icon-img--dark" src="assets/icons/features/Transcripts.svg" alt="">
+          </div>
           <h3 class="feat-card__title">Transcript in seconds</h3>
           <p class="feat-card__desc">On-device AI transcribes your meeting the moment it ends. Pick the model that fits your Mac - everything runs locally.</p>
           <div class="feat-mockup" aria-hidden="true">
@@ -2426,7 +2444,10 @@
           </div>
         </div>
         <div class="feat-card reveal d1">
-          <div class="feat-card__icon" aria-hidden="true">🎤</div>
+          <div class="feat-card__icon" aria-hidden="true">
+            <img class="icon-img icon-img--light" src="assets/icons/features/Dictation-1.svg" alt="">
+            <img class="icon-img icon-img--dark" src="assets/icons/features/Dictation.svg" alt="">
+          </div>
           <h3 class="feat-card__title">Quick Dictation</h3>
           <p class="feat-card__desc">Hold a hotkey, speak, release. Text appears at your cursor instantly - in any app.</p>
           <div class="dict-illus" aria-hidden="true">
@@ -2449,7 +2470,10 @@
           </div>
         </div>
         <div class="feat-card reveal d2">
-          <div class="feat-card__icon" aria-hidden="true">🔗</div>
+          <div class="feat-card__icon" aria-hidden="true">
+            <img class="icon-img icon-img--light" src="assets/icons/features/WorksEverywhere-1.svg" alt="">
+            <img class="icon-img icon-img--dark" src="assets/icons/features/WorksEverywhere.svg" alt="">
+          </div>
           <h3 class="feat-card__title">Works everywhere</h3>
           <p class="feat-card__desc">Send your transcript to Notion, Obsidian, Slack, or anywhere via integrations. More shipping every month.</p>
           <div class="feat-mockup" aria-hidden="true">
@@ -2492,7 +2516,10 @@
           </div>
         </div>
         <div class="feat-card reveal d3">
-          <div class="feat-card__icon" aria-hidden="true">🧠</div>
+          <div class="feat-card__icon" aria-hidden="true">
+            <img class="icon-img icon-img--light" src="assets/icons/features/LLM-1.svg" alt="">
+            <img class="icon-img icon-img--dark" src="assets/icons/features/LLM.svg" alt="">
+          </div>
           <h3 class="feat-card__title">Context for your LLM</h3>
           <p class="feat-card__desc">Every meeting becomes a clean Markdown file in your folder structure. Feed Claude, ChatGPT, or any local model the full context, not just snippets.</p>
           <div class="feat-mockup" aria-hidden="true">
