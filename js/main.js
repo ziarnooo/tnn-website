@@ -55,7 +55,21 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closeAllModals();
 });
 
-// ── Download buttons ──────────────────────────────────────────
+// ── Download flow (2026-07-27): email gates the download ──────
+// Desktop: CTA → #gate-modal (email required) → submit saves the email and
+// redirects to /thanks.html?dl=1 — the DMG download starts THERE (an install
+// page nothing can interrupt).
+// Backend = a plain Google Form (no Apps Script, no extra permissions):
+//   1. forms.new → one question: "Email", type Short answer, required
+//   2. Send → link icon → copy the form link and give it to Claude
+//      (we extract the entry ID and fill both constants below), or:
+//      three dots → "Get pre-filled link" → fill any email → Copy link —
+//      the URL contains "entry.XXXXXXXX=", that's TNN_FORM_ENTRY, and
+//      TNN_FORM_ACTION is the form URL with /viewform → /formResponse.
+//   Answers land in the form's Responses tab (linkable to a Sheet).
+const TNN_FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSececSE0m02PtMMgQWWQffCOLDrGjijvJJNN1xyv614-YZ5iQ/formResponse';
+const TNN_FORM_ENTRY  = 'entry.473938292';
+
 const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
 function trackEvent(name, params) {
@@ -73,23 +87,38 @@ document.querySelectorAll('[data-modal-open]').forEach((btn) => {
       });
       openModal('mobile-modal');
     } else {
-      if (DMG_URL) {
-        trackEvent('file_download', {
-          file_name: 'TNN.dmg',
-          file_extension: 'dmg',
-          link_url: DMG_URL,
-          platform: 'desktop',
-        });
-        const a = document.createElement('a');
-        a.href = DMG_URL;
-        a.download = 'TNN.dmg';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-      }
-      openModal('install-modal');
+      trackEvent('download_intent_desktop', { platform: 'desktop' });
+      openModal('gate-modal');
     }
   });
 });
+
+const gateForm = document.getElementById('gate-form');
+if (gateForm) {
+  gateForm.addEventListener('submit', (ev) => {
+    ev.preventDefault();
+    const email = (document.getElementById('gate-input').value || '').trim();
+    if (!email) return;
+
+    // 1) save the lead (fire-and-forget; never blocks the download)
+    if (TNN_FORM_ACTION && TNN_FORM_ENTRY) {
+      const data = new URLSearchParams();
+      data.append(TNN_FORM_ENTRY, email);
+      fetch(TNN_FORM_ACTION, { method: 'POST', mode: 'no-cors', body: data }).catch(() => {});
+    }
+    try { localStorage.setItem('tnn-beta-email', email); } catch (e) {}
+    trackEvent('generate_lead', { method: 'download-gate' });
+    trackEvent('file_download', {
+      file_name: 'TNN.dmg',
+      file_extension: 'dmg',
+      link_url: DMG_URL,
+      platform: 'desktop',
+    });
+
+    // 2) hand over to /thanks — the download itself starts there (?dl=1),
+    //    so no navigation can cancel it
+    window.location.href = '/thanks.html?dl=1';
+  });
+}
 
 // Mobile email collection is handled by the MailerLite embedded form (#mobile-modal).

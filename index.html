@@ -27,10 +27,10 @@
   </script>
   <!-- End MailerLite Universal -->
 
-  <title>Thoughts Not Notes - Every conversation, remembered.</title>
-  <meta name="description" content="TNN records your meetings locally, transcribes them with on-device AI, and sends structured notes to Notion - automatically. No cloud. No bots.">
+  <title>Thoughts Not Notes - Every conversation, organized.</title>
+  <meta name="description" content="TNN records your meetings locally, transcribes them on-device, and keeps notes, transcripts and summaries in one organized place - ready as context for Claude. No cloud. No bots.">
 
-  <meta property="og:title" content="Thoughts Not Notes - Every conversation, captured.">
+  <meta property="og:title" content="Thoughts Not Notes - Every conversation, organized.">
   <meta property="og:description" content="Private meeting intelligence for Mac. No cloud. No bots. Just press record.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://thoughtsnotnotes.com">
@@ -2238,6 +2238,15 @@
       .beta-scribble{position:static;display:block;transform:rotate(-2.5deg);margin-top:8px;text-align:center;white-space:normal}
     }
 
+  
+    /* --- email gate modal + hero sub tweak (2026-07-27) --- */
+    .gate-form{display:flex;flex-direction:column;gap:10px;margin-top:18px}
+    .gate-input{font-size:15px;padding:12px 14px;border:1px solid rgba(10,10,10,.12);border-radius:10px;background:#fff;color:#18181b;outline:none;width:100%;box-sizing:border-box}
+    .gate-input:focus{border-color:#6366f1;box-shadow:0 0 0 3px rgba(99,102,241,.12)}
+    .gate-submit{display:flex;align-items:center;justify-content:center;gap:8px}
+    .gate-note{font-size:12px;color:#a1a1aa;margin-top:12px;text-align:center}
+    [data-theme="dark"] .gate-input{background:#27272a!important;color:#fafafa!important;border-color:rgba(255,255,255,.14)!important}
+
   </style>
 </head>
 <body>
@@ -2322,10 +2331,10 @@
           <span class="hero-pill__arrow" aria-hidden="true">→</span>
         </a>
         <h1 class="hero__title reveal d1">
-          <span class="line">Every conversation, <span class="accent">remembered.</span></span>
+          <span class="line">Every conversation, <span class="accent">organized.</span></span>
           <span class="line">Nothing leaves your Mac.</span>
         </h1>
-        <p class="hero__sub reveal d2">Record &amp; transcribe on-device - then let Claude work <em>with</em> your notes.</p>
+        <p class="hero__sub reveal d2">Notes, transcripts and summaries in <em>one</em> tidy place. Your whole context, ready when you need it.</p>
         <div class="hero__actions reveal d3">
           <span class="scribble-wrap"><button class="btn btn--primary" data-modal-open>
             <img src="assets/icons/apple.svg" width="15" height="15" alt="" aria-hidden="true" class="btn-apple-icon">
@@ -3032,33 +3041,26 @@
   </div>
 </div>
 
-<!-- Desktop: install instructions (shown after download starts) -->
-<div id="install-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="install-modal-title">
+<!-- Desktop: email gate — the download starts only after the email is submitted;
+     install instructions moved to /thanks.html -->
+<div id="gate-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="gate-modal-title">
   <div class="modal">
     <button class="modal__close" aria-label="Close" data-modal-close>×</button>
-    <div class="modal__icon" aria-hidden="true">🎉</div>
-    <h3 class="modal__title" id="install-modal-title">Download started</h3>
-    <p class="modal__sub">Your download is on its way. Here's how to install TNN:</p>
-    <ol class="install-steps">
-      <li><span class="install-step__num">1</span><span>Open <strong>TNN.dmg</strong> from your Downloads folder</span></li>
-      <li><span class="install-step__num">2</span><span>Drag <strong>TNN</strong> to the Applications folder</span></li>
-      <li><span class="install-step__num">3</span><span>Open TNN from Applications or Spotlight <kbd>⌘ Space</kbd></span></li>
-      <li><span class="install-step__num">4</span><span>Grant microphone access when prompted</span></li>
-    </ol>
-    <div class="dl-email" id="dl-email">
-      <div class="dl-email__label">Want beta updates &amp; the launch price? Leave your email.</div>
-      <form class="dl-email__row" id="dl-email-form">
-        <input type="email" required placeholder="you@company.com" class="dl-email__input" id="dl-email-input" autocomplete="email">
-        <button type="submit" class="dl-email__btn">Keep me posted</button>
-      </form>
-      <div class="dl-email__ok" id="dl-email-ok" hidden>Thanks - you&rsquo;re on the list. Enjoy the beta!</div>
-      <div class="dl-email__note">No spam. Just beta news and your locked-in early price.</div>
-    </div>
-    <button class="modal__submit" data-modal-close>Got it</button>
+    <div class="modal__icon" aria-hidden="true">👋</div>
+    <h3 class="modal__title" id="gate-modal-title">One thing before you download</h3>
+    <p class="modal__sub">TNN is free while we build it. The only thing we ask for is your email - so we can hear how it works for you and make it fit the way <em>you</em> work.</p>
+    <form class="gate-form" id="gate-form">
+      <input type="email" required placeholder="you@company.com" class="gate-input" id="gate-input" autocomplete="email">
+      <button type="submit" class="modal__submit gate-submit">
+        <img src="assets/icons/apple.svg" width="15" height="15" alt="" aria-hidden="true" class="btn-apple-icon">
+        Start the download
+      </button>
+    </form>
+    <p class="gate-note">No spam, no newsletter - we'll only reach out about your feedback.</p>
   </div>
 </div>
 
-<script src="js/main.js" defer></script>
+<script src="js/main.js?v=20260727b" defer></script>
 <script>
   // Theme toggle - OS preference detection + persist user choice in localStorage
   (function () {
@@ -3094,30 +3096,5 @@
 </script>
 
 
-<script>
-/* ---- beta email capture (2026-07-24) ------------------------------------
-   Backend = Google Apps Script Web App appending to a Google Sheet (no new
-   accounts, no MailerLite). To wire it up:
-   1. sheets.new → name it "TNN beta emails"
-   2. Extensions → Apps Script → paste:
-        function doPost(e){SpreadsheetApp.getActiveSheet().appendRow([new Date(),e.parameter.email,e.parameter.src||'']);return ContentService.createTextOutput('ok')}
-   3. Deploy → New deployment → Web app → execute as Me, access: Anyone →
-      copy the URL below.                                                    */
-const TNN_EMAIL_ENDPOINT = ""; // ← paste the Apps Script Web App URL here
-document.getElementById('dl-email-form').addEventListener('submit', function(ev){
-  ev.preventDefault();
-  var input=document.getElementById('dl-email-input');
-  var email=(input.value||'').trim();
-  if(!email) return;
-  if(TNN_EMAIL_ENDPOINT){
-    var data=new FormData(); data.append('email',email); data.append('src','download-modal');
-    fetch(TNN_EMAIL_ENDPOINT,{method:'POST',mode:'no-cors',body:data}).catch(function(){});
-  }
-  try{localStorage.setItem('tnn-beta-email',email);}catch(e){}
-  this.hidden=true;
-  document.querySelector('#dl-email .dl-email__label').hidden=true;
-  document.getElementById('dl-email-ok').hidden=false;
-});
-</script>
 </body>
 </html>

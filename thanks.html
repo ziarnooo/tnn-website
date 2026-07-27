@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thanks - your TNN download has started</title>
+  <meta name="description" content="Your TNN download has started. Here's how to install it on your Mac.">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="assets/logo-icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ancizar+Serif:ital,wght@0,400;0,600;1,400;1,600&family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700&display=swap" rel="stylesheet">
+  <!-- the SAME header as the main site: real nav markup + production stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* chrome rules that live inline on index.html (copied 1:1) */
+    .nav--scrolled{background:rgba(255,255,255,0.78)!important;box-shadow:none!important;border-bottom:1px solid rgba(10,10,10,0.06)!important}
+    [data-theme="dark"] .nav--scrolled{background:rgba(23,23,23,0.85)!important;border-bottom:1px solid rgba(255,255,255,0.06)!important}
+    .btn--nav{background:#0a0a0a!important;color:#fff!important;border:1px solid #000!important;text-decoration:none;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,0.10),0 1px 2px rgba(0,0,0,0.05),0 6px 16px -8px rgba(0,0,0,0.30)!important;
+      transition:transform 120ms ease,background 160ms ease,box-shadow 160ms ease!important}
+    .btn--nav:hover{background:#1a1a1a!important;transform:translateY(-1px);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,0.12),0 2px 4px rgba(0,0,0,0.08),0 8px 20px -8px rgba(0,0,0,0.36)!important}
+    .btn--nav .btn-apple-icon{filter:invert(1);opacity:.95}
+    [data-theme="dark"] .btn--nav{background:#fafafa!important;color:#0a0a0a!important;border:1px solid rgba(255,255,255,0.10)!important;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,0.50),0 1px 2px rgba(0,0,0,0.30),0 8px 24px -8px rgba(0,0,0,0.50)!important}
+    [data-theme="dark"] .btn--nav:hover{background:#fff!important}
+    [data-theme="dark"] .btn--nav .btn-apple-icon{filter:none!important}
+    .theme-toggle{display:inline-flex;align-items:center;justify-content:center;width:38px;height:36px;border-radius:9px;
+      background:transparent;border:1px solid var(--border);color:var(--text-muted);cursor:pointer;margin-right:4px;
+      transition:background 160ms ease,color 160ms ease,border-color 160ms ease}
+    .theme-toggle:hover{background:var(--bg-gray);color:var(--text);border-color:var(--border-strong)}
+    .theme-toggle__icon{display:block}
+    [data-theme="dark"] .theme-toggle{border-color:rgba(255,255,255,.14);color:#a1a1aa}
+    /* dark-mode parity for the shared chrome (these rules live inline in index.html) */
+    :root { --thx-line: rgba(10,10,10,.08); --thx-panel: #fff; --thx-muted: #52525b; --thx-faint: #a1a1aa; --thx-accent: #6366f1; }
+    [data-theme="dark"] body { background: #171717; color: #fafafa; }
+    [data-theme="dark"] .nav { background: rgba(23,23,23,0.7) !important; }
+    [data-theme="dark"] .nav__link { color: #a1a1aa; }
+    [data-theme="dark"] .nav__link:hover { color: #fafafa; background: rgba(255,255,255,0.04); }
+    [data-theme="dark"] .nav__links { border-right-color: rgba(255,255,255,0.10); }
+    [data-theme="dark"] .nav__logo-img { filter: invert(1) brightness(1.05); }
+    [data-theme="dark"] .theme-toggle__icon--moon { display: none; }
+    [data-theme="dark"] .theme-toggle__icon--sun { display: block; }
+    .theme-toggle__icon--sun { display: none; }
+    [data-theme="dark"] { --thx-line: rgba(255,255,255,.1); --thx-panel: #1c1c1f; --thx-muted: #a1a1aa; --thx-faint: #71717a; }
+
+    /* page content */
+    .thx { max-width: 660px; margin: 0 auto; padding: 150px 24px 90px; }
+    .thx .ok-dot { width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg, #8b5cf6, #6366f1); display: flex; align-items: center; justify-content: center; margin-bottom: 26px; }
+    .thx .ok-dot svg { width: 24px; height: 24px; stroke: #fff; stroke-width: 2.6; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .thx h1 { font-family: "Ancizar Serif", Georgia, serif; font-weight: 600; font-size: clamp(2rem, 5vw, 2.9rem); line-height: 1.05; letter-spacing: -0.03em; margin: 0 0 14px; }
+    .thx .lede { font-size: 17px; line-height: 1.6; color: var(--thx-muted); max-width: 44ch; }
+    .thx .lede a { color: var(--thx-accent); font-weight: 500; text-decoration: none; }
+    .thx .lede a:hover { text-decoration: underline; }
+    .dmg { margin: 44px 0 40px; background: var(--thx-panel); border: 1px solid var(--thx-line); border-radius: 18px; box-shadow: 0 4px 16px rgba(16,24,40,.06); overflow: hidden; }
+    .dmg__bar { display: flex; align-items: center; gap: 6px; padding: 11px 14px; border-bottom: 1px solid var(--thx-line); }
+    .dmg__dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dmg__title { margin-left: 8px; font-size: 12px; color: var(--thx-faint); font-weight: 500; }
+    .dmg__body { display: flex; align-items: center; justify-content: center; gap: clamp(24px, 8vw, 64px); padding: 46px 20px 40px; }
+    .dmg__item { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .dmg__label { font-size: 12.5px; color: var(--thx-muted); font-weight: 500; }
+    .dmg__icon { width: 84px; height: 84px; display: flex; align-items: center; justify-content: center; }
+    .dmg__icon img { width: 80px; height: 80px; }
+    .dmg__arrow { color: var(--thx-faint); }
+    .dmg__arrow svg { width: 44px; height: 44px; stroke: currentColor; stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; border-top: 1px solid var(--thx-line); }
+    .steps li { display: flex; align-items: flex-start; gap: 16px; padding: 18px 4px; border-bottom: 1px solid var(--thx-line); font-size: 15.5px; line-height: 1.6; color: var(--thx-muted); }
+    .steps b { color: inherit; filter: none; font-weight: 600; }
+    [data-theme="dark"] .steps b { color: #fafafa; }
+    html:not([data-theme="dark"]) .steps b { color: #0a0a0a; }
+    .step-num { flex: 0 0 26px; height: 26px; border-radius: 50%; background: rgba(99,102,241,.08); border: 1px solid rgba(99,102,241,.25); color: var(--thx-accent); display: flex; align-items: center; justify-content: center; font-size: 12.5px; font-weight: 700; margin-top: 1px; }
+    .thx kbd { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 12px; background: var(--thx-panel); border: 1px solid var(--thx-line); border-bottom-width: 2px; border-radius: 6px; padding: 1px 7px; }
+    .thx .note { margin-top: 28px; font-size: 13.5px; color: var(--thx-faint); }
+    .thx .note a { color: var(--thx-accent); text-decoration: none; }
+    .thx-footer { border-top: 1px solid var(--thx-line); margin-top: 20px; }
+    .thx-footer__in { max-width: 660px; margin: 0 auto; padding: 26px 24px; font-size: 13px; color: var(--thx-faint); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .thx-footer a { color: var(--thx-faint); text-decoration: none; }
+    .thx-footer a:hover { color: inherit; }
+    .rise { opacity: 0; transform: translateY(14px); animation: thxrise .7s cubic-bezier(.2,.7,.2,1) forwards; }
+    @keyframes thxrise { to { opacity: 1; transform: none; } }
+    .d1 { animation-delay: .06s; } .d2 { animation-delay: .16s; } .d3 { animation-delay: .26s; } .d4 { animation-delay: .36s; }
+    @media (prefers-reduced-motion: reduce) { .rise { animation: none; opacity: 1; transform: none; } }
+    @media (max-width: 480px) { .dmg__icon { width: 64px; height: 64px; } .dmg__icon img { width: 60px; height: 60px; } .thx { padding-top: 120px; } }
+  </style>
+</head>
+<body>
+
+  <!-- ===== nav: identical chrome to the main site (links point back home) ===== -->
+  <nav class="nav" id="nav">
+    <a href="/" class="nav__logo">
+      <img src="assets/logo-dark.svg" alt="Thoughts Not Notes" class="nav__logo-img">
+    </a>
+    <div class="nav__right">
+      <nav class="nav__links" aria-label="Main navigation">
+        <a href="/#how-it-works" class="nav__link">How it works</a>
+        <a href="/#features" class="nav__link">Features</a>
+        <a href="/#integrations" class="nav__link">Integrations</a>
+        <a href="/#pricing" class="nav__link">Pricing</a>
+        <a href="/#faq" class="nav__link">FAQ</a>
+      </nav>
+      <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode" type="button">
+        <svg class="theme-toggle__icon theme-toggle__icon--moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="theme-toggle__icon theme-toggle__icon--sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"/>
+          <line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/>
+          <line x1="4.93" y1="4.93" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.07" y2="19.07"/>
+          <line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/>
+          <line x1="4.93" y1="19.07" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.07" y2="4.93"/>
+        </svg>
+      </button>
+      <a class="btn btn--nav" href="https://github.com/ziarnooo/tnn-website/releases/latest/download/TNN.dmg" download><img src="assets/icons/apple.svg" width="13" height="13" alt="" aria-hidden="true" class="btn-apple-icon"> Download again</a>
+    </div>
+  </nav>
+
+  <main class="thx">
+    <div class="ok-dot rise"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></div>
+    <h1 class="rise d1">Thanks - your download<br>just started.</h1>
+    <p class="lede rise d2">TNN.dmg is on its way to your Downloads folder. Didn&rsquo;t start? <a href="https://github.com/ziarnooo/tnn-website/releases/latest/download/TNN.dmg" download>Download it again</a>. Two minutes from now you&rsquo;ll be recording.</p>
+
+    <div class="dmg rise d3" aria-label="Drag TNN to the Applications folder">
+      <div class="dmg__bar">
+        <span class="dmg__dot" style="background:#ff5f57"></span>
+        <span class="dmg__dot" style="background:#febc2e"></span>
+        <span class="dmg__dot" style="background:#28c840"></span>
+        <span class="dmg__title">TNN Installer</span>
+      </div>
+      <div class="dmg__body">
+        <div class="dmg__item">
+          <div class="dmg__icon"><img src="assets/logo-icon.svg" alt="TNN app icon"></div>
+          <div class="dmg__label">TNN</div>
+        </div>
+        <div class="dmg__arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M4 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+        </div>
+        <div class="dmg__item">
+          <div class="dmg__icon" aria-hidden="true">
+            <svg viewBox="0 0 96 96" width="80" height="80">
+              <defs>
+                <linearGradient id="fold" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#7cc0ff"/><stop offset="1" stop-color="#3f8ef2"/>
+                </linearGradient>
+              </defs>
+              <path d="M10 30a6 6 0 0 1 6-6h20l7 8h37a6 6 0 0 1 6 6v34a6 6 0 0 1-6 6H16a6 6 0 0 1-6-6z" fill="url(#fold)"/>
+              <path d="M10 36h76v36a6 6 0 0 1-6 6H16a6 6 0 0 1-6-6z" fill="#5da5f7"/>
+            </svg>
+          </div>
+          <div class="dmg__label">Applications</div>
+        </div>
+      </div>
+    </div>
+
+    <ol class="steps rise d4">
+      <li><span class="step-num">1</span><span>Open <b>TNN.dmg</b> from your Downloads folder.</span></li>
+      <li><span class="step-num">2</span><span>Drag <b>TNN</b> onto the <b>Applications</b> folder - exactly like in the window above.</span></li>
+      <li><span class="step-num">3</span><span>Launch TNN from Applications or Spotlight <kbd>&#8984; Space</kbd>.</span></li>
+      <li><span class="step-num">4</span><span>Grant <b>microphone</b> access when macOS asks - that&rsquo;s what makes the recording work.</span></li>
+      <li><span class="step-num">5</span><span>On first launch TNN downloads its on-device transcription model (~600&nbsp;MB, one time) - after that, everything runs offline.</span></li>
+    </ol>
+
+    <p class="note">Stuck on anything? Write to <a href="mailto:hello@thoughtsnotnotes.com">hello@thoughtsnotnotes.com</a> - during the beta you&rsquo;re talking straight to the makers.</p>
+  </main>
+
+  <footer class="thx-footer">
+    <div class="thx-footer__in">
+      <span>&copy; 2026 Thoughts Not Notes</span>
+      <span><a href="/">thoughtsnotnotes.com</a> &nbsp;&middot;&nbsp; <a href="/privacy.html">Privacy</a></span>
+    </div>
+  </footer>
+
+  <script>
+    // same theme logic as the main site (OS preference + persisted manual choice)
+    (function () {
+      var KEY = 'tnn-theme';
+      var root = document.documentElement;
+      var mql = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+      var stored = localStorage.getItem(KEY);
+      var prefersDark = mql && mql.matches;
+      var effective = stored ? stored : (prefersDark ? 'dark' : 'light');
+      if (effective === 'dark') root.setAttribute('data-theme', 'dark');
+      var btn = document.querySelector('[data-theme-toggle]');
+      if (btn) {
+        btn.addEventListener('click', function () {
+          var isDark = root.getAttribute('data-theme') === 'dark';
+          var next = isDark ? 'light' : 'dark';
+          if (next === 'dark') root.setAttribute('data-theme', 'dark');
+          else root.removeAttribute('data-theme');
+          localStorage.setItem(KEY, next);
+        });
+      }
+      var nav = document.getElementById('nav');
+      window.addEventListener('scroll', function () {
+        nav.classList.toggle('nav--scrolled', window.scrollY > 12);
+      }, { passive: true });
+
+      // arriving from the email gate (?dl=1) → start the DMG download HERE,
+      // where no navigation can cancel it
+      if (new URLSearchParams(window.location.search).get('dl') === '1') {
+        setTimeout(function () {
+          var a = document.createElement('a');
+          a.href = 'https://github.com/ziarnooo/tnn-website/releases/latest/download/TNN.dmg';
+          a.download = 'TNN.dmg';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        }, 400);
+      }
+    })();
+  </script>
+</body>
+</html>
