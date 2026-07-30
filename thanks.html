@@ -12,38 +12,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Ancizar+Serif:ital,wght@0,400;0,600;1,400;1,600&family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700&display=swap" rel="stylesheet">
   <!-- the SAME header as the main site: real nav markup + production stylesheet -->
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/chrome.css">
   <style>
-    /* chrome rules that live inline on index.html (copied 1:1) */
-    .nav--scrolled{background:rgba(255,255,255,0.78)!important;box-shadow:none!important;border-bottom:1px solid rgba(10,10,10,0.06)!important}
-    [data-theme="dark"] .nav--scrolled{background:rgba(23,23,23,0.85)!important;border-bottom:1px solid rgba(255,255,255,0.06)!important}
-    .btn--nav{background:#0a0a0a!important;color:#fff!important;border:1px solid #000!important;text-decoration:none;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,0.10),0 1px 2px rgba(0,0,0,0.05),0 6px 16px -8px rgba(0,0,0,0.30)!important;
-      transition:transform 120ms ease,background 160ms ease,box-shadow 160ms ease!important}
-    .btn--nav:hover{background:#1a1a1a!important;transform:translateY(-1px);
-      box-shadow:inset 0 1px 0 rgba(255,255,255,0.12),0 2px 4px rgba(0,0,0,0.08),0 8px 20px -8px rgba(0,0,0,0.36)!important}
-    .btn--nav .btn-apple-icon{filter:invert(1);opacity:.95}
-    [data-theme="dark"] .btn--nav{background:#fafafa!important;color:#0a0a0a!important;border:1px solid rgba(255,255,255,0.10)!important;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,0.50),0 1px 2px rgba(0,0,0,0.30),0 8px 24px -8px rgba(0,0,0,0.50)!important}
-    [data-theme="dark"] .btn--nav:hover{background:#fff!important}
-    [data-theme="dark"] .btn--nav .btn-apple-icon{filter:none!important}
-    .theme-toggle{display:inline-flex;align-items:center;justify-content:center;width:38px;height:36px;border-radius:9px;
-      background:transparent;border:1px solid var(--border);color:var(--text-muted);cursor:pointer;margin-right:4px;
-      transition:background 160ms ease,color 160ms ease,border-color 160ms ease}
-    .theme-toggle:hover{background:var(--bg-gray);color:var(--text);border-color:var(--border-strong)}
-    .theme-toggle__icon{display:block}
-    [data-theme="dark"] .theme-toggle{border-color:rgba(255,255,255,.14);color:#a1a1aa}
-    /* dark-mode parity for the shared chrome (these rules live inline in index.html) */
+    /* Nav, theme toggle and modal now come from css/chrome.css.
+       Only this page's own tokens stay here. */
     :root { --thx-line: rgba(10,10,10,.08); --thx-panel: #fff; --thx-muted: #52525b; --thx-faint: #a1a1aa; --thx-accent: #6366f1; }
-    [data-theme="dark"] body { background: #171717; color: #fafafa; }
-    [data-theme="dark"] .nav { background: rgba(23,23,23,0.7) !important; }
-    [data-theme="dark"] .nav__link { color: #a1a1aa; }
-    [data-theme="dark"] .nav__link:hover { color: #fafafa; background: rgba(255,255,255,0.04); }
-    [data-theme="dark"] .nav__links { border-right-color: rgba(255,255,255,0.10); }
-    [data-theme="dark"] .nav__logo-img { filter: invert(1) brightness(1.05); }
-    [data-theme="dark"] .theme-toggle__icon--moon { display: none; }
-    [data-theme="dark"] .theme-toggle__icon--sun { display: block; }
-    .theme-toggle__icon--sun { display: none; }
     [data-theme="dark"] { --thx-line: rgba(255,255,255,.1); --thx-panel: #1c1c1f; --thx-muted: #a1a1aa; --thx-faint: #71717a; }
+    [data-theme="dark"] .theme-toggle { border-color: rgba(255,255,255,.14); color: #a1a1aa; }
 
     /* page content */
     .thx { max-width: 660px; margin: 0 auto; padding: 150px 24px 90px; }

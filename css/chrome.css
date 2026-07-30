@@ -1,0 +1,288 @@
+/* ============================================================
+   CHROME - the shared shell every page wears.
+
+   Load order on EVERY page:   style.css  ->  chrome.css  ->  page CSS
+   Loaded by: index.html, thanks.html, and every generated blog page.
+   (Careful: never write a glob with a star-slash inside this comment - it
+   closes the comment early and the parser eats the first rule below.)
+
+   What belongs here: the accent override, the dark-mode token set, the
+   nav, the theme toggle, the nav CTA button, the site footer, and the
+   download modal (including the email gate form).
+
+   What does NOT belong here: anything that exists on one page only.
+   The homepage hero, its .btn--primary treatment and its section styling
+   stay inline in index.html; blog article typography stays in blog.css.
+
+   This file exists because the modal styles used to live inline in
+   index.html, so the blog rendered an unstyled email input. If you add a
+   chrome rule, add it here, not in a page.
+   ============================================================ */
+
+/* ---------- accent: style.css ships teal, the product is indigo ---------- */
+:root {
+  --accent: #6366f1;
+  --accent-hover: #4f46e5;
+  --accent-soft: #eef2ff;
+}
+
+/* ---------- dark mode token set ---------- */
+[data-theme="dark"] {
+  --bg: #171717;
+  --bg-subtle: #1c1c1e;
+  --bg-gray: #262629;
+  --text: #fafafa;
+  --text-muted: #a1a1aa;
+  --text-subtle: #71717a;
+  --accent: #818cf8;
+  --accent-hover: #a5b4fc;
+  --accent-soft: rgba(99, 102, 241, 0.14);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+}
+
+[data-theme="dark"] body { background: var(--bg); color: var(--text); }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav--scrolled {
+  background: rgba(255, 255, 255, 0.78) !important;
+  box-shadow: none !important;
+  border-bottom: 1px solid rgba(10, 10, 10, 0.06) !important;
+}
+
+[data-theme="dark"] .nav { background: rgba(23, 23, 23, 0.7) !important; }
+[data-theme="dark"] .nav--scrolled {
+  background: rgba(23, 23, 23, 0.85) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+[data-theme="dark"] .nav__logo-img { filter: invert(1) brightness(1.05); }
+[data-theme="dark"] .nav__link { color: var(--text-muted); }
+[data-theme="dark"] .nav__link:hover { color: var(--text); background: rgba(255, 255, 255, 0.04); }
+[data-theme="dark"] .nav__links { border-right-color: rgba(255, 255, 255, 0.10); }
+
+/* ---------- nav CTA ---------- */
+.btn--nav {
+  background: #0a0a0a !important;
+  color: #fff !important;
+  border: 1px solid #000 !important;
+  text-decoration: none;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.10),
+    0 1px 2px rgba(0, 0, 0, 0.05),
+    0 6px 16px -8px rgba(0, 0, 0, 0.30) !important;
+  transition: transform 120ms ease, background 160ms ease, box-shadow 160ms ease !important;
+}
+.btn--nav:hover {
+  background: #1a1a1a !important;
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 2px 4px rgba(0, 0, 0, 0.08),
+    0 8px 20px -8px rgba(0, 0, 0, 0.36) !important;
+}
+.btn--nav .btn-apple-icon { filter: invert(1); opacity: 0.95; }
+
+[data-theme="dark"] .btn--nav {
+  background: #fafafa !important;
+  color: #0a0a0a !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.50),
+    0 1px 2px rgba(0, 0, 0, 0.30),
+    0 8px 24px -8px rgba(0, 0, 0, 0.50) !important;
+}
+[data-theme="dark"] .btn--nav:hover { background: #fff !important; }
+[data-theme="dark"] .btn--nav .btn-apple-icon { filter: none !important; }
+
+/* ---------- theme toggle ---------- */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 36px;
+  border-radius: 9px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  cursor: pointer;
+  margin-right: 4px;
+  transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+.theme-toggle:hover {
+  background: var(--bg-gray);
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+.theme-toggle__icon { display: block; }
+.theme-toggle__icon--sun { display: none; }
+[data-theme="dark"] .theme-toggle__icon--moon { display: none; }
+[data-theme="dark"] .theme-toggle__icon--sun { display: block; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+[data-theme="dark"] .site-footer {
+  background: #171717 !important;
+  border-top-color: rgba(255, 255, 255, 0.06) !important;
+  color: #71717a !important;
+}
+[data-theme="dark"] .site-footer a { color: #a1a1aa !important; }
+[data-theme="dark"] .site-footer a:hover { color: #fafafa !important; }
+
+/* ============================================================
+   DOWNLOAD MODAL
+   Base geometry lives in style.css; this is the current look.
+   ============================================================ */
+.modal-overlay {
+  background: rgba(10, 10, 10, 0.50) !important;
+  -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
+}
+.modal {
+  border-radius: 20px !important;
+  box-shadow:
+    0 0 0 1px rgba(10, 10, 10, 0.05),
+    0 30px 80px -20px rgba(10, 10, 10, 0.30),
+    0 10px 30px -10px rgba(10, 10, 10, 0.15) !important;
+}
+.modal__title {
+  font-family: 'Ancizar Serif', Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.modal__close { border-radius: 9px !important; }
+.modal__input {
+  background: #fff !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 10px !important;
+}
+.modal__input:focus {
+  background: #fff !important;
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12) !important;
+}
+
+/* primary submit matches the black hero CTA */
+.modal__submit {
+  background: #0a0a0a !important;
+  color: #fff !important;
+  border: 1px solid #000 !important;
+  border-radius: 10px !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 1px 2px rgba(0, 0, 0, 0.06),
+    0 10px 28px -10px rgba(0, 0, 0, 0.32) !important;
+  transition: background 160ms ease, transform 120ms ease, box-shadow 160ms ease !important;
+}
+.modal__submit:hover {
+  background: #1a1a1a !important;
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.10),
+    0 2px 4px rgba(0, 0, 0, 0.08),
+    0 14px 32px -10px rgba(0, 0, 0, 0.36) !important;
+}
+.modal__submit--secondary {
+  background: transparent !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border-strong) !important;
+  box-shadow: none !important;
+}
+.modal__submit--secondary:hover {
+  background: var(--bg-gray) !important;
+  border-color: var(--text-muted) !important;
+  transform: none;
+  box-shadow: none !important;
+}
+
+/* ---------- email gate form (was inline in index.html) ---------- */
+.gate-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 18px;
+}
+.gate-input {
+  font-size: 15px;
+  padding: 12px 14px;
+  border: 1px solid rgba(10, 10, 10, .12);
+  border-radius: 10px;
+  background: #fff;
+  color: #18181b;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+.gate-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, .12);
+}
+.gate-submit { display: flex; align-items: center; justify-content: center; gap: 8px; }
+.gate-note { font-size: 12px; color: #a1a1aa; margin-top: 12px; text-align: center; }
+
+/* ---------- modal, dark ---------- */
+[data-theme="dark"] .modal-overlay { background: rgba(0, 0, 0, 0.65) !important; }
+[data-theme="dark"] .modal {
+  background: #1c1c1e !important;
+  color: #fafafa !important;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 30px 80px -20px rgba(0, 0, 0, 0.8),
+    0 10px 30px -10px rgba(0, 0, 0, 0.5) !important;
+}
+[data-theme="dark"] .modal__title { color: #fafafa !important; }
+[data-theme="dark"] .modal__sub,
+[data-theme="dark"] .modal__fine { color: #a1a1aa !important; }
+[data-theme="dark"] .modal__label { color: #d4d4d8 !important; }
+[data-theme="dark"] .modal__input {
+  background: rgba(255, 255, 255, 0.04) !important;
+  color: #fafafa !important;
+  border-color: rgba(255, 255, 255, 0.10) !important;
+}
+[data-theme="dark"] .modal__input:focus {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.20) !important;
+}
+[data-theme="dark"] .modal__close { color: #a1a1aa !important; }
+[data-theme="dark"] .modal__close:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #fafafa !important;
+}
+[data-theme="dark"] .modal__submit {
+  background: #fafafa !important;
+  color: #0a0a0a !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.50),
+    0 1px 2px rgba(0, 0, 0, 0.30),
+    0 8px 24px -8px rgba(0, 0, 0, 0.50) !important;
+}
+[data-theme="dark"] .modal__submit:hover { background: #fff !important; }
+[data-theme="dark"] .modal__submit--secondary {
+  background: transparent !important;
+  color: #fafafa !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  box-shadow: none !important;
+}
+[data-theme="dark"] .modal__submit--secondary:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(255, 255, 255, 0.22) !important;
+}
+[data-theme="dark"] .gate-input {
+  background: #27272a !important;
+  color: #fafafa !important;
+  border-color: rgba(255, 255, 255, .14) !important;
+}
+[data-theme="dark"] .gate-note { color: #71717a !important; }
+
+/* ---------- mobile ---------- */
+@media (max-width: 640px) {
+  .btn--nav { padding: 7px 14px !important; font-size: 13px !important; }
+  .btn--nav span { white-space: nowrap; }
+  .nav__links { display: none; }
+}

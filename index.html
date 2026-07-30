@@ -27,17 +27,160 @@
   </script>
   <!-- End MailerLite Universal -->
 
-  <title>Thoughts Not Notes - Every conversation, organized.</title>
-  <meta name="description" content="TNN records your meetings locally, transcribes them on-device, and keeps notes, transcripts and summaries in one organized place - ready as context for Claude. No cloud. No bots.">
+  <title>Private Meeting Transcription for Mac, On-Device - Thoughts Not Notes</title>
+  <meta name="description" content="TNN records and transcribes your meetings on your Mac - no cloud, no bot joining the call. Notes, transcripts and AI summaries in plain Markdown, ready as context for Claude. One-time payment, free in beta.">
+  <link rel="canonical" href="https://thoughtsnotnotes.com/">
+  <meta name="robots" content="index,follow,max-image-preview:large">
 
-  <meta property="og:title" content="Thoughts Not Notes - Every conversation, organized.">
-  <meta property="og:description" content="Private meeting intelligence for Mac. No cloud. No bots. Just press record.">
+  <meta property="og:site_name" content="Thoughts Not Notes">
+  <meta property="og:title" content="Private meeting notes that never leave your Mac">
+  <meta property="og:description" content="Records and transcribes every meeting on-device. No cloud, no bots. Plain Markdown, ready as context for Claude.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://thoughtsnotnotes.com">
+  <meta property="og:url" content="https://thoughtsnotnotes.com/">
+  <meta property="og:image" content="https://thoughtsnotnotes.com/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Thoughts Not Notes - private, on-device meeting transcription for Mac">
+  <meta property="og:locale" content="en_US">
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Thoughts Not Notes">
-  <meta name="twitter:description" content="Private meeting intelligence for Mac. No cloud. No bots.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Private meeting notes that never leave your Mac">
+  <meta name="twitter:description" content="Records and transcribes every meeting on-device. No cloud, no bots. Plain Markdown, ready as context for Claude.">
+  <meta name="twitter:image" content="https://thoughtsnotnotes.com/assets/og-image.png">
+
+  <!-- ============================================================
+       Structured data. Two rules when editing:
+       1. Every FAQ entry below MUST match a visible <details> in the
+          FAQ section verbatim, or Google drops the rich result.
+       2. offers.price is 0 while the beta is free. Bump it to "49"
+          the day paid launch ships, or the price snippet lies.
+       ============================================================ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://thoughtsnotnotes.com/#app",
+        "name": "Thoughts Not Notes",
+        "alternateName": "TNN",
+        "applicationCategory": "BusinessApplication",
+        "applicationSubCategory": "Meeting transcription and note-taking",
+        "operatingSystem": "macOS 13.0 or later, Apple Silicon",
+        "url": "https://thoughtsnotnotes.com/",
+        "downloadUrl": "https://thoughtsnotnotes.com/",
+        "installUrl": "https://thoughtsnotnotes.com/",
+        "screenshot": "https://thoughtsnotnotes.com/assets/og-image.png",
+        "image": "https://thoughtsnotnotes.com/assets/og-image.png",
+        "description": "TNN records and transcribes meetings entirely on your Mac. No cloud, no bot joining the call. Notes, transcript and AI summaries land in one plain Markdown file per meeting, usable as context for Claude over MCP.",
+        "featureList": [
+          "On-device recording and transcription, audio never leaves the Mac",
+          "No bot joins the meeting, captures system audio instead",
+          "Calendar-aware, knows which meeting is starting",
+          "One plain Markdown file per meeting: notes, transcript, AI summary",
+          "MCP server so Claude can read and write your meeting library",
+          "Reusable skills that learn your note-taking style",
+          "Quick dictation anywhere with a hotkey",
+          "Automatic language detection, dozens of languages via Whisper",
+          "Transcribe existing audio files"
+        ],
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "description": "Free while in beta. One-time payment after launch, no subscription."
+        },
+        "publisher": { "@id": "https://thoughtsnotnotes.com/#org" }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://thoughtsnotnotes.com/#org",
+        "name": "Thoughts Not Notes",
+        "url": "https://thoughtsnotnotes.com/",
+        "logo": "https://thoughtsnotnotes.com/assets/logo-dark.svg",
+        "email": "hello@thoughtsnotnotes.com"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://thoughtsnotnotes.com/#website",
+        "url": "https://thoughtsnotnotes.com/",
+        "name": "Thoughts Not Notes",
+        "publisher": { "@id": "https://thoughtsnotnotes.com/#org" }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://thoughtsnotnotes.com/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is my audio really private?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Recording and transcription happen entirely on your Mac - the audio never touches a server, because there is no server. The one online step is optional AI notes: they run through your own Claude account, and you can see exactly which files Claude reads."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does a bot join my meetings?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. TNN captures the audio playing on your Mac, so nothing joins the call. No meeting links, no recording assistant in the participant list, nothing for the other side to notice."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I need a Claude subscription?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Not for the core: recording, transcription, live notes, dictation and your archive work without any account. AI-written notes and the MCP connection use your own Claude Pro or Max subscription - no API keys, no extra AI fees from us."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Where do my files live?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "In a folder you choose (by default ~/Documents/TNN). Every meeting is one plain Markdown file: your notes, the transcript and the AI notes together. Delete the app tomorrow - the files are still yours."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is MCP, in one sentence?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A standard that lets Claude use apps as tools - TNN's MCP server lets Claude list your meetings, read notes and transcripts, run your skills, and save the results back into the meeting file. Setup is one click in Settings."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Which meeting apps does it work with?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "All of them. Zoom, Meet, Teams, Slack huddles, a phone call on speaker, a conversation in the room - if your Mac can hear it, TNN can transcribe it."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Which languages are supported?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "TNN detects the language automatically - even when a meeting switches mid-sentence. Built on Whisper, which handles dozens of languages; we use it daily in English and Polish."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What do I need to run it?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A Mac with Apple Silicon on macOS 13 or later. The transcription model downloads once (~600 MB) and runs on the Neural Engine - no internet needed after that."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#171717" media="(prefers-color-scheme: dark)">
@@ -47,6 +190,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Ancizar+Serif:ital,wght@0,400;0,600;1,400;1,600&family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900;1,14..32,300&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/style.css">
+  <!-- shared shell: nav, theme toggle, footer, download modal. Edit chrome
+       rules THERE, not in the inline block below, or the blog drifts again. -->
+  <link rel="stylesheet" href="css/chrome.css">
 
   <style>
     /* ============================================================
@@ -54,22 +200,12 @@
        Preview only; lives in this file so style.css is untouched.
        ============================================================ */
 
-    /* === Global accent override: teal → indigo/violet ======== */
-    :root {
-      --accent: #6366f1;
-      --accent-hover: #4f46e5;
-      --accent-soft: #eef2ff;
-    }
+    /* Accent override moved to css/chrome.css */
     /* Fix the few hardcoded teal hex values in style.css */
     .last-sent__name { color: #4338ca !important; }
     .meeting-row--active { border-color: rgba(99,102,241,0.22) !important; }
 
-    /* === Nav: thin line on scroll, no big shadow ============= */
-    .nav--scrolled {
-      background: rgba(255,255,255,0.78) !important;
-      box-shadow: none !important;
-      border-bottom: 1px solid rgba(10,10,10,0.06) !important;
-    }
+    /* Nav scroll line moved to css/chrome.css */
 
     /* === Hero shell ========================================= */
     .hero {
@@ -325,25 +461,7 @@
     }
     .btn--primary .btn-apple-icon { filter: invert(1); opacity: 0.95; }
 
-    .btn--nav {
-      background: #0a0a0a !important;
-      color: #fff !important;
-      border: 1px solid #000 !important;
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.10),
-        0 1px 2px rgba(0,0,0,0.05),
-        0 6px 16px -8px rgba(0,0,0,0.30) !important;
-      transition: transform 120ms ease, background 160ms ease, box-shadow 160ms ease !important;
-    }
-    .btn--nav:hover {
-      background: #1a1a1a !important;
-      transform: translateY(-1px);
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.12),
-        0 2px 4px rgba(0,0,0,0.08),
-        0 8px 20px -8px rgba(0,0,0,0.36) !important;
-    }
-    .btn--nav .btn-apple-icon { filter: invert(1); opacity: 0.95; }
+    /* .btn--nav moved to css/chrome.css */
 
     /* Headline accent - indigo→violet gradient */
     .hero__title .accent {
@@ -1321,120 +1439,17 @@
       animation: pulse-rec 1.4s ease-in-out infinite;
     }
 
-    /* ========================================================
-       MODAL POPUP - match site aesthetic
-       ======================================================== */
-    .modal-overlay {
-      background: rgba(10,10,10,0.50) !important;
-      -webkit-backdrop-filter: blur(6px);
-              backdrop-filter: blur(6px);
-    }
-    .modal {
-      border-radius: 20px !important;
-      box-shadow:
-        0 0 0 1px rgba(10,10,10,0.05),
-        0 30px 80px -20px rgba(10,10,10,0.30),
-        0 10px 30px -10px rgba(10,10,10,0.15) !important;
-    }
-    .modal__title {
-      font-family: 'Ancizar Serif', Georgia, serif;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-    }
-    .modal__close {
-      border-radius: 9px !important;
-    }
-    .modal__input {
-      background: #fff !important;
-      border: 1px solid var(--border) !important;
-      border-radius: 10px !important;
-    }
-    .modal__input:focus {
-      background: #fff !important;
-      border-color: var(--accent) !important;
-      box-shadow: 0 0 0 3px rgba(99,102,241,0.12) !important;
-    }
-    /* Primary submit - matches black hero CTA */
-    .modal__submit {
-      background: #0a0a0a !important;
-      color: #fff !important;
-      border: 1px solid #000 !important;
-      border-radius: 10px !important;
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.08),
-        0 1px 2px rgba(0,0,0,0.06),
-        0 10px 28px -10px rgba(0,0,0,0.32) !important;
-      transition: background 160ms ease, transform 120ms ease, box-shadow 160ms ease !important;
-    }
-    .modal__submit:hover {
-      background: #1a1a1a !important;
-      transform: translateY(-1px);
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.10),
-        0 2px 4px rgba(0,0,0,0.08),
-        0 14px 32px -10px rgba(0,0,0,0.36) !important;
-    }
-    /* Secondary action: ghost / outlined */
-    .modal__submit--secondary {
-      background: transparent !important;
-      color: var(--text) !important;
-      border: 1px solid var(--border-strong) !important;
-      box-shadow: none !important;
-    }
-    .modal__submit--secondary:hover {
-      background: var(--bg-gray) !important;
-      border-color: var(--text-muted) !important;
-      transform: none;
-      box-shadow: none !important;
-    }
+    /* Modal look moved to css/chrome.css */
     .install-step__num {
       background: rgba(99,102,241,0.10) !important;
       color: var(--accent) !important;
     }
 
-    /* ========================================================
-       THEME TOGGLE BUTTON
-       ======================================================== */
-    .theme-toggle {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 38px;
-      height: 36px;
-      border-radius: 9px;
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      cursor: pointer;
-      margin-right: 4px;
-      transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
-    }
-    .theme-toggle:hover {
-      background: var(--bg-gray);
-      color: var(--text);
-      border-color: var(--border-strong);
-    }
-    .theme-toggle__icon { display: block; }
-    .theme-toggle__icon--sun { display: none; }
-    [data-theme="dark"] .theme-toggle__icon--moon { display: none; }
-    [data-theme="dark"] .theme-toggle__icon--sun { display: block; }
+    /* Theme toggle and the dark-mode token set moved to css/chrome.css */
 
     /* ========================================================
        DARK MODE
        ======================================================== */
-    [data-theme="dark"] {
-      --bg: #171717;
-      --bg-subtle: #1c1c1e;
-      --bg-gray: #262629;
-      --text: #fafafa;
-      --text-muted: #a1a1aa;
-      --text-subtle: #71717a;
-      --accent: #818cf8;
-      --accent-hover: #a5b4fc;
-      --accent-soft: rgba(99,102,241,0.14);
-      --border: rgba(255,255,255,0.08);
-      --border-strong: rgba(255,255,255,0.14);
-    }
 
     /* smooth transitions between modes */
     body, .nav, .feat-card, .step-card, .int-item, .site-footer,
@@ -1470,20 +1485,9 @@
     }
     /* Dark mode aurora handled by .hero__aurora-svg above (uses feGaussianBlur) */
 
-    /* Nav */
-    [data-theme="dark"] .nav { background: rgba(23,23,23,0.7) !important; }
-    [data-theme="dark"] .nav--scrolled {
-      background: rgba(23,23,23,0.85) !important;
-      border-bottom: 1px solid rgba(255,255,255,0.06) !important;
-    }
-    [data-theme="dark"] .nav__logo-img { filter: invert(1) brightness(1.05); }
-    [data-theme="dark"] .nav__link { color: var(--text-muted); }
-    [data-theme="dark"] .nav__link:hover { color: var(--text); background: rgba(255,255,255,0.04); }
-    [data-theme="dark"] .nav__links { border-right-color: rgba(255,255,255,0.10); }
-
-    /* Primary + nav CTA invert in dark (white bg, dark text) */
-    [data-theme="dark"] .btn--primary,
-    [data-theme="dark"] .btn--nav {
+    /* Dark nav + .btn--nav moved to css/chrome.css. Only .btn--primary stays
+       here: the blog CTA wants it to remain indigo in dark mode. */
+    [data-theme="dark"] .btn--primary {
       background: #fafafa !important;
       color: #0a0a0a !important;
       border: 1px solid rgba(255,255,255,0.10) !important;
@@ -1492,10 +1496,8 @@
         0 1px 2px rgba(0,0,0,0.30),
         0 8px 24px -8px rgba(0,0,0,0.50) !important;
     }
-    [data-theme="dark"] .btn--primary:hover,
-    [data-theme="dark"] .btn--nav:hover { background: #fff !important; }
-    [data-theme="dark"] .btn--primary .btn-apple-icon,
-    [data-theme="dark"] .btn--nav .btn-apple-icon { filter: none !important; }
+    [data-theme="dark"] .btn--primary:hover { background: #fff !important; }
+    [data-theme="dark"] .btn--primary .btn-apple-icon { filter: none !important; }
 
     /* Pill - dark glass */
     [data-theme="dark"] .hero-pill {
@@ -1802,69 +1804,7 @@
     [data-theme="dark"] .cta__sub,
     [data-theme="dark"] .cta__note { color: #a1a1aa !important; }
 
-    /* Footer */
-    [data-theme="dark"] .site-footer {
-      background: #171717 !important;
-      border-top-color: rgba(255,255,255,0.06) !important;
-      color: #71717a !important;
-    }
-    [data-theme="dark"] .site-footer a { color: #a1a1aa !important; }
-    [data-theme="dark"] .site-footer a:hover { color: #fafafa !important; }
-
-    /* Modal - dark */
-    [data-theme="dark"] .modal-overlay {
-      background: rgba(0,0,0,0.65) !important;
-    }
-    [data-theme="dark"] .modal {
-      background: #1c1c1e !important;
-      color: #fafafa !important;
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,0.06),
-        0 30px 80px -20px rgba(0,0,0,0.8),
-        0 10px 30px -10px rgba(0,0,0,0.5) !important;
-    }
-    [data-theme="dark"] .modal__title { color: #fafafa !important; }
-    [data-theme="dark"] .modal__sub,
-    [data-theme="dark"] .modal__fine { color: #a1a1aa !important; }
-    [data-theme="dark"] .modal__label { color: #d4d4d8 !important; }
-    [data-theme="dark"] .modal__input {
-      background: rgba(255,255,255,0.04) !important;
-      color: #fafafa !important;
-      border-color: rgba(255,255,255,0.10) !important;
-    }
-    [data-theme="dark"] .modal__input:focus {
-      background: rgba(255,255,255,0.06) !important;
-      border-color: var(--accent) !important;
-      box-shadow: 0 0 0 3px rgba(99,102,241,0.20) !important;
-    }
-    [data-theme="dark"] .modal__close { color: #a1a1aa !important; }
-    [data-theme="dark"] .modal__close:hover {
-      background: rgba(255,255,255,0.08) !important;
-      color: #fafafa !important;
-    }
-    /* Primary submit inverted in dark (white bg) */
-    [data-theme="dark"] .modal__submit {
-      background: #fafafa !important;
-      color: #0a0a0a !important;
-      border: 1px solid rgba(255,255,255,0.10) !important;
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.50),
-        0 1px 2px rgba(0,0,0,0.30),
-        0 8px 24px -8px rgba(0,0,0,0.50) !important;
-    }
-    [data-theme="dark"] .modal__submit:hover {
-      background: #fff !important;
-    }
-    [data-theme="dark"] .modal__submit--secondary {
-      background: transparent !important;
-      color: #fafafa !important;
-      border: 1px solid rgba(255,255,255,0.14) !important;
-      box-shadow: none !important;
-    }
-    [data-theme="dark"] .modal__submit--secondary:hover {
-      background: rgba(255,255,255,0.06) !important;
-      border-color: rgba(255,255,255,0.22) !important;
-    }
+    /* Dark footer + dark modal moved to css/chrome.css */
     [data-theme="dark"] .install-step__num {
       background: rgba(99,102,241,0.20) !important;
       color: #a5b4fc !important;
@@ -2088,6 +2028,8 @@
     .price-compare__row s { color: rgba(255,255,255,.35); }
     .price-compare__row--tnn { color: #fafafa; border-top: 1px solid rgba(255,255,255,.08); margin-top: 8px; padding-top: 12px; }
     .pricing__fine { text-align: center; font-size: 13px; color: #a1a1aa; margin-top: 28px; }
+    .pricing__fine a { color: #6366f1; text-decoration: none; border-bottom: 1px solid rgba(99,102,241,.3); }
+    .pricing__fine a:hover { border-bottom-color: #6366f1; }
     [data-theme="dark"] .price-card--org { background: #1c1c1f !important; border-color: rgba(255,255,255,.1) !important; color: #fafafa !important; }
     [data-theme="dark"] .price-card--org .price-card__tag { color: #a1a1aa !important; }
     [data-theme="dark"] .price-card--org .price-list li { color: #d4d4d8 !important; }
@@ -2240,12 +2182,7 @@
 
   
     /* --- email gate modal + hero sub tweak (2026-07-27) --- */
-    .gate-form{display:flex;flex-direction:column;gap:10px;margin-top:18px}
-    .gate-input{font-size:15px;padding:12px 14px;border:1px solid rgba(10,10,10,.12);border-radius:10px;background:#fff;color:#18181b;outline:none;width:100%;box-sizing:border-box}
-    .gate-input:focus{border-color:#6366f1;box-shadow:0 0 0 3px rgba(99,102,241,.12)}
-    .gate-submit{display:flex;align-items:center;justify-content:center;gap:8px}
-    .gate-note{font-size:12px;color:#a1a1aa;margin-top:12px;text-align:center}
-    [data-theme="dark"] .gate-input{background:#27272a!important;color:#fafafa!important;border-color:rgba(255,255,255,.14)!important}
+    /* .gate-* moved to css/chrome.css so the blog gets them too */
 
   </style>
 </head>
@@ -2262,6 +2199,7 @@
         <a href="#features" class="nav__link">Features</a>
         <a href="#integrations" class="nav__link">Integrations</a>
         <a href="#pricing" class="nav__link">Pricing</a>
+        <a href="/blog/" class="nav__link">Blog</a>
         <a href="#faq" class="nav__link">FAQ</a>
       </nav>
       <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode" type="button">
@@ -2939,8 +2877,11 @@
       <div class="price-ledger reveal d3">
         <div class="price-ledger__label">The same job, priced yearly elsewhere</div>
         <div class="price-ledger__row">
-          <span class="price-ledger__item">Granola <b>~$216/yr</b></span>
-          <span class="price-ledger__item">Otter.ai <b>~$120/yr</b></span>
+          <!-- Checked July 2026 against public pricing pages, cheapest paid tier
+               on annual billing. Re-verify before editing; the blog posts quote
+               the same numbers and must not disagree with this row. -->
+          <span class="price-ledger__item">Granola <b>~$168/yr</b></span>
+          <span class="price-ledger__item">Otter.ai <b>~$100/yr</b></span>
           <span class="price-ledger__item">Fireflies <b>~$120/yr</b></span>
           <span class="price-ledger__item">tl;dv <b>~$216/yr</b></span>
           <span class="price-ledger__vs">vs</span>
@@ -2948,6 +2889,11 @@
         </div>
       </div>
       <p class="pricing__fine reveal d3">Recording, transcription and your archive work without any account. AI notes use your own Claude Pro or Max subscription.</p>
+      <p class="pricing__fine reveal d3">Compared in detail, including where each one still beats us:
+        <a href="/blog/granola-alternative/">Granola alternative</a>,
+        <a href="/blog/otter-ai-alternative/">Otter.ai alternative</a>,
+        <a href="/blog/fireflies-alternative/">Fireflies alternative</a>,
+        <a href="/blog/tldv-alternative/">tl;dv alternative</a>.</p>
     </div>
   </section>
 
@@ -3019,6 +2965,8 @@
 <footer class="site-footer">
   <span>© 2026 Thoughts Not Notes</span>
   <span>
+    <a href="/blog/">Blog</a>
+    &nbsp;·&nbsp;
     <a href="/privacy.html">Privacy</a>
     &nbsp;·&nbsp;
     <a href="/terms.html">Terms</a>

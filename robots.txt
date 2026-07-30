@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /thanks.html
+Disallow: /beta.html
+# internal notes, not a page - keep it out of the index
+Disallow: /SEO.md
+
+Sitemap: https://thoughtsnotnotes.com/sitemap.xml
