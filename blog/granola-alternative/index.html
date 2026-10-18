@@ -118,7 +118,7 @@
           "name": "Is TNN a drop-in replacement for Granola?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "For the core loop, yes: rough notes during the call, AI-enhanced summary after, no bot in the participant list. What is missing is the team workspace, Windows support, and Granola's years of polish. What you gain is on-device transcription, plain Markdown files you own, and one payment instead of a subscription."
+            "text": "For the core loop, yes: rough notes during the call, a transcript afterwards, and no bot in the participant list. To create a note, choose a mode and send the prepared prompt in Claude Desktop; the result returns to AI Notes through MCP. What is missing is the team workspace, Windows support, and Granola's years of polish. What you gain is on-device transcription, plain Markdown files you own, and one payment instead of a subscription."
           }
         },
         {
@@ -134,7 +134,7 @@
           "name": "Does TNN work without internet like Granola does not?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes, once the transcription model has downloaded. Recording, transcription, live notes, dictation and your archive all work with wifi off. Only the optional AI notes need a connection, because they run through your own Claude account."
+            "text": "Yes, once the transcription model has downloaded. Recording, transcription, live notes, dictation and your archive all work with wifi off. If you want Claude to create or revise a note over MCP, that optional workflow needs an internet connection and uses your Claude account."
           }
         }
       ]
@@ -207,7 +207,7 @@
 
 <p>It stops being fine in specific situations, and if you are reading this you probably already know which one is yours: a client under an NDA that names third-party processors. A candidate interview. A salary conversation. A conversation about an incident that has not been disclosed yet. A legal or health context. A security review that asks you to enumerate every subprocessor that touches customer voices.</p>
 
-<p>TNN transcribes on your Mac. Whisper runs on the Neural Engine, the audio never leaves the machine, and there is no server to enumerate because we do not run one. Turn off your wifi and transcription still works.</p>
+<p>TNN records and transcribes on your Mac; it does not upload the audio. Meeting files stay local unless you choose Generate with Claude and send the prepared prompt in Claude Desktop. Then the selected meeting text is processed by Anthropic through your Claude account. Transcription still works offline after the model downloads.</p>
 
 <div class="cmp">
   <table>
@@ -245,9 +245,9 @@
         <td class="col-tnn">One Markdown file per meeting, in your folder</td>
       </tr>
       <tr>
-        <th>AI notes run on</th>
+        <th>AI note workflow</th>
         <td>Granola&#x27;s AI, included in the price</td>
-        <td class="col-tnn">Your own Claude Pro or Max account</td>
+        <td class="col-tnn">Claude Desktop over MCP after you send the prepared prompt</td>
       </tr>
       <tr>
         <th>Platforms</th>
@@ -276,11 +276,11 @@
 
 <p>This is the part people underestimate until they need it.</p>
 
-<p>Every TNN meeting is one plain Markdown file in a folder you choose, <code>~/Documents/TNN</code> by default. Your live notes, the full transcript and the AI summary sit in that one file. Delete the app tomorrow and you still have every meeting, readable in any text editor, greppable from the terminal, indexable by Spotlight, syncable to whatever you already use.</p>
+<p>Every TNN meeting is one plain Markdown file in a folder you choose, <code>~/Documents/TNN</code> by default. Your live notes and transcript sit in that file. To create an AI Note, choose a mode in TNN, select Generate with Claude, then send the prepared prompt in Claude Desktop. Claude reads the selected meeting through MCP and saves the result to AI Notes; Anthropic processes the text through your Claude account. Delete the app tomorrow and you still have every meeting, readable in any text editor, greppable from the terminal, indexable by Spotlight, syncable to whatever you already use.</p>
 
-<p>Which leads to the thing TNN does that no bot-free competitor does yet: because your meetings are already plain files, <strong>Claude can work with the whole archive</strong>. TNN ships an MCP server, so Claude can list your meetings, read notes and transcripts, run your saved skills, and write results back into the meeting file. Setup is one click in Settings.</p>
+<p>Which leads to the thing TNN does that no bot-free competitor does yet: because your meetings are already plain files, <strong>AI Notes stay with each meeting</strong>. TNN connects to Claude Desktop over MCP for AI Notes. Choose a note mode, select Generate with Claude, then send the prepared prompt in Claude; it reads the selected meeting and saves the result to AI Notes.</p>
 
-<p>In practice that means you can ask "what did we promise this client across our last four calls" and get an answer built from actual transcripts, rather than from what you happened to remember to write down. The AI notes run on your own Claude Pro or Max subscription, so there are no API keys and no AI fees on top from us.</p>
+<p>You choose when to share meeting text: TNN opens Claude Desktop with the selected meeting and note mode, and Claude only reads it after you send the prepared prompt. TNN adds no separate AI fee.</p>
 
 <h2>Where Granola is still the better choice</h2>
 
@@ -289,7 +289,7 @@
 <ul>
   <li><strong>You are on Windows.</strong> TNN is macOS 13 or later, Apple Silicon only. Granola ships both.</li>
   <li><strong>You need a team workspace.</strong> Shared notes, shared folders, teammates reading each other's meetings. TNN is single-user today.</li>
-  <li><strong>You want the AI included and zero setup.</strong> Granola's summaries work out of the box. TNN's AI notes need your own Claude Pro or Max.</li>
+  <li><strong>You want AI summaries included with no extra setup.</strong> Granola's summaries work out of the box. TNN creates AI Notes through Claude Desktop over MCP. You choose the note mode and send the prepared prompt; Anthropic processes the meeting text through your Claude account.</li>
   <li><strong>You want a mature product.</strong> Granola has years of polish. TNN is in beta and you will find rough edges.</li>
 </ul>
 
@@ -301,7 +301,7 @@
 
 <p>Download, grant the screen and microphone permissions macOS asks for, connect your calendar so TNN knows which meeting is starting, and press record on your next call. The transcription model downloads once, roughly 600 MB, and after that you are offline-capable.</p>
 
-<p>If you want the Claude side, open Settings and enable the MCP server. Then ask Claude about your last meeting and watch which files it reads.</p>
+<p>To create a note, select a meeting and note mode in TNN, choose Generate with Claude, then send the prepared prompt in Claude Desktop. Claude reads that meeting through MCP and saves the result to AI Notes.</p>
     </div>
 <section class="blog-cta">
   <h2>Try it on your next meeting</h2>
@@ -322,7 +322,7 @@
         <h2>Questions people ask</h2>
         <details class="faq-q">
           <summary>Is TNN a drop-in replacement for Granola?<span class="faq-q__chev" aria-hidden="true"></span></summary>
-          <p>For the core loop, yes: rough notes during the call, AI-enhanced summary after, no bot in the participant list. What is missing is the team workspace, Windows support, and Granola's years of polish. What you gain is on-device transcription, plain Markdown files you own, and one payment instead of a subscription.</p>
+          <p>For the core loop, yes: rough notes during the call, a transcript afterwards, and no bot in the participant list. To create a note, choose a mode and send the prepared prompt in Claude Desktop; the result returns to AI Notes through MCP. What is missing is the team workspace, Windows support, and Granola's years of polish. What you gain is on-device transcription, plain Markdown files you own, and one payment instead of a subscription.</p>
         </details>
         <details class="faq-q">
           <summary>Can I import my existing Granola notes?<span class="faq-q__chev" aria-hidden="true"></span></summary>
@@ -330,7 +330,7 @@
         </details>
         <details class="faq-q">
           <summary>Does TNN work without internet like Granola does not?<span class="faq-q__chev" aria-hidden="true"></span></summary>
-          <p>Yes, once the transcription model has downloaded. Recording, transcription, live notes, dictation and your archive all work with wifi off. Only the optional AI notes need a connection, because they run through your own Claude account.</p>
+          <p>Yes, once the transcription model has downloaded. Recording, transcription, live notes, dictation and your archive all work with wifi off. If you want Claude to create or revise a note over MCP, that optional workflow needs an internet connection and uses your Claude account.</p>
         </details>
       </section>
       <nav class="related" aria-label="More comparisons">

@@ -28,13 +28,13 @@
   <!-- End MailerLite Universal -->
 
   <title>Private Meeting Transcription for Mac, On-Device - Thoughts Not Notes</title>
-  <meta name="description" content="TNN records and transcribes your meetings on your Mac - no cloud, no bot joining the call. Notes, transcripts and AI summaries in plain Markdown, ready as context for Claude. One-time payment, free in beta.">
+  <meta name="description" content="TNN records and transcribes meetings on your Mac, with no bot joining the call. Keep transcripts and notes in plain Markdown; connect Claude over MCP when you want to use an external AI account. Free in beta.">
   <link rel="canonical" href="https://thoughtsnotnotes.com/">
   <meta name="robots" content="index,follow,max-image-preview:large">
 
   <meta property="og:site_name" content="Thoughts Not Notes">
-  <meta property="og:title" content="Private meeting notes that never leave your Mac">
-  <meta property="og:description" content="Records and transcribes every meeting on-device. No cloud, no bots. Plain Markdown, ready as context for Claude.">
+  <meta property="og:title" content="On-device meeting recording and transcription for Mac">
+  <meta property="og:description" content="Records and transcribes meetings on-device, with no bot joining the call. Keep notes and transcripts in plain Markdown. Optional Claude access uses your own account.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://thoughtsnotnotes.com/">
   <meta property="og:image" content="https://thoughtsnotnotes.com/assets/og-image.png">
@@ -44,8 +44,8 @@
   <meta property="og:locale" content="en_US">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Private meeting notes that never leave your Mac">
-  <meta name="twitter:description" content="Records and transcribes every meeting on-device. No cloud, no bots. Plain Markdown, ready as context for Claude.">
+  <meta name="twitter:title" content="On-device meeting recording and transcription for Mac">
+  <meta name="twitter:description" content="Records and transcribes meetings on-device, with no bot joining the call. Keep notes and transcripts in plain Markdown. Optional Claude access uses your own account.">
   <meta name="twitter:image" content="https://thoughtsnotnotes.com/assets/og-image.png">
 
   <!-- ============================================================
@@ -72,15 +72,14 @@
         "installUrl": "https://thoughtsnotnotes.com/",
         "screenshot": "https://thoughtsnotnotes.com/assets/og-image.png",
         "image": "https://thoughtsnotnotes.com/assets/og-image.png",
-        "description": "TNN records and transcribes meetings entirely on your Mac. No cloud, no bot joining the call. Notes, transcript and AI summaries land in one plain Markdown file per meeting, usable as context for Claude over MCP.",
+        "description": "TNN records and transcribes meetings on your Mac, with no bot joining the call. Keep meeting transcripts and notes in plain Markdown. Optional Claude access over MCP uses your own account.",
         "featureList": [
-          "On-device recording and transcription, audio never leaves the Mac",
+          "On-device recording and transcription",
           "No bot joins the meeting, captures system audio instead",
           "Calendar-aware, knows which meeting is starting",
-          "One plain Markdown file per meeting: notes, transcript, AI summary",
-          "MCP server so Claude can read and write your meeting library",
-          "Reusable skills that learn your note-taking style",
-          "Quick dictation anywhere with a hotkey",
+          "Plain Markdown meeting files with transcripts and your notes",
+          "Create AI Notes in Claude Desktop over MCP",
+          "Quick dictation anywhere with the Fn hotkey",
           "Automatic language detection, dozens of languages via Whisper",
           "Transcribe existing audio files"
         ],
@@ -89,7 +88,7 @@
           "price": "0",
           "priceCurrency": "USD",
           "availability": "https://schema.org/InStock",
-          "description": "Free while in beta. One-time payment after launch, no subscription."
+          "description": "Free during the beta. Post-beta pricing is planned and subject to final confirmation."
         },
         "publisher": { "@id": "https://thoughtsnotnotes.com/#org" }
       },
@@ -117,7 +116,7 @@
             "name": "Is my audio really private?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes. Recording and transcription happen entirely on your Mac - the audio never touches a server, because there is no server. The one online step is optional AI notes: they run through your own Claude account, and you can see exactly which files Claude reads."
+              "text": "Recording and transcription happen on your Mac. When you choose Generate with Claude and send the prepared prompt in Claude Desktop, Anthropic processes the selected meeting text through your Claude account."
             }
           },
           {
@@ -125,7 +124,7 @@
             "name": "Does a bot join my meetings?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "No. TNN captures the audio playing on your Mac, so nothing joins the call. No meeting links, no recording assistant in the participant list, nothing for the other side to notice."
+              "text": "No TNN bot joins the call or appears in the participant list. TNN captures audio playing on your Mac; capture depends on audio being available to macOS."
             }
           },
           {
@@ -133,7 +132,7 @@
             "name": "Do I need a Claude subscription?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Not for the core: recording, transcription, live notes, dictation and your archive work without any account. AI-written notes and the MCP connection use your own Claude Pro or Max subscription - no API keys, no extra AI fees from us."
+              "text": "No account is needed for recording, transcription, dictation or your archive. To create an AI Note, you need Claude Desktop with a plan that supports the connection. You choose when to send the prepared prompt; TNN adds no AI fee."
             }
           },
           {
@@ -141,7 +140,7 @@
             "name": "Where do my files live?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "In a folder you choose (by default ~/Documents/TNN). Every meeting is one plain Markdown file: your notes, the transcript and the AI notes together. Delete the app tomorrow - the files are still yours."
+              "text": "Your files are stored locally in a folder you choose (by default ~/Documents/TNN). Meeting transcripts and notes are plain Markdown files you can open in any text editor."
             }
           },
           {
@@ -149,7 +148,7 @@
             "name": "What is MCP, in one sentence?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "A standard that lets Claude use apps as tools - TNN's MCP server lets Claude list your meetings, read notes and transcripts, run your skills, and save the results back into the meeting file. Setup is one click in Settings."
+              "text": "MCP lets Claude use connected apps as tools. TNN opens Claude Desktop with a prepared prompt for the selected meeting and note mode. After you send it, Claude reads the meeting through MCP and saves the result to AI Notes."
             }
           },
           {
@@ -157,7 +156,7 @@
             "name": "Which meeting apps does it work with?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "All of them. Zoom, Meet, Teams, Slack huddles, a phone call on speaker, a conversation in the room - if your Mac can hear it, TNN can transcribe it."
+              "text": "TNN captures audio playing on your Mac, including calls in Zoom, Meet, Teams and Slack huddles, as well as phone calls on speaker and in-room conversations. Capture depends on audio being available to macOS."
             }
           },
           {
@@ -537,6 +536,154 @@
         0 1px 2px rgba(220,38,38,0.20);
     }
     .hero__visual .btn-skip { border-radius: 6px; }
+
+    /* Interactive app preview: native TNN tokens and compact component geometry. */
+    .hero__visual { flex-direction:column;align-items:center;gap:0; }
+    .product-preview {
+      --pv-desk:#dde0e7;--pv-side:#fff;--pv-main:#f5f7fa;--pv-panel:#fff;--pv-panel2:#eef1f6;
+      --pv-stroke:rgba(0,0,0,.09);--pv-stroke-strong:rgba(0,0,0,.16);--pv-text:#1b1c20;--pv-dim:#585a63;--pv-faint:#90929b;
+      --pv-hover:rgba(0,0,0,.05);--pv-active:rgba(15,98,206,.12);--pv-accent:#0f62d6;--pv-accent-soft:rgba(15,98,206,.10);--pv-accent-stroke:rgba(15,98,206,.24);
+      --pv-record:#ff5f57;--pv-record-soft:rgba(255,95,87,.14);--pv-purple:#7c4dff;
+      width:min(100%,930px);flex:0 0 auto;margin:0 auto;overflow:hidden;border:1px solid var(--pv-stroke);border-radius:14px;
+      background:var(--pv-desk);color:var(--pv-text);box-shadow:0 8px 26px rgba(40,60,120,.16);text-align:left;
+      font-family:-apple-system,"SF Pro Text","Helvetica Neue",system-ui,sans-serif;
+    }
+    /* Marketing section spacing must not leak into the app's nested Inbox sections. */
+    .product-preview section { padding:0; }
+    .product-preview__bar { height:42px;display:flex;align-items:center;gap:7px;padding:0 15px;background:var(--pv-side);border-bottom:1px solid var(--pv-stroke); }
+    .product-preview__traffic { width:10px;height:10px;border-radius:50%;background:#ff5f57;box-shadow:16px 0 #febc2e,32px 0 #28c840;margin-right:30px; }
+    .product-preview__app { color:var(--pv-dim);font:500 12px -apple-system,"SF Pro Text",system-ui,sans-serif; }
+    .product-preview__body { height:430px;min-height:0;display:grid;grid-template-columns:minmax(170px,22%) minmax(0,1fr);gap:9px;padding:9px;background:var(--pv-desk); }
+    .product-preview__side { position:relative;min-height:0;overflow:hidden;padding:10px 8px 52px;border:1px solid var(--pv-stroke);border-radius:11px;background:var(--pv-side);box-shadow:0 8px 26px rgba(40,60,120,.16); }
+    .product-preview__nav { width:100%;min-height:34px;display:flex;align-items:center;gap:9px;margin:0 0 2px;padding:7px 10px;border:0;border-radius:8px;background:transparent;color:var(--pv-dim);font:400 12.5px -apple-system,"SF Pro Text",system-ui,sans-serif;text-align:left;cursor:pointer; }
+    .product-preview__nav svg { width:15px;height:15px;flex:none; }
+    .product-preview__nav--active { background:var(--pv-active);color:var(--pv-text);font-weight:600; }
+    .product-preview__nav--active svg { color:var(--pv-accent); }
+    .product-preview__nav:focus-visible,.product-preview__meeting:focus-visible,.product-preview__inbox-row:focus-visible,.product-preview__back:focus-visible { outline:2px solid var(--pv-accent);outline-offset:1px; }
+    .product-preview__nav-count { margin-left:auto;padding:2px 7px;border-radius:999px;background:var(--pv-accent);color:#fff;font-size:10px;font-weight:600;line-height:16px; }
+    .product-preview__calendar-list { display:none;flex-direction:column;gap:1px;margin-top:9px;padding:0; }
+    .product-preview__calendar-list.is-visible { display:flex; }
+    .product-preview__calendar-heading { margin:3px 0 5px 13px;color:var(--pv-faint);font-size:10.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase; }
+    .product-preview__meeting { width:100%;height:28px;display:flex;align-items:center;gap:9px;padding:0 9px 0 13px;border:0;border-radius:7px;background:transparent;color:var(--pv-text);font:400 12.5px -apple-system,"SF Pro Text",system-ui,sans-serif;text-align:left;white-space:nowrap;cursor:pointer; }
+    .product-preview__meeting:hover,.product-preview__meeting:focus-visible { background:var(--pv-hover); }
+    .product-preview__calendar-dot { width:10px;height:10px;flex:0 0 10px;border:1.5px solid #bfd8f5;border-radius:50%;background:transparent; }
+    .product-preview__meeting--past { color:var(--pv-dim); }
+    .product-preview__meeting--past .product-preview__calendar-dot { border-color:#9298a3;background:transparent; }
+    .product-preview__meeting--past.product-preview__meeting--has-content .product-preview__calendar-dot { background:#9298a3; }
+    .product-preview__meeting--future .product-preview__calendar-dot { border-color:#bfd8f5;background:transparent; }
+    .product-preview__meeting--recording .product-preview__calendar-dot { border-color:var(--pv-accent);background:var(--pv-accent); }
+    .product-preview__meeting--selected { color:var(--pv-text);font-weight:500; }
+    .product-preview__meeting--selected .product-preview__calendar-dot { border-color:#183b66; }
+    .product-preview__meeting--past.product-preview__meeting--selected.product-preview__meeting--has-content .product-preview__calendar-dot { background:#183b66; }
+    [data-theme="dark"] .product-preview__meeting--selected .product-preview__calendar-dot { border-color:#8fb6e3; }
+    [data-theme="dark"] .product-preview__meeting--past.product-preview__meeting--selected.product-preview__meeting--has-content .product-preview__calendar-dot { background:#8fb6e3; }
+    .product-preview__meeting-copy { min-width:0;flex:1;overflow:hidden;text-overflow:ellipsis; }
+    .product-preview__meeting-time { margin-left:auto;color:var(--pv-faint);font:400 11px -apple-system,"SF Pro Text",system-ui,sans-serif;font-variant-numeric:tabular-nums; }
+    .product-preview__settings { position:absolute;right:0;bottom:0;left:0;border-top:1px solid var(--pv-stroke);padding:8px 3px 5px;background:var(--pv-side); }
+    .product-preview__settings .product-preview__nav { cursor:default;opacity:.8; }
+    .product-preview__main { min-width:0;height:100%;overflow:hidden;border:1px solid var(--pv-stroke);border-radius:11px;background:var(--pv-main); }
+    .product-preview__inbox,.product-preview__detail { display:flex;height:100%;min-height:0;flex-direction:column; }
+    .product-preview__screen-head { display:flex;align-items:center;gap:8px;padding:15px 20px 12px;border-bottom:1px solid var(--pv-stroke); }
+    .product-preview__screen-title { margin:0;font:700 18px/1.25 -apple-system,"SF Pro Text",system-ui,sans-serif;letter-spacing:-.02em; }
+    .product-preview__screen-count { color:var(--pv-dim);font-size:11px; }
+    .product-preview__inbox-scroll,.product-preview__detail-scroll { min-height:0;flex:1;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin; }
+    .product-preview__inbox-scroll { padding:14px 18px 20px; }
+    .product-preview__day-group { margin:0 0 17px; }
+    .product-preview__day-heading { margin:0 0 8px;color:var(--pv-faint);font-size:10.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase; }
+    .product-preview__inbox-rows { display:flex;flex-direction:column;gap:10px; }
+    .product-preview__inbox-row { width:100%;min-height:66px;display:flex;align-items:center;gap:14px;padding:12px 16px;border:1px solid var(--pv-stroke);border-radius:12px;background:var(--pv-panel);color:var(--pv-text);font-family:inherit;text-align:left;cursor:pointer; }
+    .product-preview__inbox-row:hover,.product-preview__inbox-row:focus-visible { border-color:var(--pv-stroke-strong);background:var(--pv-panel); }
+    .product-preview__file-tile { width:38px;height:38px;flex:none;display:grid;place-items:center;border:1px solid var(--pv-stroke);border-radius:10px;background:var(--pv-panel2);color:var(--pv-accent); }
+    .product-preview__file-tile svg { width:16px;height:16px; }
+    .product-preview__inbox-copy { min-width:0;flex:1;display:flex;flex-direction:column;gap:4px; }
+    .product-preview__inbox-title { overflow:hidden;color:var(--pv-text);font-size:14px;font-weight:600;text-overflow:ellipsis;white-space:nowrap; }
+    .product-preview__inbox-meta { display:flex;align-items:center;gap:7px;overflow:hidden;color:var(--pv-dim);font-size:11px;white-space:nowrap; }
+    .product-preview__inbox-marker { display:inline-flex;align-items:center;gap:4px;flex:none;padding:2px 7px;border-radius:999px;background:var(--pv-accent-soft);color:var(--pv-accent);font-size:9.5px;font-weight:600; }
+    .product-preview__inbox-marker--recording { background:var(--pv-record-soft);color:var(--pv-record); }
+    .product-preview__row-dot { width:3px;height:3px;flex:none;border-radius:50%;background:var(--pv-faint); }
+    .product-preview__open { flex:none;margin-left:auto;padding:6px 10px;border:1px solid var(--pv-stroke-strong);border-radius:8px;color:var(--pv-text);font-size:11px;font-weight:600;opacity:0; }
+    .product-preview__inbox-row:hover .product-preview__open,.product-preview__inbox-row:focus-visible .product-preview__open { opacity:1; }
+    .product-preview__detail-crumb { display:flex;align-items:center;gap:7px;min-height:39px;padding:0 16px;border-bottom:1px solid var(--pv-stroke);color:var(--pv-dim);font-size:10.5px; }
+    .product-preview__back { padding:3px;border:0;background:transparent;color:var(--pv-accent);font:inherit;cursor:pointer; }
+    .product-preview__detail-scroll { padding:18px 24px 24px; }
+    .product-preview__detail-content { max-width:690px;margin:0 auto; }
+    .product-preview__detail-title-row { display:flex;align-items:center;gap:9px; }
+    .product-preview__heading { margin:0;font:700 20px/1.25 -apple-system,"SF Pro Text",system-ui,sans-serif;letter-spacing:-.02em; }
+    .product-preview h1,.product-preview h2,.product-preview h3,.product-preview h4 { font-family:-apple-system,"SF Pro Text","Helvetica Neue",system-ui,sans-serif; }
+    .product-preview__meta { margin:6px 0 17px;color:var(--pv-dim);font-size:11px; }
+    .product-preview__state { display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border:1px solid var(--pv-stroke);border-radius:999px;color:var(--pv-dim);font-size:10px;font-weight:600; }
+    .product-preview__state--recording { border-color:color-mix(in srgb,var(--pv-record) 30%,transparent);background:var(--pv-record-soft);color:var(--pv-record); }
+    .product-preview__state--future { border-color:var(--pv-accent-stroke);background:var(--pv-accent-soft);color:var(--pv-accent); }
+    .product-preview__record-dot { width:6px;height:6px;border-radius:50%;background:var(--pv-record); }
+    .product-preview__note { margin:0 0 16px;overflow:hidden;border:1px solid var(--pv-stroke);border-radius:12px;background:var(--pv-panel); }
+    .product-preview__note-head { display:flex;align-items:center;gap:10px;padding:9px 12px;border-bottom:1px solid var(--pv-stroke); }
+    .product-preview__note-title { margin-right:auto;color:var(--pv-text);font-size:12px;font-weight:600; }
+    .product-preview__type { padding:4px 7px;border:1px solid var(--pv-stroke);border-radius:6px;color:var(--pv-dim);font-size:9px; }
+    .product-preview__text { padding:11px 13px;color:var(--pv-text);font-size:11px;line-height:1.55; }
+    .product-preview__text p { margin:0 0 7px; }
+    .product-preview__text strong { display:block;margin:8px 0 2px;font-size:10.5px; }
+    .product-preview__transcript-title { margin:0 0 7px;color:var(--pv-text);font-size:12px;font-weight:650; }
+    .product-preview__transcript-box { border-top:1px solid var(--pv-stroke);padding-top:8px; }
+    .product-preview__transcript-scroll { padding:0; }
+    .product-preview__line { margin:5px 0;color:var(--pv-text);font-size:11px;line-height:1.55; }
+    .product-preview__time { margin-right:8px;color:var(--pv-faint);font-variant-numeric:tabular-nums; }
+    .product-preview__empty { padding:12px;border:1px dashed var(--pv-stroke-strong);border-radius:10px;color:var(--pv-dim);font-size:11px;line-height:1.5; }
+    .product-preview__caption { margin:11px auto 0;text-align:center;color:var(--text-subtle);font-size:11px; }
+    [data-theme="dark"] .product-preview { --pv-desk:#0e0f13;--pv-side:#1e1f25;--pv-main:#16171c;--pv-panel:#23242b;--pv-panel2:#1a1b20;--pv-stroke:rgba(255,255,255,.08);--pv-stroke-strong:rgba(255,255,255,.14);--pv-text:#e7e8ec;--pv-dim:#9a9ca6;--pv-faint:#6b6d77;--pv-hover:rgba(255,255,255,.06);--pv-active:rgba(33,124,224,.22);--pv-accent:#217ce0;--pv-accent-soft:rgba(33,124,224,.16);--pv-accent-stroke:rgba(33,124,224,.34);--pv-purple:#a06bff;box-shadow:0 8px 30px rgba(0,0,0,.35); }
+    [data-theme="dark"] .product-preview__side { box-shadow:0 8px 30px rgba(0,0,0,.35); }
+    @media (max-width:640px) {
+      .product-preview { border-radius:13px; }
+      .product-preview__body { grid-template-columns:minmax(108px,29%) minmax(0,1fr);height:340px;gap:6px;padding:6px; }
+      .product-preview__side { padding:9px 4px 46px; }
+      .product-preview__nav { gap:6px;padding:7px 5px;font-size:10px; }
+      .product-preview__nav svg { width:13px;height:13px; }
+      .product-preview__nav-count { padding:0 5px;font-size:9px;line-height:15px; }
+      .product-preview__calendar-heading { margin-left:5px;font-size:8.5px; }
+      .product-preview__meeting { gap:5px;padding:0 5px;font-size:9px; }
+      .product-preview__calendar-dot { width:8px;height:8px;flex-basis:8px; }
+      .product-preview__meeting-time { font-size:9px; }
+      .product-preview__settings { padding:6px 0 3px; }
+      .product-preview__screen-head { padding:11px 10px 9px; }
+      .product-preview__screen-title { font-size:15px; }
+      .product-preview__screen-count { font-size:9px; }
+      .product-preview__inbox-scroll { padding:10px 8px 14px; }
+      .product-preview__day-group { margin-bottom:12px; }
+      .product-preview__day-heading { margin-bottom:6px;font-size:9px; }
+      .product-preview__inbox-rows { gap:7px; }
+      .product-preview__inbox-row { min-height:56px;gap:7px;padding:8px; }
+      .product-preview__file-tile { width:30px;height:30px;border-radius:8px; }
+      .product-preview__inbox-title { font-size:10px; }
+      .product-preview__inbox-meta { gap:4px;font-size:8px; }
+      .product-preview__inbox-marker { padding:1px 4px;font-size:7px; }
+      .product-preview__open { padding:4px 5px;font-size:8px; }
+      .product-preview__detail-crumb { min-height:31px;padding:0 9px;font-size:9px; }
+      .product-preview__detail-scroll { padding:12px 10px 18px; }
+      .product-preview__detail-title-row { flex-wrap:wrap;gap:5px; }
+      .product-preview__heading { font-size:15px; }
+      .product-preview__meta { margin:5px 0 11px;font-size:9px; }
+      .product-preview__state { padding:3px 6px;font-size:8px; }
+      .product-preview__note { margin-bottom:11px; }
+      .product-preview__note-head { gap:5px;padding:7px 8px; }
+      .product-preview__type { padding:3px 5px;font-size:8px; }
+      .product-preview__text { padding:8px;font-size:9px; }
+      .product-preview__transcript-title { font-size:10px; }
+      .product-preview__line { font-size:9px; }
+    }
+    .nav__link { white-space:nowrap; }
+    .nav__menu-toggle { display:none; }
+    @media (max-width:1100px) {
+      .nav { padding-left:24px;padding-right:24px; }
+      .nav .nav__right { position:relative;gap:10px; }
+      .nav .nav__menu-toggle { width:38px;height:38px;display:grid;place-items:center;border:1px solid var(--border);border-radius:9px;background:var(--bg);color:var(--text);cursor:pointer; }
+      .nav__menu-toggle svg { width:18px;height:18px; }
+      .nav .nav__links { display:none;position:absolute;top:calc(100% + 10px);right:0;z-index:5;min-width:220px;flex-direction:column;align-items:stretch;gap:3px;padding:8px;border:1px solid var(--border);border-radius:12px;background:var(--bg);box-shadow:0 12px 32px rgba(0,0,0,.14); }
+      .nav.nav--menu-open .nav__links { display:flex; }
+      .nav .nav__link { padding:9px 11px; }
+    }
+    [data-theme="dark"] .nav__menu-toggle { background:#1c1c1f;color:#fafafa;border-color:rgba(255,255,255,.14); }
+    @media (prefers-reduced-motion:reduce) {
+      .product-preview * { scroll-behavior:auto !important;transition:none !important; }
+    }
 
     /* === Hero subtitle cycling word - char-by-char typewriter loop ======== */
     .hero-cycle {
@@ -1972,6 +2119,9 @@
     [data-theme="dark"] .of-artifact { background: rgba(139,92,246,.10) !important; }
 
     /* --- step 05: featured Claude card --- */
+    .claude-preview-brand { display:flex;flex-direction:column;align-items:flex-start;gap:1px;margin-left:5px;line-height:1.1; }
+    .claude-preview-brand span { color:var(--text);font-size:11px;font-weight:600; }
+    .claude-preview-brand small { color:var(--text-subtle);font-size:9px;font-weight:500; }
     .step-card--claude { grid-column: 1 / -1; }
     .step-card--claude .claude-mock { max-width: 660px; margin-top: 22px; border: 1px solid rgba(10,10,10,.08); border-radius: 14px; overflow: hidden; background: #fff; box-shadow: 0 4px 16px rgba(16,24,40,.06); }
     .cm-body { padding: 18px 18px 20px; display: flex; flex-direction: column; gap: 12px; }
@@ -2101,7 +2251,8 @@
     .int-tip{position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(4px);width:225px;background:#17171c;color:#e4e4e7;font-size:12px;line-height:1.5;padding:10px 13px;border-radius:11px;box-shadow:0 12px 32px -8px rgba(16,24,40,.4);opacity:0;pointer-events:none;transition:opacity .3s ease,transform .3s ease;z-index:5;text-align:left}
     .int-tip::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:#17171c}
     .int-item:hover .int-tip{opacity:1;transform:translateX(-50%) translateY(0)}
-    @media (hover:none){.int-tip{display:none}}
+    @media (hover:none), (max-width:640px){.int-tip{display:none}}
+    .int-item__soon{display:block;margin-top:4px;font-size:10px;font-weight:500;color:var(--text-subtle)}
     [data-theme="dark"] .int-tip{background:#27272a!important}
     [data-theme="dark"] .int-tip::after{border-top-color:#27272a!important}
 
@@ -2194,7 +2345,7 @@
       <img src="assets/logo-dark.svg" alt="Thoughts Not Notes" class="nav__logo-img">
     </a>
     <div class="nav__right">
-      <nav class="nav__links" aria-label="Main navigation">
+      <nav class="nav__links" id="main-nav-links" aria-label="Main navigation">
         <a href="#how-it-works" class="nav__link">How it works</a>
         <a href="#features" class="nav__link">Features</a>
         <a href="#integrations" class="nav__link">Integrations</a>
@@ -2202,6 +2353,7 @@
         <a href="/blog/" class="nav__link">Blog</a>
         <a href="#faq" class="nav__link">FAQ</a>
       </nav>
+      <button class="nav__menu-toggle" type="button" aria-label="Open navigation menu" aria-controls="main-nav-links" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
       <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode" type="button">
         <svg class="theme-toggle__icon theme-toggle__icon--moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
@@ -2265,19 +2417,19 @@
       <div class="hero__text">
         <a class="hero-pill reveal" href="#how-it-works">
           <span class="hero-pill__dot" aria-hidden="true"></span>
-          <span><span class="hero-pill__tag">New · v2</span> &nbsp;Contexts &amp; Claude, built in</span>
+          <span><span class="hero-pill__tag">AI Notes</span> &nbsp;Create meeting notes with Claude</span>
           <span class="hero-pill__arrow" aria-hidden="true">→</span>
         </a>
         <h1 class="hero__title reveal d1">
           <span class="line">Every conversation, <span class="accent">organized.</span></span>
-          <span class="line">Nothing leaves your Mac.</span>
+          <span class="line">Your recordings stay on your Mac.</span>
         </h1>
-        <p class="hero__sub reveal d2">Notes, transcripts and summaries in <em>one</em> tidy place. Your whole context, ready when you need it.</p>
+        <p class="hero__sub reveal d2">Record and transcribe on your Mac, then create an editable AI Note with Claude Desktop over MCP. You choose when to send meeting text.</p>
         <div class="hero__actions reveal d3">
-          <span class="scribble-wrap"><button class="btn btn--primary" data-modal-open>
+          <span class="scribble-wrap"><button class="btn btn--primary" data-modal-open aria-label="Download for Mac, free during the beta">
             <img src="assets/icons/apple.svg" width="15" height="15" alt="" aria-hidden="true" class="btn-apple-icon">
-            Download for Mac - <span class="trial-cut">7-day trial</span>
-          </button><span class="beta-scribble">free for now,<br>for beta testers!</span></span>
+            Download for Mac - <span class="trial-cut" aria-hidden="true">7-day trial</span>
+          </button><span class="beta-scribble" aria-hidden="true">free for now,<br>for beta testers!</span></span>
           <p class="hero__meta">
             <span>In beta - free for now</span>
             <span class="hero__meta-sep" aria-hidden="true">·</span>
@@ -2289,103 +2441,19 @@
       </div>
 
       <div class="hero__visual reveal d4">
-        <div class="hero-badge" aria-hidden="true">
-          <div class="hero-badge__icon hero-badge__icon--amber">⚡</div>
-          <div>
-            <div class="hero-badge__label-top">Reusable skills</div>
-            <div class="hero-badge__label-bottom">Repeat work once - saved as a skill</div>
-          </div>
-        </div>
-        <div class="hero-badge hero-badge--transcript" aria-hidden="true">
-          <div class="hero-badge__body">
-            <div class="hero-badge__label-top">Transcription</div>
-            <div class="hero-badge__dialog">
-              <div class="hero-badge__line">
-                <span class="hero-badge__speaker">SPEAKER_01</span>
-                <span class="hero-badge__said">Let's sync on the Q3 roadmap.</span>
-              </div>
-              <div class="hero-badge__line">
-                <span class="hero-badge__speaker">SPEAKER_02</span>
-                <span class="hero-badge__said">Sure, pulling up the doc now.</span>
-              </div>
-              <div class="hero-badge__line">
-                <span class="hero-badge__speaker">SPEAKER_01</span>
-                <span class="hero-badge__said">Great. Let's start with priorities.</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="hero-badge" aria-hidden="true">
-          <div class="hero-badge__icon hero-badge__icon--gray">✦</div>
-          <div>
-            <div class="hero-badge__label-top">Claude MCP</div>
-            <div class="hero-badge__label-bottom">All your thinking, organized - boosted by Claude</div>
-          </div>
-        </div>
-
-        <div class="mac-window" role="img" aria-label="TNN v2 - Contexts and Claude cowork">
-          <div class="mac-titlebar" aria-hidden="true">
-            <div class="mac-btn mac-btn--red"></div>
-            <div class="mac-btn mac-btn--yellow"></div>
-            <div class="mac-btn mac-btn--green"></div>
-            <div class="mac-title"></div>
-          </div>
-          <div class="v2-body">
-            <aside class="v2-side" aria-hidden="true">
-              <div class="v2-search">
-                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-                Search
-              </div>
-              <div class="v2-nav">
-                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13h4l2 3h4l2-3h4"/><path d="M6 5h12l3 8v5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-5z"/></svg>
-                Inbox <span class="v2-badge">3</span>
-              </div>
-              <div class="v2-nav v2-nav--on">
-                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>
-                Calendar
-              </div>
-              <div class="v2-grp">Active context</div>
-              <div class="v2-ctx"><span class="v2-sw" style="background:#6366f1"></span> Product Delivery</div>
-              <div class="v2-leaf v2-leaf--on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M8 13h8M8 17h6"/></svg> log.md</div>
-              <div class="v2-leaf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg> q3-roadmap-review.md</div>
-              <div class="v2-grp">Skills</div>
-              <div class="v2-leaf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M13 3 5 13h6l-1 8 8-10h-6z"/></svg> team-note</div>
-              <div class="v2-leaf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M13 3 5 13h6l-1 8 8-10h-6z"/></svg> client-recap</div>
-              <div class="v2-foot">
-                <span class="v2-foot__st"><span class="v2-foot__dot"></span> Claude · MCP connected</span>
-              </div>
+        <div class="product-preview" role="group" aria-label="Interactive concept preview of the TNN meeting view">
+          <div class="product-preview__bar"><span class="product-preview__traffic"></span><span class="product-preview__app">Thoughts Not Notes · Preview</span></div>
+          <div class="product-preview__body">
+            <aside class="product-preview__side" aria-label="Preview navigation">
+              <button class="product-preview__nav product-preview__nav-button product-preview__nav--active" type="button" data-preview-route="inbox" aria-pressed="true" aria-controls="preview-main"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 13h4l2 3h4l2-3h4M6 5h12l3 8v5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-5z"/></svg>Inbox<span class="product-preview__nav-count">9</span></button>
+              <button class="product-preview__nav product-preview__nav-button" type="button" data-preview-route="calendar" aria-pressed="false" aria-controls="preview-main"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>Calendar</button>
+              <div class="product-preview__calendar-list" id="preview-calendar-list" role="list" aria-label="Calendar meetings"></div>
+              <div class="product-preview__settings"><button class="product-preview__nav" type="button" disabled aria-disabled="true" title="Settings are not part of this demo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-1.7 2.94-.09-.03a1.7 1.7 0 0 0-1.8.58l-.05.08h-3.4l-.03-.1a1.7 1.7 0 0 0-1.35-1.21 1.7 1.7 0 0 0-1.36.34l-.08.06-2.94-1.7.03-.09a1.7 1.7 0 0 0-.58-1.8l-.08-.05v-3.4l.1-.03a1.7 1.7 0 0 0 1.21-1.35 1.7 1.7 0 0 0-.34-1.36l-.06-.08 1.7-2.94.09.03a1.7 1.7 0 0 0 1.8-.58l.05-.08h3.4l.03.1a1.7 1.7 0 0 0 1.35 1.21 1.7 1.7 0 0 0 1.36-.34l.08-.06 2.94 1.7-.03.09a1.7 1.7 0 0 0 .58 1.8l.08.05v3.4l-.1.03A1.7 1.7 0 0 0 19.4 15z"/></svg>Settings</button></div>
             </aside>
-
-            <div class="v2-main">
-              <div class="v2-cal">
-                <div class="v2c-title">Calendar</div>
-                <div class="v2c-day">Today · Thu, Jul 24</div>
-                <div class="v2c-ev">
-                  <span class="v2c-time">09:30 – 10:00</span>
-                  <span class="v2c-body"><span class="v2c-t">Delivery standup</span><span class="v2c-m">6 people · <span class="v2c-pill">transcript</span> · <span class="v2c-pill v2c-pill--violet">2 artifacts</span></span></span>
-                </div>
-                <div class="v2c-ev">
-                  <span class="v2c-time">11:00 – 11:45</span>
-                  <span class="v2c-body"><span class="v2c-t">Q3 roadmap review</span><span class="v2c-m">4 people · <span class="v2c-pill">transcript</span> · <span class="v2c-pill">note</span></span></span>
-                </div>
-                <div class="v2c-ev v2c-ev--next">
-                  <span class="v2c-time">15:00 – 15:30</span>
-                  <span class="v2c-body"><span class="v2c-t">1:1 with Anna</span><span class="v2c-m">2 people · in 12 min</span></span>
-                  <span class="v2c-acts"><span class="v2c-btn v2c-btn--go">Join &amp; transcribe</span><span class="v2c-btn">Transcribe</span></span>
-                </div>
-                <div class="v2c-day">Tomorrow · Fri, Jul 25</div>
-                <div class="v2c-ev">
-                  <span class="v2c-time">10:00 – 11:00</span>
-                  <span class="v2c-body"><span class="v2c-t">Client discovery call</span><span class="v2c-m">3 people</span></span>
-                </div>
-                <div class="v2c-ev">
-                  <span class="v2c-time">14:00 – 14:30</span>
-                  <span class="v2c-body"><span class="v2c-t">Sprint planning</span><span class="v2c-m">5 people</span></span>
-                </div>
-              </div>
-            </div>
+            <div class="product-preview__main" id="preview-main" aria-live="polite"></div>
           </div>
         </div>
+        <p class="product-preview__caption">Interactive preview · Fictional meetings · Choose a note mode, then send the Claude prompt; automatic speaker labels can be renamed.</p>
       </div>
     </div>
   </section>
@@ -2404,7 +2472,7 @@
         <div class="step-card reveal">
           <div class="step-num" aria-hidden="true">01</div>
           <h3 class="step-title">Connect your calendar</h3>
-          <p class="step-desc">Your meetings appear automatically, straight from Google Calendar. TNN suggests recording 1 minute before each call with a native macOS notification. No setup, no friction, no bots joining your calls.</p>
+          <p class="step-desc">Connect Google Calendar in Settings to see your meetings in TNN. TNN can suggest recording before a call with a native macOS notification; no bot joins your meetings.</p>
           <div class="cal-mockup" aria-hidden="true">
             <div class="cal-mockup__header">
               <div class="cal-mockup__title">
@@ -2464,7 +2532,7 @@
         <div class="step-card reveal d1">
           <div class="step-num" aria-hidden="true">02</div>
           <h3 class="step-title">TNN listens. Privately.</h3>
-          <p class="step-desc">Audio never leaves your Mac. Transcription runs on-device using a local AI model - no cloud, no subscription, no data sharing.</p>
+          <p class="step-desc">TNN records and transcribes on your Mac, with no audio upload. If you connect Claude over MCP, text it reads is processed by Anthropic through your own account.</p>
           <div class="mini-mockup" aria-hidden="true">
             <div class="mm-bar">
               <div class="mm-dot mm-dot--red"></div>
@@ -2489,7 +2557,7 @@
                 <div class="wbar" style="--wh:20px; animation-delay:0.90s"></div>
                 <div class="wbar" style="--wh:26px; animation-delay:0.99s"></div>
               </div>
-              <div class="mm-private-tag">🔒 On-device · No cloud · Fully private</div>
+              <div class="mm-private-tag">🔒 On-device capture and transcription</div>
             </div>
           </div>
         </div>
@@ -2497,51 +2565,44 @@
         <div class="step-card reveal d3">
           <div class="step-num" aria-hidden="true">03</div>
           <h3 class="step-title">Every meeting builds your context.</h3>
-          <p class="step-desc">Minutes after the call you have one clean Markdown file: the timestamped transcript, your own notes, and every summary or artifact - together, organized meeting by meeting in TNN's inbox. A private archive that quietly becomes your context.</p>
+          <p class="step-desc">Keep an editable AI Note above the transcript. Choose a note mode, then use Generate with Claude to open a prepared prompt in Claude Desktop; send it there to save the result through MCP.</p>
           <div class="mini-mockup" aria-hidden="true">
             <div class="mm-bar">
               <div class="mm-dot mm-dot--red"></div>
               <div class="mm-dot mm-dot--yellow"></div>
               <div class="mm-dot mm-dot--green"></div>
-              <div class="mm-bar__label">1:1 with Sarah.md</div>
+              <div class="mm-bar__label">Product planning.md</div>
             </div>
             <div class="mm-transcript-body">
-              <div class="of-label of-label--violet">&#10022; Artifacts &middot; 1</div>
-              <div class="of-artifact">
-                <span class="of-art-spark">&#10022;</span>
-                <div class="of-art-body"><div class="of-art-t">Team note</div><div class="of-art-m">team-note skill &middot; saved 16:04</div></div>
-                <span class="of-art-tag">saved</span>
-              </div>
-              <div class="of-label of-label--accent">Your notes - source of truth</div>
-              <div class="of-note">Budget is <b>flat, not cut</b> - export flow is the real Q3 priority.</div>
-              <div class="of-label">Transcript</div>
-              <div class="mm-ts-line"><span class="mm-ts-time">14:02</span><span class="who">Sarah: </span>Quick correction on the budget - it&rsquo;s flat for Q3&hellip;</div>
-              <div class="mm-ts-line"><span class="mm-ts-time">14:03</span><span class="who">Dom: </span>Good - export flow first, then.</div>
+              <div class="of-label of-label--accent">AI Notes · Example</div>
+              <div class="of-note">The team agreed to focus this quarter on the export flow and share a scoped proposal before Friday.</div>
+              <div class="of-label">Transcript preview</div>
+              <div class="mm-ts-line"><span class="mm-ts-time">02:10</span><span class="who">Speaker 1: </span>Let&rsquo;s start with the export flow.</div>
+              <div class="mm-ts-line"><span class="mm-ts-time">03:25</span><span class="who">Speaker 2: </span>I&rsquo;ll bring a scope to the next check-in.</div>
               <div class="mm-fade"></div>
             </div>
-            <div class="mm-ts-footer">&#128274; Notes + transcript + AI notes &middot; one .md file, yours</div>
+            <div class="mm-ts-footer">Claude-generated note example &middot; plain Markdown</div>
           </div>
         </div>
 
         <div class="step-card step-card--featured step-card--claude reveal d3">
           <div class="step-num" aria-hidden="true">04</div>
-          <h3 class="step-title">Then let Claude work with it.</h3>
-          <p class="step-desc">TNN ships an MCP server, so Claude can reach your whole library. Create artifacts right from a conversation - a team note, a client recap, action items - and they save back into the meeting file. Then keep asking: Claude answers from your entire context, not just one call.</p>
+          <h3 class="step-title">Local files. Notes with Claude.</h3>
+          <p class="step-desc">Your recordings and meeting files stay on your Mac. Choose a note mode and select Generate with Claude to open a prepared prompt in Claude Desktop. After you send it, Claude reads the selected meeting through MCP and saves the note back to TNN.</p>
           <div class="claude-mock" aria-hidden="true">
             <div class="mm-bar">
               <div class="mm-dot mm-dot--red"></div>
               <div class="mm-dot mm-dot--yellow"></div>
               <div class="mm-dot mm-dot--green"></div>
-              <div class="mm-bar__label">Claude</div>
+              <div class="claude-preview-brand"><span>Claude</span><small>MCP</small></div>
             </div>
             <div class="cm-body">
-              <div class="cm-msg cm-msg--user">Summarize my 1:1 with Sarah as a team note</div>
+              <div class="cm-msg cm-msg--user">Summarize Product planning as a meeting note</div>
               <div class="cm-tools">
-                <span class="cm-tool">tnn &middot; get_meeting <b>&#10003;</b></span>
-                <span class="cm-tool">tnn &middot; get_skill team-note <b>&#10003;</b></span>
-                <span class="cm-tool">tnn &middot; save_artifact <b>&#10003;</b></span>
+                <span class="cm-tool">meetings/</span>
+                <span class="cm-tool">Product planning.md</span>
               </div>
-              <div class="cm-msg cm-msg--claude"><span class="cm-spark">&#10022;</span> Done - I read your notes and the transcript, used your <b>team-note</b> skill, and saved the note to <b>1:1 with Sarah.md</b>. Want me to tighten the risks section?</div>
+              <div class="cm-msg cm-msg--claude"><span class="cm-spark">&#10022;</span> AI Note saved to Product planning.</div>
             </div>
           </div>
         </div>
@@ -2555,23 +2616,23 @@
   <section class="privacy" id="privacy">
     <div class="container">
       <div class="privacy__inner">
-        <h2 class="privacy__title reveal">Your conversations stay<br>on your computer. <em>Period.</em> 💅</h2>
+        <h2 class="privacy__title reveal">Your recordings stay<br>on your Mac.</h2>
         <div class="privacy__trio">
           <div class="priv-item reveal d1">
             <div class="priv-item__icon" aria-hidden="true">
               <img class="icon-img icon-img--light" src="assets/icons/features/NoCloud-1.svg" alt="">
               <img class="icon-img icon-img--dark" src="assets/icons/features/NoCloud.svg" alt="">
             </div>
-            <div class="priv-item__label">No cloud processing</div>
-            <p class="priv-item__desc">Everything runs locally. Your audio never touches a server.</p>
+            <div class="priv-item__label">Local recording and transcription</div>
+            <p class="priv-item__desc">Recording and transcription run on your Mac. TNN does not upload your audio.</p>
           </div>
           <div class="priv-item reveal d2">
             <div class="priv-item__icon" aria-hidden="true">
               <img class="icon-img icon-img--light" src="assets/icons/features/NoServers-1.svg" alt="">
               <img class="icon-img icon-img--dark" src="assets/icons/features/NoServers.svg" alt="">
             </div>
-            <div class="priv-item__label">No servers storing your audio</div>
-            <p class="priv-item__desc">We have no infrastructure to store your data - because we never receive it.</p>
+            <div class="priv-item__label">No TNN audio servers</div>
+            <p class="priv-item__desc">TNN does not receive or store your audio.</p>
           </div>
           <div class="priv-item reveal d3">
             <div class="priv-item__icon" aria-hidden="true">
@@ -2579,7 +2640,7 @@
               <img class="icon-img icon-img--dark" src="assets/icons/features/NoSubscription.svg" alt="">
             </div>
             <div class="priv-item__label">AI on your terms</div>
-            <p class="priv-item__desc">Transcription needs no account at all. AI notes run through your own Claude subscription - and you see exactly which files it reads.</p>
+            <p class="priv-item__desc">Recording and transcription need no account. If you connect Claude over MCP, text it reads is processed by Anthropic through your account.</p>
           </div>
         </div>
       </div>
@@ -2602,7 +2663,7 @@
             <img class="icon-img icon-img--dark" src="assets/icons/features/Calendar.svg" alt="">
           </div>
           <h3 class="feat-card__title">Calendar-aware</h3>
-          <p class="feat-card__desc">Sees your Google Calendar. TNN&rsquo;s floating pill appears a minute before each meeting - one click and you&rsquo;re recording. No manual setup.</p>
+          <p class="feat-card__desc">After you connect Google Calendar in Settings, TNN shows your meetings and can offer a reminder before a call.</p>
           <div class="feat-mockup" aria-hidden="true">
             <!-- v2.1 reminder pill: TNN's own floating pill (not the native notification) -->
             <div class="pill-notif">
@@ -2627,7 +2688,7 @@
             <img class="icon-img icon-img--dark" src="assets/icons/features/NoBots.svg" alt="">
           </div>
           <h3 class="feat-card__title">No bots</h3>
-          <p class="feat-card__desc">No meeting links to share, no third-party assistant joining your calls. Everything happens locally on your Mac, invisibly.</p>
+        <p class="feat-card__desc">No meeting links to share and no third-party assistant joining your calls. Recording and transcription run on your Mac; optional Claude access over MCP uses your own account.</p>
           <div class="feat-mockup" aria-hidden="true">
             <div class="nobots-card">
               <div class="nobots-row nobots-row--off"><span class="nobots-x">✕</span> Bot joining your call</div>
@@ -2647,25 +2708,21 @@
             <img class="icon-img icon-img--light" src="assets/icons/features/Transcripts-1.svg" alt="">
             <img class="icon-img icon-img--dark" src="assets/icons/features/Transcripts.svg" alt="">
           </div>
-          <h3 class="feat-card__title">Transcript in seconds</h3>
-          <p class="feat-card__desc">On-device AI transcribes your meeting the moment it ends. Pick the model that fits your Mac - everything runs locally.</p>
+          <h3 class="feat-card__title">Local transcription</h3>
+          <p class="feat-card__desc">On-device transcription starts when your meeting ends. Choose the local model that fits your Mac.</p>
           <div class="feat-mockup" aria-hidden="true">
             <div class="models-tile">
               <div class="models-tile__header">
                 <span class="models-tile__label">On-device models</span>
-                <span class="models-tile__count">3 installed</span>
+                <span class="models-tile__count">2 models</span>
               </div>
               <div class="model-row model-row--active">
                 <div class="model-row__name">Whisper Large v3</div>
-                <div class="model-row__meta"><span class="model-row__size">500 MB</span><span class="model-row__status">Active</span></div>
+                <div class="model-row__meta"><span class="model-row__status">Active</span></div>
               </div>
               <div class="model-row">
-                <div class="model-row__name">Whisper Medium</div>
-                <div class="model-row__meta"><span class="model-row__size">150 MB</span><span class="model-row__status model-row__status--idle">Ready</span></div>
-              </div>
-              <div class="model-row">
-                <div class="model-row__name">Apple Speech</div>
-                <div class="model-row__meta"><span class="model-row__size">Built-in</span><span class="model-row__status model-row__status--idle">Ready</span></div>
+                <div class="model-row__name">Whisper Base</div>
+                <div class="model-row__meta"><span class="model-row__status model-row__status--idle">Available</span></div>
               </div>
             </div>
           </div>
@@ -2675,13 +2732,11 @@
             <img class="icon-img icon-img--light" src="assets/icons/features/Dictation-1.svg" alt="">
             <img class="icon-img icon-img--dark" src="assets/icons/features/Dictation.svg" alt="">
           </div>
-          <h3 class="feat-card__title">Quick Dictation</h3>
-          <p class="feat-card__desc">Hold a hotkey, speak, release. Text appears at your cursor instantly - in any app.</p>
+          <h3 class="feat-card__title">Dictate any time</h3>
+          <p class="feat-card__desc">Hold the hotkey, speak, then release to insert the text. If direct insertion is unavailable, TNN copies it to the clipboard so you can paste it.</p>
           <div class="dict-illus" aria-hidden="true">
             <div class="dict-shortcut">
-              <div class="kbd">⌥</div>
-              <span class="kbd-plus">+</span>
-              <div class="kbd">Space</div>
+              <div class="kbd">Fn</div>
               <span class="dict-hint">→ dictate anywhere</span>
             </div>
             <div class="dict-input">
@@ -2702,7 +2757,7 @@
             <img class="icon-img icon-img--dark" src="assets/icons/features/WorksEverywhere.svg" alt="">
           </div>
           <h3 class="feat-card__title">Works everywhere</h3>
-          <p class="feat-card__desc">One library, available wherever you think: Claude reads it over MCP, and every file is plain Markdown - so Obsidian, Notion, Slack and everything else just work.</p>
+          <p class="feat-card__desc">Your meeting files stay in plain Markdown. Generate an AI Note by choosing a mode and sending the prepared prompt in Claude Desktop; the result returns through MCP.</p>
           <div class="feat-mockup" aria-hidden="true">
             <div class="works-flow">
               <div class="works-flow__hub">
@@ -2747,25 +2802,25 @@
             <img class="icon-img icon-img--light" src="assets/icons/features/LLM-1.svg" alt="">
             <img class="icon-img icon-img--dark" src="assets/icons/features/LLM.svg" alt="">
           </div>
-          <h3 class="feat-card__title">A library Claude can use</h3>
-          <p class="feat-card__desc">TNN&rsquo;s MCP server gives Claude direct access to your meeting archive and your skills - reusable prompts that learn your style. Save a new skill right from a conversation.</p>
+          <h3 class="feat-card__title">Choose a note mode</h3>
+          <p class="feat-card__desc">Choose a built-in or custom note mode before generating with Claude. TNN opens a prepared prompt; you send it in Claude Desktop, which reads the meeting through MCP and saves the note to AI Notes.</p>
           <div class="feat-mockup" aria-hidden="true">
             <div class="models-tile">
               <div class="models-tile__header">
-                <span class="models-tile__label"><img src="assets/icons/claude.svg" width="13" height="13" alt="" style="vertical-align:-2px;margin-right:5px">Skills &middot; via MCP</span>
-                <span class="models-tile__count">3 skills</span>
+                <span class="models-tile__label">AI Notes modes</span>
+                <span class="models-tile__count">Preview</span>
               </div>
               <div class="model-row model-row--active">
-                <div class="model-row__name">team-note</div>
-                <div class="model-row__meta"><span class="model-row__size">TNN</span><span class="model-row__status">Used 2 min ago</span></div>
+                <div class="model-row__name">Default summary</div>
+                <div class="model-row__meta"><span class="model-row__size">TNN</span><span class="model-row__status">Example</span></div>
               </div>
               <div class="model-row">
-                <div class="model-row__name">client-note</div>
-                <div class="model-row__meta"><span class="model-row__size">global</span><span class="model-row__status model-row__status--idle">Ready</span></div>
+                <div class="model-row__name">Decisions &amp; actions</div>
+                <div class="model-row__meta"><span class="model-row__size">TNN</span><span class="model-row__status model-row__status--idle">Preview</span></div>
               </div>
               <div class="model-row">
-                <div class="model-row__name">extract-actions</div>
-                <div class="model-row__meta"><span class="model-row__size">TNN</span><span class="model-row__status model-row__status--idle">Ready</span></div>
+                <div class="model-row__name">Customer interview</div>
+                <div class="model-row__meta"><span class="model-row__size">TNN</span><span class="model-row__status model-row__status--idle">Preview</span></div>
               </div>
             </div>
           </div>
@@ -2787,7 +2842,7 @@
         <div class="int-item">
           <div class="int-item__logo"><img src="assets/icons/claude.svg" width="34" height="34" alt="Claude"></div>
           <div class="int-item__name">Claude</div>
-          <span class="int-tip">Connected over MCP - Claude reads your library and writes back.</span>
+          <span class="int-tip">Ask Claude to create notes and save them back to a meeting through MCP.</span>
         </div>
         <div class="int-item">
           <div class="int-item__logo"><img src="assets/icons/gcal.svg" width="34" height="34" alt="Google Calendar"></div>
@@ -2796,13 +2851,13 @@
         </div>
         <div class="int-item">
           <div class="int-item__logo"><img src="assets/icons/notion.svg" width="34" height="34" alt="Notion"></div>
-          <div class="int-item__name">Notion</div>
-          <span class="int-tip">Push any note straight into your Notion workspace.</span>
+          <div class="int-item__name">Notion<span class="int-item__soon">Coming soon</span></div>
+          <span class="int-tip">Coming soon.</span>
         </div>
         <div class="int-item">
           <div class="int-item__logo"><img src="assets/icons/slack.svg" width="34" height="34" alt="Slack"></div>
-          <div class="int-item__name">Slack</div>
-          <span class="int-tip">Notes formatted for Slack - paste them and they just look right.</span>
+          <div class="int-item__name">Slack<span class="int-item__soon">Coming soon</span></div>
+          <span class="int-tip">Coming soon.</span>
         </div>
         <div class="int-item">
           <div class="int-item__logo"><img src="assets/icons/obsidian.svg" width="34" height="34" alt="Obsidian"></div>
@@ -2826,34 +2881,33 @@
     <div class="container">
       <header class="section-header">
         <p class="label reveal">Pricing</p>
-        <h2 class="reveal d1">Pay once. Keep every meeting.</h2>
-        <p class="pricing__sub reveal d2">7 days free. Then one payment. Yours forever.</p>
+        <h2 class="reveal d1">Free during the beta. Keep every meeting.</h2>
+        <p class="pricing__sub reveal d2">Planned post-beta pricing is subject to final confirmation.</p>
       </header>
       <div class="pricing__grid reveal d2">
         <div class="price-card price-card--dark">
           <div class="price-card__head">
             <span class="price-card__name">Personal</span>
-            <span class="price-badge">free trial</span>
+            <span class="price-badge">free beta</span>
           </div>
-          <p class="price-card__tag">Pay once. Own it forever. No subscription for transcription, ever.</p>
+          <p class="price-card__tag">Recording and transcription run on your Mac. No subscription is needed during the beta.</p>
           <div class="price-card__price"><span class="price-amount price-amount--cut">$49</span><span class="price-beta-chip">free while in beta</span></div>
-          <div class="price-note price-note--under">one-time payment after the beta, with a 7-day trial</div>
+          <div class="price-note price-note--under">Planned one-time price after beta: $49. Final pricing and trial terms are not confirmed.</div>
           <ul class="price-list">
-            <li>Unlimited meetings &amp; transcription, forever</li>
-            <li>100% private - audio never leaves your Mac</li>
-            <li>Live notes + transcript + AI notes in one .md file</li>
-            <li>Claude via MCP - AI notes on your own Claude account</li>
-            <li>Reusable skills that learn your style</li>
+            <li>Record and transcribe meetings on your Mac during the beta</li>
+            <li>Recording and transcription run on your Mac</li>
+            <li>Meeting transcripts and your notes in plain Markdown</li>
+            <li>Create an AI Note with Claude Desktop over MCP</li>
             <li>Transcribe audio files you already have</li>
             <li>Automatic language detection</li>
             <li>Quick dictation anywhere - hold a hotkey, speak</li>
             <li>Your full archive saved locally, plain Markdown</li>
             <li>Free updates</li>
           </ul>
-          <span class="scribble-wrap scribble-wrap--block"><button class="btn btn--primary price-cta" data-modal-open>
+          <span class="scribble-wrap scribble-wrap--block"><button class="btn btn--primary price-cta" data-modal-open aria-label="Download for Mac, free during the beta">
             <img src="assets/icons/apple.svg" width="15" height="15" alt="" aria-hidden="true" class="btn-apple-icon">
-            Download for Mac - <span class="trial-cut">7-day trial</span>
-          </button><span class="beta-scribble beta-scribble--in">free for now, for beta testers!</span></span>
+            Download for Mac - <span class="trial-cut" aria-hidden="true">7-day trial</span>
+          </button><span class="beta-scribble beta-scribble--in" aria-hidden="true">free for now, for beta testers!</span></span>
         </div>
         <div class="price-card price-card--org">
           <div class="price-card__head">
@@ -2864,8 +2918,8 @@
           <div class="price-card__price"><span class="price-amount price-amount--org">Custom</span><span class="price-note">volume licensing &middot; hands-on rollout</span></div>
           <ul class="price-list">
             <li>Everything in Personal, for every seat</li>
-            <li>Hands-on rollout with your product owners - calendars, contexts and note workflows set up together</li>
-            <li>A shared skill library tuned to how your team writes</li>
+            <li>Hands-on rollout with your product owners - calendar and meeting workflows set up together</li>
+            <li>Team onboarding for meeting capture and library workflows</li>
             <li>Onboarding workshop: meetings &rarr; notes &rarr; Claude</li>
             <li>Priority support - a direct line to the makers</li>
             <li>Invoicing &amp; volume licensing</li>
@@ -2874,21 +2928,7 @@
           <div class="price-org-note">We&rsquo;ll answer within one business day.</div>
         </div>
       </div>
-      <div class="price-ledger reveal d3">
-        <div class="price-ledger__label">The same job, priced yearly elsewhere</div>
-        <div class="price-ledger__row">
-          <!-- Checked July 2026 against public pricing pages, cheapest paid tier
-               on annual billing. Re-verify before editing; the blog posts quote
-               the same numbers and must not disagree with this row. -->
-          <span class="price-ledger__item">Granola <b>~$168/yr</b></span>
-          <span class="price-ledger__item">Otter.ai <b>~$100/yr</b></span>
-          <span class="price-ledger__item">Fireflies <b>~$120/yr</b></span>
-          <span class="price-ledger__item">tl;dv <b>~$216/yr</b></span>
-          <span class="price-ledger__vs">vs</span>
-          <span class="price-ledger__item price-ledger__item--tnn">TNN <b>one payment, yours forever</b></span>
-        </div>
-      </div>
-      <p class="pricing__fine reveal d3">Recording, transcription and your archive work without any account. AI notes use your own Claude Pro or Max subscription.</p>
+      <p class="pricing__fine reveal d3">Recording, transcription, dictation and your archive work without an AI account. To create an AI Note, choose a mode and send the prepared prompt in Claude Desktop. Anthropic processes the meeting text Claude reads through your account.</p>
       <p class="pricing__fine reveal d3">Compared in detail, including where each one still beats us:
         <a href="/blog/granola-alternative/">Granola alternative</a>,
         <a href="/blog/otter-ai-alternative/">Otter.ai alternative</a>,
@@ -2909,27 +2949,27 @@
       <div class="faq__list reveal d2">
         <details class="faq-item">
           <summary>Is my audio really private?<span class="faq-chev" aria-hidden="true"></span></summary>
-          <p>Yes. Recording and transcription happen entirely on your Mac - the audio never touches a server, because there is no server. The one online step is optional AI notes: they run through <em>your own</em> Claude account, and you can see exactly which files Claude reads.</p>
+          <p>Recording and transcription happen on your Mac, and TNN does not upload your audio. When you choose Generate with Claude and send the prepared prompt in Claude Desktop, Anthropic processes the selected meeting text through your Claude account.</p>
         </details>
         <details class="faq-item">
           <summary>Does a bot join my meetings?<span class="faq-chev" aria-hidden="true"></span></summary>
-          <p>No. TNN captures the audio playing on your Mac, so nothing joins the call. No meeting links, no &ldquo;recording assistant&rdquo; in the participant list, nothing for the other side to notice.</p>
+          <p>No TNN bot joins the call or appears in the participant list. TNN captures audio playing on your Mac; capture depends on audio being available to macOS.</p>
         </details>
         <details class="faq-item">
           <summary>Do I need a Claude subscription?<span class="faq-chev" aria-hidden="true"></span></summary>
-          <p>Not for the core: recording, transcription, live notes, dictation and your archive work without any account. AI-written notes and the MCP connection use your own Claude Pro or Max subscription - no API keys, no extra AI fees from us.</p>
+          <p>No account is needed for recording, transcription, dictation or your archive. To create an AI Note, you need Claude Desktop with a plan that supports the connection. You choose when to send the prepared prompt; TNN adds no AI fee.</p>
         </details>
         <details class="faq-item">
           <summary>Where do my files live?<span class="faq-chev" aria-hidden="true"></span></summary>
-          <p>In a folder you choose (by default <code>~/Documents/TNN</code>). Every meeting is one plain Markdown file: your notes, the transcript and the AI notes together. Delete the app tomorrow - the files are still yours.</p>
+          <p>In a folder you choose (by default <code>~/Documents/TNN</code>). Meeting transcripts and notes are plain Markdown files that stay on your Mac.</p>
         </details>
         <details class="faq-item">
           <summary>What is MCP, in one sentence?<span class="faq-chev" aria-hidden="true"></span></summary>
-          <p>A standard that lets Claude use apps as tools - TNN&rsquo;s MCP server lets Claude list your meetings, read notes and transcripts, run your skills, and save the results back into the meeting file. Setup is one click in Settings.</p>
+          <p>MCP lets Claude use connected apps as tools. TNN opens Claude Desktop with a prepared prompt for the selected meeting and note mode. After you send it, Claude reads the meeting through MCP and saves the result to AI Notes.</p>
         </details>
         <details class="faq-item">
           <summary>Which meeting apps does it work with?<span class="faq-chev" aria-hidden="true"></span></summary>
-          <p>All of them. Zoom, Meet, Teams, Slack huddles, a phone call on speaker, a conversation in the room - if your Mac can hear it, TNN can transcribe it.</p>
+          <p>TNN captures audio playing on your Mac, including calls in Zoom, Meet, Teams and Slack huddles, as well as phone calls on speaker and in-room conversations. Capture depends on audio being available to macOS.</p>
         </details>
         <details class="faq-item">
           <summary>Which languages are supported?<span class="faq-chev" aria-hidden="true"></span></summary>
@@ -2952,10 +2992,10 @@
       <p class="cta__sub reveal d1">Turn every meeting into context. Give your AI what it actually needs.</p>
       <p class="cta__note reveal d2">Start building the context that makes every conversation smarter.</p>
       <div class="reveal d3">
-        <span class="scribble-wrap"><button class="btn btn--primary btn--primary--lg" data-modal-open>
+        <span class="scribble-wrap"><button class="btn btn--primary btn--primary--lg" data-modal-open aria-label="Download for Mac, free during the beta">
           <img src="assets/icons/apple.svg" width="17" height="17" alt="" aria-hidden="true" class="btn-apple-icon">
-          Download for Mac - <span class="trial-cut">7-day trial</span>
-        </button><span class="beta-scribble">free for now,<br>for beta testers!</span></span>
+          Download for Mac - <span class="trial-cut" aria-hidden="true">7-day trial</span>
+        </button><span class="beta-scribble" aria-hidden="true">free for now,<br>for beta testers!</span></span>
       </div>
     </div>
   </section>
@@ -3042,7 +3082,48 @@
     }
   })();
 </script>
+<script>
+  // Local-only demo, backed by fictional meeting fixtures. No network or model calls.
+  (function () {
+    var preview=document.querySelector('.product-preview'); if(!preview)return;
+    var events=[
+      {id:'product-planning',title:'Product planning',date:'Oct 14, 2026',shortDate:'Oct 14',time:'10:00',group:'Yesterday',status:'past',recording:false,calendar:true,summary:'The team agreed to focus this quarter on the export flow and share a scoped proposal before Friday.',transcript:[['02:10',"Let's start with the export flow. That's the part customers need most."],['03:25',"Agreed. I'll bring a scope and timeline to the next check-in."],['04:05','We can keep the first version focused and review the draft together.'],['05:18',"Let's make export the priority for the rest of this quarter."],['06:02',"Yes, start with export before we take on the other planned work."],['06:44','The draft can list open questions without expanding the first release.'],['07:42',"I'll share the scope before Friday."],['08:16','I will add the final questions to the planning document.']]},
+      {id:'customer-onboarding',title:'Customer onboarding sync',date:'Oct 15, 2026',shortDate:'Oct 15',time:'11:30',group:'Today',status:'recording',recording:true,calendar:true,summary:'',transcript:[]},
+      {id:'research-review',title:'Research review',date:'Oct 15, 2026',shortDate:'Oct 15',time:'09:15',group:'Today',status:'past',recording:false,calendar:false,summary:'The team will test the shorter onboarding flow with two new users and collect their feedback before the next review.',transcript:[['00:42','The first setup screen still asks for details users do not need yet.'],['01:16','Could we move those fields until after the first successful sign-in?'],['02:03','Yes, let us test the shorter version with two new users.'],['02:49','We should collect where they pause and what they expect next.'],['03:21','I can prepare the test script and share it this afternoon.']]},
+      {id:'team-check-in',title:'Team check-in',date:'Oct 15, 2026',shortDate:'Oct 15',time:'08:30',group:'Today',status:'past',recording:false,calendar:false,summary:'The team will keep the release on Thursday, with support notes ready by Wednesday afternoon and open questions tracked in the launch document.',transcript:[['00:25','The release is still planned for Thursday morning.'],['00:58','Support needs the updated troubleshooting notes by Wednesday afternoon.'],['01:34','I will add the open questions to the launch document.'],['02:12','Let us flag anything that blocks the Thursday release today.']]},
+      {id:'support-handoff',title:'Support handoff',date:'Oct 14, 2026',shortDate:'Oct 14',time:'15:00',group:'Yesterday',status:'past',recording:false,calendar:true,summary:'',transcript:[]},
+      {id:'launch-checklist',title:'Launch checklist',date:'Oct 14, 2026',shortDate:'Oct 14',time:'13:30',group:'Yesterday',status:'past',recording:false,calendar:false,summary:'The checklist will cover account setup, calendar connection and the first recording; optional steps will move to the help page.',transcript:[['00:31','The current checklist has nine steps, and most people stop halfway.'],['01:02','Let us keep the first version to account setup, calendar and recording.'],['01:47','We can move the optional tips into the help page.'],['02:19','I will update the copy and send it for review today.']]},
+      {id:'design-review',title:'Design review',date:'Oct 16, 2026',shortDate:'Oct 16',time:'14:00',group:'Upcoming',status:'future',recording:false,calendar:true,summary:'',transcript:[]},
+      {id:'weekly-sync',title:'Weekly sync',date:'Oct 13, 2026',shortDate:'Oct 13',time:'14:30',group:'Earlier this week',status:'past',recording:false,calendar:false,summary:'The team plans to simplify the onboarding checklist and test the shorter version with two people before the next release.',transcript:[['01:12','New users are getting stuck before they finish setup.'],['02:45',"Let's focus the checklist on the first three things they need."],['03:36','Those are account setup, connecting a calendar, and making the first recording.'],['04:22','We can ask two people to try it before we ship.'],['05:06',"Let's use the shorter checklist for the next release if that test goes well."],['06:20',"I'll draft the shorter version and bring it to next week's sync."],['07:02','Sounds good. I will share the updated version tomorrow.']]},
+      {id:'operations-sync',title:'Operations sync',date:'Oct 13, 2026',shortDate:'Oct 13',time:'10:00',group:'Earlier this week',status:'past',recording:false,calendar:false,summary:'The team will publish the updated support rota on Monday and share the escalation guide with the afternoon shift.',transcript:[['00:19','We need to update the rota before Monday.'],['00:53','The afternoon shift also needs the new escalation guide.'],['01:24','I will confirm the names and publish both after this call.'],['02:05','Please add the shared support folder to the handoff note.']]},
+      {id:'project-kickoff',title:'Project kickoff',date:'Oct 13, 2026',shortDate:'Oct 13',time:'09:00',group:'Earlier this week',status:'past',recording:false,calendar:false,summary:'The project starts with a narrow export prototype, with open questions gathered for the next planning session.',transcript:[['00:34','The first milestone should be a small export prototype.'],['01:11','We should list the file formats that customers actually need.'],['01:46','I will gather those examples before the next planning session.'],['02:20','Let us keep the first scope limited to the common cases.']]}
+    ];
+    var calendarIds=['product-planning','support-handoff','customer-onboarding','design-review'],route='calendar',selectedId='product-planning';
+    var inboxCount=events.filter(function(e){return e.status!=='future';}).length;
+    preview.querySelector('.product-preview__nav-count').textContent=inboxCount;
+    var main=preview.querySelector('#preview-main'),cal=preview.querySelector('#preview-calendar-list'),nav=[].slice.call(preview.querySelectorAll('[data-preview-route]'));
+    var esc=function(v){return String(v).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});};
+    function get(id){return events.find(function(e){return e.id===id;});}
+    function renderCal(){cal.classList.toggle('is-visible',route==='calendar');cal.innerHTML='<div class="product-preview__calendar-heading">This week</div>'+calendarIds.map(function(id){var e=get(id),sel=selectedId===id,cls='product-preview__meeting product-preview__meeting--'+e.status+(e.transcript.length?' product-preview__meeting--has-content':'')+(sel?' product-preview__meeting--selected':'');return '<div role="listitem"><button class="'+cls+'" type="button" data-meeting-id="'+esc(id)+'" aria-current="'+(sel?'true':'false')+'" aria-label="Open '+esc(e.title)+'"><span class="product-preview__calendar-dot" aria-hidden="true"></span><span class="product-preview__meeting-copy">'+esc(e.title)+'</span><span class="product-preview__meeting-time">'+esc(e.time)+'</span></button></div>';}).join('');[].forEach.call(cal.querySelectorAll('[data-meeting-id]'),function(b){b.addEventListener('click',function(){selectedId=b.dataset.meetingId;render();});});}
+    function hasNote(e){return Boolean(e.summary);}
+    function renderInbox(){var groups=['Today','Yesterday','Earlier this week'];var html=groups.map(function(g){var rows=events.filter(function(e){return e.group===g;});return '<section class="product-preview__day-group" aria-label="'+esc(g)+'"><h3 class="product-preview__day-heading">'+esc(g)+'</h3><div class="product-preview__inbox-rows">'+rows.map(function(e){var marker=e.status==='recording'?'<span class="product-preview__inbox-marker product-preview__inbox-marker--recording">Recording</span>':(hasNote(e)?'<span class="product-preview__inbox-marker">Note</span>':'');return '<button class="product-preview__inbox-row" type="button" data-meeting-id="'+esc(e.id)+'" aria-label="Open '+esc(e.title)+'"><span class="product-preview__file-tile" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 3.5h8l4 4V20a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4.5a1 1 0 0 1 1-1z"/><path d="M14 3.5V8h4M8 12h8M8 15h8"/></svg></span><span class="product-preview__inbox-copy"><span class="product-preview__inbox-title">'+esc(e.title)+'</span><span class="product-preview__inbox-meta">'+esc(e.shortDate)+' · '+esc(e.time)+(marker?'<span class="product-preview__row-dot" aria-hidden="true"></span>'+marker:'')+'</span></span><span class="product-preview__open" aria-hidden="true">Open</span></button>';}).join('')+'</div></section>';}).join('');main.innerHTML='<section class="product-preview__inbox" aria-label="Inbox"><header class="product-preview__screen-head"><h2 class="product-preview__screen-title">Inbox</h2><span class="product-preview__screen-count">'+inboxCount+' meetings</span></header><div class="product-preview__inbox-scroll">'+html+'</div></section>';[].forEach.call(main.querySelectorAll('[data-meeting-id]'),function(b){b.addEventListener('click',function(){selectedId=b.dataset.meetingId;renderDetail();});});}
+    function renderDetail(){var e=get(selectedId),noteExists;if(!e)return;noteExists=hasNote(e);var lines=e.transcript.length?'<div class="product-preview__transcript-box">'+e.transcript.map(function(l){return '<div class="product-preview__line"><span class="product-preview__time">'+esc(l[0])+'</span>'+esc(l[1])+'</div>';}).join('')+'</div>':'<div class="product-preview__empty">'+(e.status==='recording'?'Transcript appears after local transcription.':e.status==='future'?'This meeting has not started yet.':'No transcript is available in this example.')+'</div>';var note=noteExists?'<div class="product-preview__text"><p>'+esc(e.summary)+'</p></div>':'<div class="product-preview__text"><div class="product-preview__empty">'+(e.status==='recording'?'Recording in progress. Example notes appear after the meeting.':e.status==='future'?'Notes will appear here after the meeting.':'No note is available in this example.')+'</div></div>';var state=e.status==='recording'?'<span class="product-preview__state product-preview__state--recording"><span class="product-preview__record-dot"></span>Recording now</span>':e.status==='future'?'<span class="product-preview__state product-preview__state--future">Upcoming meeting</span>':'';main.innerHTML='<section class="product-preview__detail" aria-label="Meeting detail"><div class="product-preview__detail-scroll"><article class="product-preview__detail-content"><div class="product-preview__detail-title-row"><h2 class="product-preview__heading">'+esc(e.title)+'</h2>'+state+'</div><div class="product-preview__meta">'+esc(e.date)+' · '+esc(e.time)+' · Example meeting</div><div class="product-preview__note"><div class="product-preview__note-head"><span class="product-preview__note-title">AI notes</span><span class="product-preview__type">'+(noteExists?'Preview':'No note')+'</span></div>'+note+'</div><div class="product-preview__transcript"><div class="product-preview__transcript-title">Transcript preview</div>'+lines+'</div></article></div></section>';}
+    function render(){nav.forEach(function(b){var active=b.dataset.previewRoute===route;b.classList.toggle('product-preview__nav--active',active);b.setAttribute('aria-pressed',active?'true':'false');});renderCal();if(route==='inbox')renderInbox();else renderDetail();}
+    nav.forEach(function(b){b.addEventListener('click',function(){route=b.dataset.previewRoute;if(route==='calendar'&&!calendarIds.includes(selectedId))selectedId='product-planning';render();});});render();
+  })();
+</script>
 
+<script>
+  (function(){
+    var nav=document.getElementById('nav'),button=nav&&nav.querySelector('.nav__menu-toggle');
+    if(!nav||!button)return;
+    function setOpen(open){nav.classList.toggle('nav--menu-open',open);button.setAttribute('aria-expanded',open?'true':'false');button.setAttribute('aria-label',open?'Close navigation menu':'Open navigation menu');}
+    button.addEventListener('click',function(){setOpen(button.getAttribute('aria-expanded')!=='true');});
+    nav.querySelectorAll('.nav__link').forEach(function(link){link.addEventListener('click',function(){setOpen(false);});});
+    document.addEventListener('keydown',function(event){if(event.key==='Escape')setOpen(false);});
+    window.addEventListener('resize',function(){if(window.innerWidth>1100)setOpen(false);});
+  })();
+</script>
 
 </body>
 </html>

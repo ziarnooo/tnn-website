@@ -271,7 +271,7 @@
 
 <p>Because it is not tied to Zoom, the 40-minute cap becomes irrelevant to the recording. Zoom drops the call, you restart it, and TNN keeps writing to the same meeting.</p>
 
-<p>Transcription runs on your Mac's Neural Engine using Whisper, so the audio never leaves the machine and there is no per-minute meter. Each meeting ends up as one plain Markdown file containing your live notes, the full transcript and an AI summary. Plain text is the point: it is searchable, greppable, indexable by Spotlight, and readable in ten years.</p>
+<p>Transcription runs locally on your Mac using Whisper, so TNN does not upload the audio and there is no per-minute meter. Each meeting is saved as a plain Markdown file containing your notes and transcript. To create an AI Note, choose a mode in TNN, select Generate with Claude and send the prepared prompt in Claude Desktop. Claude reads the selected meeting through MCP and saves the result to AI Notes; Anthropic processes the text through your Claude account. Plain text is searchable, greppable, indexable by Spotlight, and readable in ten years.</p>
 
 <blockquote>A video of the meeting proves it happened. A transcript tells you what was decided.</blockquote>
 
@@ -281,8 +281,8 @@
   <li>Install TNN and grant the screen and microphone permissions macOS asks for. The transcription model downloads once, about 600 MB, then everything runs offline.</li>
   <li>Connect your calendar so TNN knows which meeting is starting and names the file for you.</li>
   <li>At the top of the call, say you are recording for notes.</li>
-  <li>Press record. Type rough fragments as you go - the AI fills in what you missed rather than replacing your judgement with a wall of summary.</li>
-  <li>Afterwards, the meeting is a Markdown file in a folder you choose. If you connect Claude over MCP, you can ask it what you committed to across a whole month of calls, and it answers from the transcripts.</li>
+  <li>Press record and type rough fragments as you go. Your notes and transcript are saved to the meeting file; you can ask Claude over MCP to help create a note afterwards.</li>
+  <li>Afterwards, the meeting is a Markdown file in a folder you choose. You can create an AI Note for a selected meeting by choosing a mode in TNN, selecting Generate with Claude, then sending the prepared prompt in Claude Desktop.</li>
 </ol>
 
 <h2>When you should just use Zoom's own recording</h2>

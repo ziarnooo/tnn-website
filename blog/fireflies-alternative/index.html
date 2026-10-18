@@ -126,7 +126,7 @@
           "name": "Are there AI credits or usage limits in TNN?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. Recording, transcription, live notes, dictation and your archive work with no account and no limits. AI-written notes run through your own Claude Pro or Max subscription, so there is nothing for us to meter and no add-on bundles to buy."
+            "text": "No. Recording, transcription, live notes, dictation and your archive work with no account and no limits. When you choose Generate with Claude and send the prepared prompt in Claude Desktop, Anthropic processes the selected meeting text through your Claude account; TNN adds no AI surcharge."
           }
         },
         {
@@ -134,7 +134,7 @@
           "name": "Can TNN sync meetings to a CRM like Fireflies does?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Not directly. Meetings are plain Markdown files and Claude can read and write them over MCP, so a CRM workflow is buildable, but there is no built-in CRM integration. If CRM sync is central to your job, Fireflies is the better fit."
+            "text": "Not directly. TNN has no built-in CRM integration. Its Claude workflow creates an AI Note for the selected meeting and saves it back to that meeting file. If CRM sync is central to your job, Fireflies is the better fit."
           }
         }
       ]
@@ -201,7 +201,7 @@
 
 <p>Every Fireflies plan includes unlimited transcription and unlimited AI summaries, which sounds like the end of the story. It is not. AI features draw on a one-time shared workspace credit pool rather than a monthly per-user allowance: 20 on Pro, 30 on Business, 50 on Enterprise, with add-on bundles sold separately. Teams that lean on summaries, action items and AskFred hit that wall and then budget for top-ups.</p>
 
-<p>TNN has no credits and no AI surcharge, because the AI is not ours. Recording, transcription, live notes, dictation and your archive work with no account at all. AI-written notes and the Claude connection run on <em>your own</em> Claude Pro or Max subscription. There is nothing for us to meter.</p>
+<p>TNN has no transcription credits or separate AI surcharge. Recording, transcription, live notes, dictation and your archive work with no account at all. When you choose Generate with Claude and send the prompt in Claude Desktop, Anthropic processes the meeting text through your Claude account. There is nothing for TNN to meter.</p>
 
 <div class="cmp">
   <table>
@@ -270,9 +270,9 @@
 
 <h2>Where the audio goes, and where the notes end up</h2>
 
-<p>Fireflies processes and stores your calls in its cloud. TNN transcribes on your Mac's Neural Engine and writes one plain Markdown file per meeting into a folder you choose. Your live notes, the transcript and the AI summary are in that one file. Delete the app and the files are still yours.</p>
+<p>Fireflies processes and stores your calls in its cloud. TNN transcribes locally on your Mac and writes one plain Markdown file per meeting into a folder you choose, containing your live notes and transcript. Choose a note mode and select Generate with Claude. After you send the prepared prompt in Claude Desktop, it reads the meeting through MCP and saves an AI Note; Anthropic processes the meeting text through your Claude account. To create a note, choose a mode and send the prepared prompt in Claude Desktop; the result returns to AI Notes through MCP. Delete the app and your files are still yours.</p>
 
-<p>Then the part that is genuinely different: TNN ships an MCP server, so Claude can work with that folder directly. It lists your meetings, reads notes and transcripts, runs skills you have saved, and writes the result back into the meeting file. Fireflies gives you AskFred inside Fireflies. TNN gives your own Claude access to your own meeting history, and shows you exactly which files it read.</p>
+<p>TNN connects to Claude Desktop over MCP for AI Notes. Choose a note mode, select Generate with Claude, then send the prepared prompt; Claude reads the selected meeting and saves the result to AI Notes. Fireflies gives you AskFred inside Fireflies; TNN keeps the note in your local meeting file.</p>
 
 <h2>Where Fireflies is still the better choice</h2>
 
@@ -311,11 +311,11 @@
         </details>
         <details class="faq-q">
           <summary>Are there AI credits or usage limits in TNN?<span class="faq-q__chev" aria-hidden="true"></span></summary>
-          <p>No. Recording, transcription, live notes, dictation and your archive work with no account and no limits. AI-written notes run through your own Claude Pro or Max subscription, so there is nothing for us to meter and no add-on bundles to buy.</p>
+          <p>No. Recording, transcription, live notes, dictation and your archive work with no account and no limits. When you choose Generate with Claude and send the prepared prompt in Claude Desktop, Anthropic processes the selected meeting text through your Claude account; TNN adds no AI surcharge.</p>
         </details>
         <details class="faq-q">
           <summary>Can TNN sync meetings to a CRM like Fireflies does?<span class="faq-q__chev" aria-hidden="true"></span></summary>
-          <p>Not directly. Meetings are plain Markdown files and Claude can read and write them over MCP, so a CRM workflow is buildable, but there is no built-in CRM integration. If CRM sync is central to your job, Fireflies is the better fit.</p>
+          <p>Not directly. TNN has no built-in CRM integration. Its Claude workflow creates an AI Note for the selected meeting and saves it back to that meeting file. If CRM sync is central to your job, Fireflies is the better fit.</p>
         </details>
       </section>
       <nav class="related" aria-label="More comparisons">

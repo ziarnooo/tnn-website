@@ -267,7 +267,7 @@
       </tr>
       <tr>
         <th>TNN</th>
-        <td>Live meetings: notes, transcript and summary in one file</td>
+        <td>Live meetings: notes and transcript in one file; Claude can add notes over MCP</td>
         <td>Yes, on the Neural Engine</td>
         <td>Yes, system audio, no bot</td>
         <td>macOS 13+, Apple Silicon</td>
@@ -280,7 +280,7 @@
 
 <h2>What "on-device" is worth, and where it stops</h2>
 
-<p>The honest case for local transcription is narrow and real. Your audio never becomes someone else's asset. There is no subprocessor to declare on a security questionnaire, no per-minute meter, and it keeps working on a plane. If your meetings include candidate interviews, compensation conversations, undisclosed incidents, or clients whose NDA enumerates processors, that matters more than any feature comparison.</p>
+<p>The honest case for local transcription is narrow and real. Your audio stays on your Mac and is not uploaded by TNN. If you choose Generate with Claude and send the prepared prompt in Claude Desktop, the selected meeting text is processed by Anthropic through your account. Local transcription has no per-minute meter and keeps working on a plane. If your meetings include candidate interviews, compensation conversations, undisclosed incidents, or clients whose NDA enumerates processors, that matters more than any feature comparison.</p>
 
 <p>What local processing does <em>not</em> buy you: a shared team archive, recordings of meetings you did not attend, or the polish of a company with a hundred engineers. Those are real trade-offs, not marketing asterisks.</p>
 
@@ -288,9 +288,9 @@
 
 <h2>How TNN differs from the rest of this list</h2>
 
-<p>TNN is the only one here whose unit of work is a meeting rather than a recording. It captures system audio so no bot joins the call, reads your calendar so it knows which meeting is starting, and writes one plain Markdown file per meeting containing your live notes, the transcript and an AI summary together.</p>
+<p>TNN is the only one here whose unit of work is a meeting rather than a recording. It captures system audio so no bot joins the call, reads your calendar so it knows which meeting is starting, and writes one plain Markdown file per meeting containing your live notes and transcript. To create an AI Note, choose a mode, select Generate with Claude, then send the prepared prompt in Claude Desktop. Claude reads the selected meeting through MCP and saves the result; Anthropic processes the text through your Claude account.</p>
 
-<p>The file format is the part that pays off later. Because meetings are plain text on your disk, TNN can expose them to Claude over MCP: Claude lists your meetings, reads notes and transcripts, runs skills you have saved, and writes results back into the meeting file. Ask what you promised a client across four calls and the answer comes from transcripts. That runs on your own Claude Pro or Max subscription, so there is no API key and no AI fee from us.</p>
+<p>The file format is the part that pays off later. Because meetings are plain text on your disk, TNN connects to Claude Desktop over MCP for AI Notes. Select a meeting and note mode, choose Generate with Claude, then send the prepared prompt. Claude reads that meeting and saves the result to AI Notes. You choose when to share meeting text by sending the prepared prompt in Claude Desktop. Anthropic processes the selected meeting through your Claude account; TNN adds no separate AI fee.</p>
 
 <h2>Pick by this, not by the feature list</h2>
 
