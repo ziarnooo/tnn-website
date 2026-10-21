@@ -14,7 +14,7 @@ function readLink() {
     if (candidate.origin !== 'https://djyimnbupvgbzzdbgsom.supabase.co' || candidate.pathname !== '/auth/v1/verify' ||
         candidate.username || candidate.password ||
         !['signup', 'magiclink', 'email'].includes(candidate.searchParams.get('type')) ||
-        !['tnn://account-callback', 'https://thoughtsnotnotes.com/account/admin.html'].includes(redirect)) throw new Error();
+        !['tnn://account-callback', 'tnn-sandbox-newuser://account-callback', 'https://thoughtsnotnotes.com/account/admin.html'].includes(redirect)) throw new Error();
     confirmation = candidate.href;
     button.disabled = false;
     message.textContent = 'Confirm your email to continue to TNN.';
