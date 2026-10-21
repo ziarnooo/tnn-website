@@ -2,8 +2,13 @@
 const button = document.querySelector('#confirm');
 const message = document.querySelector('#message');
 let confirmation;
+let openApplication;
+let recoveryTimer;
+
 function readLink() {
+  clearTimeout(recoveryTimer);
   confirmation = null;
+  openApplication = null;
   button.disabled = true;
   button.textContent = 'Confirm email';
   try {
@@ -16,6 +21,9 @@ function readLink() {
         !['signup', 'magiclink', 'email'].includes(candidate.searchParams.get('type')) ||
         !['tnn://account-callback', 'tnn-sandbox-newuser://account-callback', 'https://thoughtsnotnotes.com/account/admin.html'].includes(redirect)) throw new Error();
     confirmation = candidate.href;
+    if (redirect.startsWith('tnn:') || redirect.startsWith('tnn-sandbox-newuser:')) {
+      openApplication = new URL(redirect).protocol + '//';
+    }
     button.disabled = false;
     message.textContent = 'Confirm your email to continue to TNN.';
   } catch {
@@ -27,8 +35,20 @@ function readLink() {
 readLink();
 window.addEventListener('hashchange', readLink);
 button.addEventListener('click', () => {
-  if (!confirmation) return;
+  if (!confirmation) {
+    if (openApplication) location.assign(openApplication);
+    return;
+  }
+  const link = confirmation;
+  confirmation = null; // The Auth link is single-use; recovery must never consume it again.
   button.disabled = true;
   button.textContent = 'Opening TNN…';
-  location.assign(confirmation);
+  if (openApplication) {
+    recoveryTimer = setTimeout(() => {
+      message.textContent = 'If TNN didn’t open, allow your browser to open the app. Or open TNN manually and request a new sign-in link.';
+      button.textContent = 'Open TNN';
+      button.disabled = false;
+    }, 2500);
+  }
+  location.assign(link);
 });
